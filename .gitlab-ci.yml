@@ -1,0 +1,16 @@
+image: alpine
+
+stages:
+  - schedule
+
+before_script:
+  - apk -U add git
+
+update-repo:
+  stage: schedule
+  script:
+    - git clone --no-checkout "https://github.com/ILIAS-eLearning/ILIAS.git" vendor
+    - cd vendor
+    - rm .git/refs/remotes/origin/HEAD
+    - git remote add target "https://oauth2:$ACCESS_TOKEN@gitlab.uni-regensburg.de/epruefung/ilias.git"
+    - git push -u -f --tags target "+refs/remotes/origin/*:refs/heads/*"
