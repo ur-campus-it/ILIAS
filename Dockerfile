@@ -35,7 +35,7 @@ RUN echo "max_execution_time = 600" >> $PHP_INI_DIR/conf.d/10-docker-php.ini && 
     echo "max_input_vars = 10000" >> $PHP_INI_DIR/conf.d/10-docker-php.ini
 
 # Apply apache httpd configuration.
-RUN a2enmod remoteip headers 
+RUN a2enmod remoteip headers ssl
 
 # Run composer for plugins
 # If you add a new plugin, don't forget to add it here
