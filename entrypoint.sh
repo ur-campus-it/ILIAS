@@ -19,4 +19,9 @@ cp -r /app/* /var/www/html
 # Delete potentially invalid files.
 rm -f /var/www/html/entrypoint.sh
 
+# Super duper ugly hack that removes google fonts dependency
+sed -i '/preconnect/,+1d' /var/www/html/Customizing/global/plugins/Services/Repository/RepositoryObject/LongEssayAssessment/vendor/edutiek/long-essay-assessment-service/node_modules/long-essay-assessment-writer/dist/index.html
+sed -i '/preconnect/,+1d' /var/www/html/Customizing/global/plugins/Services/Repository/RepositoryObject/LongEssayAssessment/vendor/edutiek/long-essay-assessment-service/node_modules/long-essay-assessment-corrector/dist/index.html
+
+# Run apache.
 apache2-foreground
