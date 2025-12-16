@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if [ -n $DEVELOPMENT ]; then
+    echo "Development mode enabled. Skipping entrypoint.sh."
+    apache2-foreground
+fi
+
 if [ "$(ls -A /var/www/html)" ]; then
     # Move relevant files to a "safe" location.
     mv /var/www/html/ilias.ini.php /tmp/ilias.ini.php
