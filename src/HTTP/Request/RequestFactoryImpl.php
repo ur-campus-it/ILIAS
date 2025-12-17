@@ -56,7 +56,13 @@ class RequestFactoryImpl implements RequestFactory
                 $server_request->getHeader($this->forwarded_header),
                 true
             )) {
-                return $server_request->withUri($server_request->getUri()->withScheme($this->forwarded_proto));
+                $port = $server_request->getUri()->getPort();
+
+                if (!empty($server_request->getHeader("X-Forwarded-Port"))) {
+                    $port = $server_request->getHeader("X-Forwarded-Port")[0];
+                }
+
+                return $server_request->withUri($server_request->getUri()->withScheme($this->forwarded_proto)->withPort($port));
             }
 
             // alternative if ini settings are used which look like X_FORWARDED_PROTO
