@@ -1,0 +1,9 @@
+[submodule "Customizing/global/plugins/Services/Repository/RepositoryObject/LongEssayAssessment"]
+	path = Customizing/global/plugins/Services/Repository/RepositoryObject/LongEssayAssessment
+	url = https://github.com/EDUTIEK/LongEssayAssessment.git
+[submodule "Customizing/global/plugins/Services/Cron/CronHook/LongEssayAssessmentCron"]
+	path = Customizing/global/plugins/Services/Cron/CronHook/LongEssayAssessmentCron
+	url = https://github.com/EDUTIEK/LongEssayAssessmentCron.git
+[submodule "Customizing/global/plugins/Modules/TestQuestionPool/Questions/assStackQuestion"]
+	path = Customizing/global/plugins/Modules/TestQuestionPool/Questions/assStackQuestion
+	url = https://github.com/surlabs/STACK.git
