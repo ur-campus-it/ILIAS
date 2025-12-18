@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM php:8.3-apache
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -10,12 +10,13 @@ WORKDIR /app
 RUN apt update; apt upgrade; apt install -y default-jdk npm ssmtp ghostscript nano
 
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-RUN install-php-extensions gd xml mysqli mbstring imagick zip intl xsl pdo_mysql curl dom json
+RUN install-php-extensions gd dom xsl pdo pdo_mysql curl json simplexml libxml xml zip imagick mbstring xmlrpc soap ldap
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer install
 RUN npm clean-install --omit=dev --ignore-scripts
+RUN composer install --no-dev
+
 
 # Apply php configuration.
 RUN echo "max_execution_time = 600" >> $PHP_INI_DIR/conf.d/10-docker-php.ini && \
@@ -36,10 +37,6 @@ RUN echo "max_execution_time = 600" >> $PHP_INI_DIR/conf.d/10-docker-php.ini && 
 
 # Apply apache httpd configuration.
 RUN a2enmod remoteip headers ssl
-
-# Run composer for plugins
-# If you add a new plugin, don't forget to add it here
-RUN composer install -d ./Customizing/global/plugins/Services/Repository/RepositoryObject/LongEssayAssessment
 
 RUN composer du
 
