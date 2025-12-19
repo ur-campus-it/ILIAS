@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ -n $DEVELOPMENT ]; then
+if [ -n "$DEVELOPMENT" ]; then
     echo "Development mode enabled. Skipping entrypoint.sh."
     apache2-foreground
 fi
