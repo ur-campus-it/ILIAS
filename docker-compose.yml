@@ -4,8 +4,8 @@ services:
     build: .
     environment:
       DEVELOPMENT: 1
+      CONFIG_FILE: "/config.json"
     volumes:
-      - .:/var/www/html:ro
       - ./config.json:/config.json:ro
       - ilias:/var/www/data
     ports:

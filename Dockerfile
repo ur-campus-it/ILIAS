@@ -17,7 +17,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN npm clean-install --omit=dev --ignore-scripts
 RUN composer install --no-dev
 
-
 # Apply php configuration.
 RUN echo "max_execution_time = 600" >> $PHP_INI_DIR/conf.d/10-docker-php.ini && \
     echo "memory_limit = 512M" >> $PHP_INI_DIR/conf.d/10-docker-php.ini && \
@@ -34,6 +33,8 @@ RUN echo "max_execution_time = 600" >> $PHP_INI_DIR/conf.d/10-docker-php.ini && 
     echo "session.cookie_secure = On" >> $PHP_INI_DIR/conf.d/10-docker-php.ini && \
     echo "allow_url_fopen = 1" >> $PHP_INI_DIR/conf.d/10-docker-php.ini && \
     echo "max_input_vars = 10000" >> $PHP_INI_DIR/conf.d/10-docker-php.ini
+
+RUN sed -i 's|/var/www/html|/var/www/html/public|' /etc/apache2/sites-enabled/000-default.conf
 
 # Apply apache httpd configuration.
 RUN a2enmod remoteip headers ssl
