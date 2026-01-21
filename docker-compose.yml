@@ -1,0 +1,29 @@
+services:
+
+  ilias:
+    build: .
+    environment:
+      DEVELOPMENT: 1
+    volumes:
+      - .:/var/www/html:ro
+      - ./config.json:/config.json:ro
+      - ilias:/var/www/data
+    ports:
+      - 8080:80
+    depends_on:
+      - mariadb
+
+  mariadb:
+    image: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: ilias
+      MARIADB_USER: ilias
+      MARIADB_PASSWORD: ilias
+      MARIADB_DATABASE: ilias
+    volumes:
+      - ./mariadb.cnf:/etc/mysql/conf.d/00-custom.cnf:ro
+      - mariadb:/var/lib/mysql
+
+volumes:
+  mariadb:
+  ilias:
