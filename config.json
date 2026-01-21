@@ -1,0 +1,35 @@
+{
+    "common": {
+        "client_id": "ilias-development",
+        "server_timezone": "Europe/Berlin"
+    },
+    "database": {
+        "host": "mariadb",
+        "port": 3306,
+        "database": "ilias",
+        "user": "ilias",
+        "password": "ilias",
+        "create_database": true
+    },
+    "filesystem": {
+        "data_dir": "/var/www/files"
+    },
+    "http": {
+        "path": "http://localhost:8080"
+   },
+    "systemfolder": {
+        "contact": {
+            "firstname": "Bastian",
+            "lastname": "Meissner",
+            "institution": "Universität Regensburg",
+            "city": "Regensburg",
+            "country": "Deutschland",
+            "email": "epruefung@uni-regensburg.de"
+        }
+    },
+    "privacysecurity": {
+        "https_enabled": false,
+        "auth_duration": 3000,
+        "account_assistance_duration": 3000
+    }
+}
