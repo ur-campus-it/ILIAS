@@ -35,7 +35,7 @@ if [ -z "$CONFIG_FILE" ]; then
     CONFIG_FILE="/config/config.json"
 fi
 
-/usr/local/bin/php /var/www/html/cli/setup.php install -q -y $CONFIG_FILE
+# /usr/local/bin/php /var/www/html/cli/setup.php install -q -y $CONFIG_FILE
 
 # Run apache.
 apache2-foreground
