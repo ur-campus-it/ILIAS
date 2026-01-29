@@ -1,6 +1,10 @@
 #!/bin/sh
 
-if [ "$(ls -A /var/www/html)" ]; then
+delete_entrypoint() {
+    rm -rf /var/www/html/entrypoint.sh
+}
+
+upgrade_ilias() {
     # Move relevant files to a "safe" location.
     mv /var/www/html/ilias.ini.php /tmp/ilias.ini.php
     mv /var/www/html/data /tmp/data
@@ -8,20 +12,32 @@ if [ "$(ls -A /var/www/html)" ]; then
     # Nuke /var/www/html.
     rm -rf /var/www/html/*
 
+    # Copy new ILIAS installation
+    cp -r /app/* /var/www/html
+
     # Bring relevant files back out again.
     mv /tmp/ilias.ini.php /var/www/html/ilias.ini.php
     mv /tmp/data /var/www/html/data
+
+    /usr/local/bin/php /var/www/html/setup/cli.php update -q -y
+}
+
+install_ilias() {
+    # Copy new ILIAS installation
+    cp -r /app/* /var/www/html
+
+    /usr/local/bin/php /var/www/html/setup/cli.php install /config.json -q -y
+}
+
+
+if [ "$(ls -A /var/www/html)" ] && [ -z "$DEVELOPMENT" ]; then
+    upgrade_ilias
+    delete_entrypoint
 fi
 
-# Move ILIAS data to /var/www/html.
-cp -r /app/* /var/www/html
+if [ -z "$(ls -A /var/www/html)" ] && [ -z "$DEVELOPMENT" ]; then
+    install_ilias
+    delete_entrypoint
+fi
 
-# Delete potentially invalid files.
-rm -f /var/www/html/entrypoint.sh
-
-# Super duper ugly hack that removes google fonts dependency
-# sed -i '/preconnect/,+1d' /var/www/html/Customizing/global/plugins/Services/Repository/RepositoryObject/LongEssayAssessment/vendor/edutiek/long-essay-assessment-service/node_modules/long-essay-assessment-writer/dist/index.html
-# sed -i '/preconnect/,+1d' /var/www/html/Customizing/global/plugins/Services/Repository/RepositoryObject/LongEssayAssessment/vendor/edutiek/long-essay-assessment-service/node_modules/long-essay-assessment-corrector/dist/index.html
-
-# Run apache.
 apache2-foreground
