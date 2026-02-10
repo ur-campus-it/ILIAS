@@ -5,20 +5,29 @@ delete_entrypoint() {
 }
 
 upgrade_ilias() {
+
+    DATADIR="/var/www/html/data"
+    if [ "$(ls -A /var/www/html/public/data)" ]; then
+        DATADIR="/var/www/html/public/data"
+    fi
+
     # Move relevant files to a "safe" location.
     mv /var/www/html/ilias.ini.php /tmp/ilias.ini.php
-    mv /var/www/html/data /tmp/data
+    mv "$DATADIR" /tmp/data
 
     # Nuke /var/www/html.
     rm -rf /var/www/html/*
 
     # Copy new ILIAS installation
-    cp -r /app/* /var/www/html
+    if [ -w "/app" ]; then
+        mv /app/* /var/www/html
+    else
+        cp -r /app/* /var/www/html
+    fi
 
     # Bring relevant files back out again.
     mv /tmp/ilias.ini.php /var/www/html/ilias.ini.php
-    mv /tmp/data /var/www/html/data
-
+    mv /tmp/data "$DATADIR"
 
     # todo: how do i determine if i am below version 10?
     # if []; then
