@@ -13,7 +13,11 @@ upgrade_ilias() {
     rm -rf /var/www/html/*
 
     # Copy new ILIAS installation
-    cp -r /app/* /var/www/html
+    if [ -w "/app" ]; then
+        mv /app/* /var/www/html
+    else
+        cp -r /app/* /var/www/html
+    fi
 
     # Bring relevant files back out again.
     mv /tmp/ilias.ini.php /var/www/html/ilias.ini.php
