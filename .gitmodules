@@ -1,3 +1,6 @@
 [submodule "Customizing/global/plugins/Modules/TestQuestionPool/Questions/assStackQuestion"]
 	path = Customizing/global/plugins/Modules/TestQuestionPool/Questions/assStackQuestion
 	url = https://github.com/surlabs/STACK.git
+[submodule "Customizing/global/plugins/Modules/TestQuestionPool/Questions/assPaintQuestion"]
+	path = Customizing/global/plugins/Modules/TestQuestionPool/Questions/assPaintQuestion
+	url = https://github.com/kyro46/assPaintQuestion.git
