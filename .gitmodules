@@ -4,3 +4,4 @@
 [submodule "Customizing/global/plugins/Modules/TestQuestionPool/Questions/assPaintQuestion"]
 	path = Customizing/global/plugins/Modules/TestQuestionPool/Questions/assPaintQuestion
 	url = https://github.com/kyro46/assPaintQuestion.git
+	branch = ilias_10_dev
