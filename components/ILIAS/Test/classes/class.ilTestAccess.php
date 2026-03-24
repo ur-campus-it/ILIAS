@@ -260,25 +260,58 @@ class ilTestAccess
 
         $ranges = $access_settings->getIpRanges();
 
-        /*
-        if ($this->isIpTypeOf(FILTER_FLAG_IPV4, $ip, $range_start, $range_end)) {
-            return $this->isIpv4Between($ip, $range_start, $range_end);
-        }
+        foreach(explode(",", $ranges) as $v) {
+            if (str_contains($v, "-")) {
+                list($start, $end) = explode("-", $v);
+                if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $start, end])) {
+                    return $this->isIpv4Between($ip, $start, end);
+                }
 
-        if ($this->isIpTypeOf(FILTER_FLAG_IPV6, $ip, $range_start, $range_end)) {
-            return $this->isIpv6Between($ip, $range_start, $range_end);
+                if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $start, end])) {
+                    return $this->isIpv6Between($ip, $start, end);
+                }
+            }
+
+            if (str_contains($v, "/")) {
+                list($addr, $mask) = explode("/", $v);
+                if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $addr])) {
+                    return $this->isIpv4InSubnet($ip, $v);
+                }
+
+                if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $addr])) {
+                    return $this->isIpv6InSubnet($ip, $v);
+                }
+            }
+
+            if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $v])) {
+                return ($ip === $v);
+            }
+
+            if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $v])) {
+                return ($ip === $v);
+            }
         }
 
         return false;
-        */
-        return true;
     }
 
-    private function isIpTypeOf(int $ip_type_flag, string $ip, string $range_start, string $range_end): bool
+    private function isIpv4InSubnet(string $ip, string $subnet): bool
     {
-        return filter_var($ip, FILTER_VALIDATE_IP, $ip_type_flag) !== false
-            && filter_var($range_start, FILTER_VALIDATE_IP, $ip_type_flag) !== false
-            && filter_var($range_end, FILTER_VALIDATE_IP, $ip_type_flag) !== false;
+        // TODO
+        return false;
+    }
+
+    private function isIpv6InSubnet(string $ip, string $subnet): bool
+    {
+        // TODO
+        return false;
+    }
+
+    private function isIpTypeOf(int $ip_type_flag, array $ips): bool
+    {
+        return array_all($ips, function(?string $v) use ($ip_type_flag): bool {
+            return filter_var($v, FILTER_VALIDATE_IP, $ip_type_flag) !== false;
+        });
     }
 
     private function isIpv4Between(string $ip, string $range_start, string $range_end): bool
