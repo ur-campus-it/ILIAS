@@ -917,7 +917,8 @@ assessment#:#maximum_points#:#Maximum behaalbare punten
 assessment#:#maxsize#:#Maximum file upload size
 assessment#:#maxsize_info#:#Vul in de maximale hoeveelheid bytes die wordt toegestaan voor bestand-uploads. Als je dit vak blanco laat, wordt de maximale grootte van deze installatie gekozen.
 assessment#:#min_auto_complete#:#Autocomplete###25 10 2016 new variable
-assessment#:#min_ip_label#:#Lowest IP With Access###26 08 2024 new variable
+assessment#:#ip_ranges#:#IP reeksen### 24 03 2026 new variable
+assessment#:#ip_ranges_label#:#Toegestane waarden zijn: individuele IP adressen (bv. "10.0.0.25"), IP-adresbereiken (bv. "10.0.0.10-10.0.0.25") en subnetten in CIDR-notatie (bv. "10.0.0.0/16"). Zowel IPv4 als IPv6 zijn ondersteund.###24 03 2026 new variable
 assessment#:#min_percentage_ne_0#:#Je moet een minimum percentage opgeven van ministens 0 procent! Het punten schema is niet opgeslaan
 assessment#:#misc#:#Misc Options
 assessment#:#mode_allatonce#:#All###29 10 2025 new variable

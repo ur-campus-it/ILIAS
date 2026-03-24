@@ -128,8 +128,13 @@ class ParticipantTableIpRangeAction implements TableAction
             ],
             [
                 'ip_range' => $this->ui_factory->input()->field()->group([
+                    'ip_ranges' => $this->ui_factory->input()->field()->tag(
+                        "Testing Test Test",
+                        [],
+                        "Testing Description Test"
+                    ),
                     'from' => $this->ui_factory->input()->field()->text(
-                        $this->lng->txt('min_ip_label')
+                        "HELO"
                     )->withAdditionalTransformation($valid_ip_constraint),
                     'to' => $this->ui_factory->input()->field()->text(
                         $this->lng->txt('max_ip_label'),

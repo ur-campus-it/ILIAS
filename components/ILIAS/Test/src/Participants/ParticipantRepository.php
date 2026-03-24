@@ -138,8 +138,7 @@ class ParticipantRepository
                     'user_fi' => [\ilDBConstants::T_INTEGER, $participant->getUserId()]
                 ],
                 [
-                    'ip_range_from' => [\ilDBConstants::T_TEXT, $participant->getClientIpFrom()],
-                    'ip_range_to' => [\ilDBConstants::T_TEXT, $participant->getClientIpTo()],
+                    'ip_ranges' => [\ilDBConstants::T_TEXT, $participant->getClientIpRanges()],
                     'tstamp' => [\ilDBConstants::T_INTEGER, time()]
                 ]
             );
@@ -272,6 +271,7 @@ class ParticipantRepository
             }
         }
 
+        // TODO WHAT THE HELL
         if ($this->isFilterSet($filter, 'ip_range')) {
             $where[] = '(ip_range_from LIKE %s OR ip_range_to LIKE %s)';
             $types = array_merge($types, ['string', 'string']);
@@ -281,6 +281,7 @@ class ParticipantRepository
         return [$where, $types, $values];
     }
 
+    // TODO WHAT THE HELL
     private function applyOrder(?Order $order): string
     {
         if ($order === null) {
@@ -333,8 +334,7 @@ class ParticipantRepository
             $row['matriculation'] ?? '',
             $row['extra_time'] ?? 0,
             $row['tries'] ?? 0,
-            $row['ip_range_from'],
-            $row['ip_range_to'],
+            $row['ip_ranges'],
             $row['invitation_date'],
             $row['submitted'] === 1,
             $row['last_started_pass'],
@@ -369,8 +369,7 @@ class ParticipantRepository
                         (SELECT MIN(started) FROM tst_times WHERE active_fi = ta.active_id) as first_access,
 						(SELECT MAX(finished) FROM tst_times WHERE active_fi = ta.active_id) as last_access,
 						tatime.additionaltime extra_time,
-			            tinvited.ip_range_from,
-			            tinvited.ip_range_to,
+			            tinvited.ip_ranges,
                         tinvited.tstamp as invitation_date
 			FROM		tst_active ta
 			LEFT JOIN	usr_data ud
@@ -408,8 +407,7 @@ class ParticipantRepository
                         NULL as first_access,
                         NULL as last_access,
 						tatime.additionaltime extra_time,
-			            tinvited.ip_range_from,
-			            tinvited.ip_range_to,
+			            tinvited.ip_ranges,
                         tinvited.tstamp as invitation_date
 			FROM		tst_invited_user tinvited
 			LEFT JOIN	usr_data ud

@@ -57,3 +57,5 @@ phpstan-baseline.neon
 override.php
 components/ILIAS/FileHandlingDemo
 public/data/
+**/compile/**
+**/target/**

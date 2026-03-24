@@ -919,7 +919,8 @@ assessment#:#maximum_points#:#Máximo de puntos disponibles
 assessment#:#maxsize#:#Tamaño máximo de carga de archivos
 assessment#:#maxsize_info#:#Introduzca el tamaño máximo en bytes que se debe permitir en la carga de archivos. Si deja este campo vacío, el tamaño máximo de esta instalación será escogida en su lugar.
 assessment#:#min_auto_complete#:#Autocompletar
-assessment#:#min_ip_label#:#Lowest IP With Access###26 08 2024 new variable
+assessment#:#ip_ranges#:#IP Ranges### 24 03 2026 new variable
+assessment#:#ip_ranges_label#:#Allowed values are: singular IP addresses (e.g. "10.0.0.25"), IP address ranges (e.g. "10.0.0.10-10.0.0.25") and IP subnet blocks in CIDR notation (e.g. "10.0.0.0/16"). IPv4 and IPv6 addresses are supported.###24 03 2026 new variable
 assessment#:#min_percentage_ne_0#:#¡Debe definir un porcentaje mínimo de 0 por ciento! El esquema de calificaciones no fue grabado.
 assessment#:#misc#:#Otras opciones
 assessment#:#mode_allatonce#:#All###29 10 2025 new variable

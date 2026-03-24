@@ -917,7 +917,8 @@ assessment#:#maximum_points#:#حداکثر امتیازات موجود
 assessment#:#maxsize#:#حداکثر اندازه فایل برای آپلود
 assessment#:#maxsize_info#:#مقدار به بایت
 assessment#:#min_auto_complete#:#Autocomplete###25 10 2016 new variable
-assessment#:#min_ip_label#:#Lowest IP With Access###26 08 2024 new variable
+assessment#:#ip_ranges#:#IP Ranges### 24 03 2026 new variable
+assessment#:#ip_ranges_label#:#Allowed values are: singular IP addresses (e.g. "10.0.0.25"), IP address ranges (e.g. "10.0.0.10-10.0.0.25") and IP subnet blocks in CIDR notation (e.g. "10.0.0.0/16"). IPv4 and IPv6 addresses are supported.###24 03 2026 new variable
 assessment#:#min_percentage_ne_0#:#You must define a minimum percentage of 0 percent! The mark schema wasn't saved.
 assessment#:#misc#:#Misc Options###24 10 2013 new variable
 assessment#:#mode_allatonce#:#All###29 10 2025 new variable

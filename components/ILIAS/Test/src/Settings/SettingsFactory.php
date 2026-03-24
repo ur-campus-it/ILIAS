@@ -64,8 +64,7 @@ class SettingsFactory
                     : null,
                 (bool) $row['password_enabled'],
                 $row['password'],
-                $row['ip_range_from'],
-                $row['ip_range_to'],
+                $row['ip_ranges'],
                 (bool) $row['fixed_participants'],
             ),
             new SettingsTestBehaviour(

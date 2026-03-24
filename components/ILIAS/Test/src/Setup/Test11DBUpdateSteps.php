@@ -202,4 +202,54 @@ class Test11DBUpdateSteps implements \ilDatabaseUpdateSteps
             ]
         );
     }
+
+    public function step_8(): void
+    {
+        // 1. Create new column for IP ranges
+        $this->db->addTableColumn('tst_test_settings', 'ip_ranges', ['type' => \ilDBConstants::T_TEXT, 'length' => 4000, 'default' => null]);
+
+        // 2. Add preexisting IP ranges into column using concat
+        $this->db->manipulate(
+            'UPDATE tst_test_settings SET ip_ranges = concat(ip_range_from, "-", ip_range_to) WHERE ip_range_from != ip_range_to AND ip_range_from IS NOT NULL AND ip_range_to IS NOT NULL'
+        );
+
+        // 3. Add preexisting IP restrictions into column, handle edge cases where only ip_range_from is set
+        $this->db->manipulate(
+            'UPDATE tst_test_settings SET ip_ranges = ip_range_from WHERE ip_range_from == ip_range_to OR (ip_range_from IS NOT NULL AND ip_range_to IS NULL)'
+        );
+
+        // 4. Handle further edge cases where only ip_range_to is set
+        $this->db->manipulate(
+            'UPDATE tst_test_settings SET ip_ranges = ip_range_to WHERE ip_range_to IS NOT NULL AND ip_range_from IS NULL'
+        );
+
+        // 5. Remove columns ip_range_from and ip_range_to
+        $this->db->dropTableColumn('tst_test_settings', 'ip_range_from');
+        $this->db->dropTableColumn('tst_test_settings', 'ip_range_to');
+    }
+
+    public function step_9(): void
+    {
+        // 1. Create new column for IP ranges
+        $this->db->addTableColumn('tst_invited_user', 'ip_ranges', ['type' => \ilDBConstants::T_TEXT, 'length' => 4000, 'default' => null]);
+
+        // 2. Add preexisting IP ranges into column using concat
+        $this->db->manipulate(
+            'UPDATE tst_invited_user SET ip_ranges = concat(ip_range_from, "-", ip_range_to) WHERE ip_range_from != ip_range_to AND ip_range_from IS NOT NULL AND ip_range_to IS NOT NULL'
+        );
+
+        // 3. Add preexisting IP restrictions into column, handle edge cases where only ip_range_from is set
+        $this->db->manipulate(
+            'UPDATE tst_invited_user SET ip_ranges = ip_range_from WHERE ip_range_from == ip_range_to OR (ip_range_from IS NOT NULL AND ip_range_to IS NULL)'
+        );
+
+        // 4. Handle further edge cases where only ip_range_to is set
+        $this->db->manipulate(
+            'UPDATE tst_invited_user SET ip_ranges = ip_range_to WHERE ip_range_to IS NOT NULL AND ip_range_from IS NULL'
+        );
+
+        // 5. Remove columns ip_range_from and ip_range_to
+        $this->db->dropTableColumn('tst_invited_user', 'ip_range_from');
+        $this->db->dropTableColumn('tst_invited_user', 'ip_range_to');
+    }
 }

@@ -902,7 +902,8 @@ assessment#:#maximum_points#:#Nombre Maximum de Points
 assessment#:#maxsize#:#Taille maximale du fichier à  télécharger
 assessment#:#maxsize_info#:#Saisir la taille maximale en bytes autorisée pour le téléversement. Si cette zone de saisie reste vide, le maximum par défaut sera proposé.
 assessment#:#min_auto_complete#:#Saisie automatique
-assessment#:#min_ip_label#:#Lowest IP With Access###26 08 2024 new variable
+assessment#:#ip_ranges#:#IP Ranges### 24 03 2026 new variable
+assessment#:#ip_ranges_label#:#Allowed values are: singular IP addresses (e.g. "10.0.0.25"), IP address ranges (e.g. "10.0.0.10-10.0.0.25") and IP subnet blocks in CIDR notation (e.g. "10.0.0.0/16"). IPv4 and IPv6 addresses are supported.###24 03 2026 new variable
 assessment#:#min_percentage_ne_0#:#Vous devez définir un pourcentage minimal de 0 %. L'échelle d'évaluation n'a pas été enregistrée.
 assessment#:#misc#:#Options Mixtes
 assessment#:#mode_allatonce#:#All###29 10 2025 new variable

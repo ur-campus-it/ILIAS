@@ -910,14 +910,14 @@ assessment#:#matching_shuffle_terms_definitions#:#Both (Terms and Definitions)
 assessment#:#matching_type#:#Matching Question Subtype
 assessment#:#material#:#Material
 assessment#:#material_file#:#Material File
-assessment#:#max_ip_label#:#Highest IP With Access
 assessment#:#maxchars#:#Maximum Number of Characters
 assessment#:#maximum_nr_of_tries_reached#:#You have already taken this test the maximum number of times possible. You cannot start the test again.
 assessment#:#maximum_points#:#Maximum Available Points
 assessment#:#maxsize#:#Maximum file upload size
 assessment#:#maxsize_info#:#Enter the maximum size in bytes that should be allowed for file uploads. If you leave this field empty, the maximum size of this installation will be chosen instead.
 assessment#:#min_auto_complete#:#Autocomplete
-assessment#:#min_ip_label#:#Lowest IP With Access
+assessment#:#ip_ranges#:#IP Ranges### 24 03 2026 new variable
+assessment#:#ip_ranges_label#:#Allowed values are: singular IP addresses (e.g. "10.0.0.25"), IP address ranges (e.g. "10.0.0.10-10.0.0.25") and IP subnet blocks in CIDR notation (e.g. "10.0.0.0/16"). IPv4 and IPv6 addresses are supported.###24 03 2026 new variable
 assessment#:#min_percentage_ne_0#:#One of your grade categories needs to start at the ‘Minimum Score Required (in %)’ level of 0%  Your grading system hasn’t been saved.
 assessment#:#misc#:#Misc Options
 assessment#:#mode_allatonce#:#All

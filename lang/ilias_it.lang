@@ -916,7 +916,8 @@ assessment#:#maximum_points#:#Punteggio massimo disponibile
 assessment#:#maxsize#:#massima dimensione file di upload
 assessment#:#maxsize_info#:#Inserire la massima dimensione in, bytes, dei files da caricare. Se il campo è lasciato in bianco, la dimensione sarà definita dal sistema.
 assessment#:#min_auto_complete#:#Completamento automatico
-assessment#:#min_ip_label#:#Lowest IP With Access###28 11 2025 new variable
+assessment#:#ip_ranges#:#IP Ranges### 24 03 2026 new variable
+assessment#:#ip_ranges_label#:#Allowed values are: singular IP addresses (e.g. "10.0.0.25"), IP address ranges (e.g. "10.0.0.10-10.0.0.25") and IP subnet blocks in CIDR notation (e.g. "10.0.0.0/16"). IPv4 and IPv6 addresses are supported.###24 03 2026 new variable
 assessment#:#min_percentage_ne_0#:#Devi raggiungere la percentuale minima dello 0 percento! Lo schema voti non e' stato salvato.
 assessment#:#misc#:#Opzioni varie
 assessment#:#mode_allatonce#:#All###28 11 2025 new variable

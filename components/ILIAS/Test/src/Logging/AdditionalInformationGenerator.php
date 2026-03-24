@@ -65,7 +65,7 @@ class AdditionalInformationGenerator
     public const KEY_TEST_START_TIME = 'tst_starting_time';
     public const KEY_TEST_END_TIME = 'tst_ending_time';
     public const KEY_TEST_PASSWORD = 'tst_password';
-    public const KEY_TEST_IP_RANGE = 'ip_range_label';
+    public const KEY_TEST_IP_RANGES = 'ip_range_label';
     public const KEY_TEST_FIXED_PARTICIPANTS = 'participants_invitation';
     public const KEY_TEST_LIMIT_NR_OF_TRIES = 'tst_limit_nr_of_tries';
     public const KEY_TEST_BLOCK_AFTER_PASSED = 'tst_block_passes_after_passed';

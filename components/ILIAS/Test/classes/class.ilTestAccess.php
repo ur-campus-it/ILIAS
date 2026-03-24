@@ -226,6 +226,7 @@ class ilTestAccess
         return ParticipantAccess::ALLOWED;
     }
 
+    // TODO THIS NEEDS TO BE MODIFIED
     private function isParticipantExplicitelyAllowedByIndividualIPRange(
         ?Participant $participant,
         string $ip
@@ -248,6 +249,7 @@ class ilTestAccess
         return false;
     }
 
+    // TODO
     private function isIpAllowedToAccessTest(
         string $ip,
         SettingsAccess $access_settings
@@ -256,9 +258,9 @@ class ilTestAccess
             return true;
         }
 
-        $range_start = $access_settings->getIpRangeFrom();
-        $range_end = $access_settings->getIpRangeTo();
+        $ranges = $access_settings->getIpRanges();
 
+        /*
         if ($this->isIpTypeOf(FILTER_FLAG_IPV4, $ip, $range_start, $range_end)) {
             return $this->isIpv4Between($ip, $range_start, $range_end);
         }
@@ -268,6 +270,8 @@ class ilTestAccess
         }
 
         return false;
+        */
+        return true;
     }
 
     private function isIpTypeOf(int $ip_type_flag, string $ip, string $range_start, string $range_end): bool

@@ -23567,8 +23567,7 @@ CREATE TABLE `tst_invited_user` (
   `test_fi` int(11) NOT NULL DEFAULT 0,
   `user_fi` int(11) NOT NULL DEFAULT 0,
   `tstamp` int(11) NOT NULL DEFAULT 0,
-  `ip_range_from` varchar(39) DEFAULT NULL,
-  `ip_range_to` varchar(39) DEFAULT NULL,
+  `ip_ranges` varchar(4000) DEFAULT NULL,
   PRIMARY KEY (`test_fi`,`user_fi`)
 ) ;
 
@@ -24339,8 +24338,7 @@ CREATE TABLE `tst_tests` (
   `show_questionlist` tinyint(4) DEFAULT NULL,
   `hide_info_tab` tinyint(4) NOT NULL DEFAULT 0,
   `conditions_checkbox_enabled` tinyint(4) NOT NULL DEFAULT 0,
-  `ip_range_from` varchar(39) DEFAULT NULL,
-  `ip_range_to` varchar(39) DEFAULT NULL,
+  `ip_ranges` varchar(4000) DEFAULT NULL,
   PRIMARY KEY (`test_id`),
   KEY `i1_idx` (`obj_fi`)
 ) ;
