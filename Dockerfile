@@ -40,7 +40,7 @@ RUN echo "max_execution_time = 600" >> $PHP_INI_DIR/conf.d/10-docker-php.ini && 
 
 RUN sed -i 's|/var/www/html|/var/www/html/public|' /etc/apache2/sites-enabled/000-default.conf && \
     echo "RemoteIPHeader X-Real-IP" >> /etc/apache2/sites-enabled/000-default.conf && \
-    echo "RemoteIPTrustedProxy 0.0.0.0" >> /etc/apache2/sites-enabled/000-default.conf
+    echo "RemoteIPTrustedProxy 0.0.0.0/0" >> /etc/apache2/sites-enabled/000-default.conf
 
 # Apply apache httpd configuration.
 RUN a2enmod remoteip headers ssl
