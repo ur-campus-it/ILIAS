@@ -205,6 +205,10 @@ class Test11DBUpdateSteps implements \ilDatabaseUpdateSteps
 
     public function step_8(): void
     {
+        if ($this->db->tableColumnExists('tst_test_settings', 'ip_ranges')) {
+            return;
+        }
+
         // 1. Create new column for IP ranges
         $this->db->addTableColumn('tst_test_settings', 'ip_ranges', ['type' => \ilDBConstants::T_TEXT, 'length' => 4000, 'default' => null]);
 
@@ -230,6 +234,10 @@ class Test11DBUpdateSteps implements \ilDatabaseUpdateSteps
 
     public function step_9(): void
     {
+        if ($this->db->tableColumnExists('tst_invited_user', 'ip_ranges')) {
+            return;
+        }
+
         // 1. Create new column for IP ranges
         $this->db->addTableColumn('tst_invited_user', 'ip_ranges', ['type' => \ilDBConstants::T_TEXT, 'length' => 4000, 'default' => null]);
 
