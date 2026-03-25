@@ -275,11 +275,11 @@ class ilTestAccess
             if (str_contains($v, "/")) {
                 list($addr, $mask) = explode("/", $v);
                 if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $addr])) {
-                    return $this->isIpv4InSubnet($ip, $v);
+                    return $this->isIpInSubnet($ip, $v);
                 }
 
                 if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $addr])) {
-                    return $this->isIpv6InSubnet($ip, $v);
+                    return $this->isIpInSubnet($ip, $v);
                 }
             }
 
@@ -295,16 +295,17 @@ class ilTestAccess
         return false;
     }
 
-    private function isIpv4InSubnet(string $ip, string $subnet): bool
+    private function isIpInSubnet(string $ip, string $subnet): bool
     {
-        // TODO
-        return false;
-    }
+        list($address, $prefix) = explode('/', $subnet);
+        $address = inet_pton($address);
+        $ip = inet_pton($ip);
 
-    private function isIpv6InSubnet(string $ip, string $subnet): bool
-    {
-        // TODO
-        return false;
+        $mask = str_repeat("\xFF", $prefix >> 3);
+        if ($prefix & 7) $mask .= chr(0xFF << (8 - ($prefix & 7)));
+        $mask = str_pad($mask, strlen($ip), "\x00");
+
+        return ($ip & $mask) == ($address & $mask);
     }
 
     private function isIpTypeOf(int $ip_type_flag, array $ips): bool
