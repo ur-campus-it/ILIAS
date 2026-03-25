@@ -43,8 +43,8 @@ upgrade_ilias() {
 install_ilias() {
     # Copy new ILIAS installation
     cp -r /app/* /var/www/html
-
-    /usr/local/bin/php /var/www/html/cli/setup.php install /config.json -q -y
+    cd /var/www/html
+    /usr/local/bin/php /var/www/html/cli/setup.php install "${CONFIG_LOCATION}" -y
 }
 
 
