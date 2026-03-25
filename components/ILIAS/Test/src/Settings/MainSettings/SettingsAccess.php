@@ -176,7 +176,7 @@ class SettingsAccess extends TestSettings implements Exportable
                 }
 
                 foreach ($vs as $v) {
-                    if (str_contains($v, "-")) {
+                    if (str_contains($v, '/')) {
                         $res = $this->checkIpRangeValidity($v);
                         if (!$res) return false;
                     }
@@ -194,7 +194,7 @@ class SettingsAccess extends TestSettings implements Exportable
                 }
 
                 foreach ($vs as $v) {
-                    if (str_contains($v, "/")) {
+                    if (str_contains($v, '/')) {
                         $res = $this->checkIpSubnetValidity($v);
                         if (!$res) return false;
                     }
@@ -212,7 +212,7 @@ class SettingsAccess extends TestSettings implements Exportable
                 }
 
                 foreach($vs as $v) {
-                    if ((str_contains($v, "/")) || (str_contains($v, "-"))) continue;
+                    if ((str_contains($v, '/')) || (str_contains($v, '-'))) continue;
 
                     $res = filter_var($v, FILTER_VALIDATE_IP) !== false;    
                     if (!$res) return false;
@@ -230,7 +230,10 @@ class SettingsAccess extends TestSettings implements Exportable
                         'ip_ranges' => null
                     ];
                 }
-                $vs['ip_ranges'] = implode(",", $vs['ip_ranges']);
+
+                if (gettype($vs['ip_ranges']) == 'array') {
+                    $vs['ip_ranges'] = implode(',', $vs['ip_ranges']);
+                }
 
                 return $vs;
             }
@@ -254,7 +257,7 @@ class SettingsAccess extends TestSettings implements Exportable
         if ($this->isIpRangeEnabled()) {
             $get_ip_ranges = $get_ip_ranges->withValue(
                 [
-                    'ip_ranges' => explode(",", $this->getIpRanges()),
+                    'ip_ranges' => explode(',', $this->getIpRanges()),
                 ]
             );
         }
@@ -264,7 +267,7 @@ class SettingsAccess extends TestSettings implements Exportable
 
     private function checkIpRangeValidity(string $range): bool
     {
-        $v = explode("-", $range);
+        $v = explode('-', $range);
         if (sizeof($v) !== 2) return false;
 
         list($start, $end) = $v;
@@ -283,7 +286,7 @@ class SettingsAccess extends TestSettings implements Exportable
 
     private function checkIpSubnetValidity(string $subnet): bool
     {
-        $v = explode("/", $subnet);
+        $v = explode('/', $subnet);
         if (sizeof($v) !== 2) return false;
 
         list($address, $mask) = $v;

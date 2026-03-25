@@ -6,7 +6,7 @@ services:
       DEVELOPMENT: 1
       CONFIG_FILE: "/config.json"
     volumes:
-      - ./config.json:/config.json:ro
+      - .:/var/www/html
       - ilias:/var/www/data
     ports:
       - 8080:80

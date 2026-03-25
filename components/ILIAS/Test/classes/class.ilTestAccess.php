@@ -226,7 +226,6 @@ class ilTestAccess
         return ParticipantAccess::ALLOWED;
     }
 
-    // TODO THIS NEEDS TO BE MODIFIED
     private function isParticipantExplicitelyAllowedByIndividualIPRange(
         ?Participant $participant,
         string $ip
@@ -234,7 +233,7 @@ class ilTestAccess
         $ranges = $participant?->getClientIpRanges();
 
         if ($ranges === null) {
-            return false;
+            return null;
         }
 
         return $this->handleIpRanges($ip, $ranges);
@@ -254,9 +253,9 @@ class ilTestAccess
 
     private function handleIpRanges(string $ip, string $ranges): bool
     {
-        foreach(explode(",", $ranges) as $v) {
-            if (str_contains($v, "-")) {
-                list($start, $end) = explode("-", $v);
+        foreach(explode(',', $ranges) as $v) {
+            if (str_contains($v, '-')) {
+                list($start, $end) = explode('-', $v);
                 if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $start, $end])) {
                     return $this->isIpv4Between($ip, $start, $end);
                 }
@@ -266,8 +265,8 @@ class ilTestAccess
                 }
             }
 
-            if (str_contains($v, "/")) {
-                list($addr, $mask) = explode("/", $v);
+            if (str_contains($v, '/')) {
+                list($addr, $mask) = explode('/', $v);
                 if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $addr])) {
                     return $this->isIpInSubnet($ip, $v);
                 }
