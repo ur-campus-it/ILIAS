@@ -271,11 +271,10 @@ class ParticipantRepository
             }
         }
 
-        // TODO WHAT THE HELL
         if ($this->isFilterSet($filter, 'ip_range')) {
-            $where[] = '(ip_range_from LIKE %s OR ip_range_to LIKE %s)';
-            $types = array_merge($types, ['string', 'string']);
-            $values = array_merge($values, ["%{$filter['ip_range']}%", "%{$filter['ip_range']}%"]);
+            $where[] = '(ip_ranges LIKE %s)';
+            $types = array_merge($types, ['string']);
+            $values = array_merge($values, ["%{$filter['ip_range']}%"]);
         }
 
         return [$where, $types, $values];
@@ -292,7 +291,7 @@ class ParticipantRepository
             $order_by[] = match ($subject) {
                 'name' => "lastname {$direction}, firstname {$direction}",
                 'login' => "login {$direction}",
-                'ip_range' => "ip_range_from {$direction}, ip_range_to {$direction}",
+                'ip_range' => "ip_ranges {$direction}",
                 'total_attempts' => "tries {$direction}",
                 'extra_time' => "extra_time {$direction}",
                 default => null

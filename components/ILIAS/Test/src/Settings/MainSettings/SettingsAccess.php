@@ -242,9 +242,10 @@ class SettingsAccess extends TestSettings implements Exportable
                     $lng->txt('ip_ranges'),
                     [],
                     $lng->txt('ip_ranges_label'),
-                )->withAdditionalTransformation($validate_ip_ranges)
-                ->withAdditionalTransformation($validate_ip_subnets)
-                ->withAdditionalTransformation($validate_ip_addresses),
+                )
+                    ->withAdditionalTransformation($validate_ip_ranges)
+                    ->withAdditionalTransformation($validate_ip_subnets)
+                    ->withAdditionalTransformation($validate_ip_addresses),
             ],
             $lng->txt('ip_range_label'),
             $lng->txt('ip_range_info')

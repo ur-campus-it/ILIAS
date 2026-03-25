@@ -73,32 +73,68 @@ class ParticipantTableIpRangeAction implements TableAction
         array $selected_participants,
         bool $all_participants_selected
     ): ?Modal {
-        $valid_ip_constraint = $this->refinery->custom()->constraint(
-            fn(?string $ip): bool => $ip === null
-                || $ip === ''
-                || filter_var($ip, FILTER_VALIDATE_IP) !== false,
-            $this->lng->txt('invalid_ip')
-        );
-        $validate_order = $this->refinery->custom()->constraint(
-            function (?array $vs): bool {
-                if ($vs['from'] === '' && $vs['to'] === '') {
+        $validate_ip_ranges = $this->refinery->custom()->constraint(
+            function(?array $vs): bool {
+                if ($vs === null) {
                     return true;
                 }
-                return $this->checkIpRangeValidity(
-                    $vs['from'],
-                    $vs['to']
-                );
+
+                foreach ($vs as $v) {
+                    if (str_contains($v, "-")) {
+                        $res = $this->checkIpRangeValidity($v);
+                        if (!$res) return false;
+                    }
+                }
+
+                return true;
             },
-            sprintf($this->lng->txt('not_greater_than'), $this->lng->txt('max_ip_label'), $this->lng->txt('min_ip_label'))
+            $this->lng->txt('invalid_ip_range')
+        );
+
+        $validate_ip_subnets = $this->refinery->custom()->constraint(
+            function(?array $vs): bool {
+                if ($vs === null) {
+                    return true;
+                }
+
+                foreach ($vs as $v) {
+                    if (str_contains($v, "/")) {
+                        $res = $this->checkIpSubnetValidity($v);
+                        if (!$res) return false;
+                    }
+                }
+
+                return true;
+            },
+            $this->lng->txt('invalid_ip_subnet')
+        );
+
+        $validate_ip_addresses = $this->refinery->custom()->constraint(
+            function (?array $vs): bool {
+                if ($vs === null) {
+                    return true;
+                }
+
+                foreach($vs as $v) {
+                    if ((str_contains($v, "/")) || (str_contains($v, "-"))) continue;
+
+                    $res = filter_var($v, FILTER_VALIDATE_IP) !== false;    
+                    if (!$res) return false;
+                }
+                
+                return true;
+            },
+            $this->lng->txt('invalid_ip')
         );
         $ip_range_group_trafo = $this->refinery->custom()->transformation(
             static function (?array $vs): array {
                 if ($vs === null) {
                     $vs = [
-                        'from' => null,
-                        'to' => null
+                        'ip_ranges' => null
                     ];
                 }
+                $vs['ip_ranges'] = implode(",", $vs['ip_ranges']);
+
                 return $vs;
             }
         );
@@ -129,30 +165,23 @@ class ParticipantTableIpRangeAction implements TableAction
             [
                 'ip_range' => $this->ui_factory->input()->field()->group([
                     'ip_ranges' => $this->ui_factory->input()->field()->tag(
-                        "Testing Test Test",
+                        $this->lng->txt('ip_ranges'),
                         [],
-                        "Testing Description Test"
-                    ),
-                    'from' => $this->ui_factory->input()->field()->text(
-                        "HELO"
-                    )->withAdditionalTransformation($valid_ip_constraint),
-                    'to' => $this->ui_factory->input()->field()->text(
-                        $this->lng->txt('max_ip_label'),
-                        $this->lng->txt('ip_range_byline')
-                    )->withAdditionalTransformation($valid_ip_constraint),
+                        $this->lng->txt('ip_ranges_label')
+                    )   
+                        ->withAdditionalTransformation($validate_ip_ranges)
+                        ->withAdditionalTransformation($validate_ip_subnets)
+                        ->withAdditionalTransformation($validate_ip_addresses)
                 ])->withValue(
                     $this->isUniqueClientIp($selected_participants)
-                        ? [
-                            'from' => $selected_participants[0]->getClientIpFrom() ?? '',
-                            'to' => $selected_participants[0]->getClientIpTo() ?? ''
-                        ]
-                        : [
-                            'from' => '',
-                            'to' => ''
-                        ]
+                    ? [
+                        'ip_ranges' => explode(",", $selected_participants[0]->getClientIpRanges() ?? '')
+                    ]
+                    : [
+                        'ip_ranges' => []
+                    ]
                 )
                     ->withAdditionalTransformation($ip_range_group_trafo)
-                    ->withAdditionalTransformation($validate_order)
             ],
             $url_builder->buildURI()->__toString()
         )->withSubmitLabel($this->lng->txt('change'));
@@ -186,8 +215,7 @@ class ParticipantTableIpRangeAction implements TableAction
 
         $this->participant_repository->updateIpRange(
             array_map(
-                static fn(Participant $v) => $v->withClientIpFrom($data['ip_range']['from'])
-                    ->withClientIpTo($data['ip_range']['to']),
+                static fn(Participant $v) => $v->withClientIpRanges($data['ip_range']['ip_ranges']),
                 $selected_participants
             )
         );
@@ -232,20 +260,39 @@ class ParticipantTableIpRangeAction implements TableAction
             ))) === 1;
     }
 
-    private function checkIpRangeValidity(string $start, string $end): bool
+    private function checkIpRangeValidity(string $range): bool
     {
+        $v = explode("-", $range);
+        if (sizeof($v) !== 2) return false;
+
+        list($start, $end) = $v;
+
         if (filter_var($start, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false
-            && filter_var($end, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) {
+           && filter_var($end, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) {
             return ip2long($start) <= ip2long($end);
         }
 
         if (filter_var($start, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false
-            && filter_var($end, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
+           && filter_var($end, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
             return bin2hex(inet_pton($start)) <= bin2hex(inet_pton($end));
         }
         return false;
     }
 
+    private function checkIpSubnetValidity(string $subnet): bool
+    {
+        $v = explode("/", $subnet);
+        if (sizeof($v) !== 2) return false;
+
+        list($address, $mask) = $v;
+
+        $is_ipv4 = filter_var($address, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false;
+        $is_ipv6 = filter_var($address, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false;
+
+        if (!$is_ipv4 && !$is_ipv6) return false;
+
+        return (($is_ipv4 && $mask <= 32) || ($is_ipv6 && $mask <= 128));
+    }
     public function getSelectionErrorMessage(): ?string
     {
         return null;

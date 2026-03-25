@@ -40,8 +40,7 @@ class Participant
         private readonly string $matriculation = '',
         private int $extra_time = 0,
         private readonly int $attempts = 0,
-        private ?string $client_ip_from = null,
-        private ?string $client_ip_to = null,
+        private ?string $client_ip_ranges = null,
         private readonly ?int $invitation_date = null,
         private readonly ?bool $submitted = null,
         private readonly ?int $last_started_attempt = null,
@@ -115,33 +114,18 @@ class Participant
         return $this->attempts;
     }
 
-    public function getClientIpFrom(): ?string
+    public function getClientIpRanges(): ?string
     {
-        return $this->client_ip_from;
+        return $this->client_ip_ranges;
     }
 
-    public function withClientIpFrom(?string $ip): self
+    public function withClientIpRanges(?string $ip): self
     {
         if ($ip === '') {
             $ip = null;
         }
         $clone = clone $this;
-        $clone->client_ip_from = $ip;
-        return $clone;
-    }
-
-    public function getClientIpTo(): ?string
-    {
-        return $this->client_ip_to;
-    }
-
-    public function withClientIpTo(?string $ip): self
-    {
-        if ($ip === '') {
-            $ip = null;
-        }
-        $clone = clone $this;
-        $clone->client_ip_to = $ip;
+        $clone->client_ip_ranges = $ip;
         return $clone;
     }
 

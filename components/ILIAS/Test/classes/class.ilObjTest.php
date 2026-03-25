@@ -4390,7 +4390,7 @@ class ilObjTest extends ilObject
             [$this->getTestId(), $user_id]
         );
         $this->db->manipulateF(
-            "INSERT INTO tst_invited_user (test_fi, user_fi, ip_ranges, tstamp) VALUES (%s, %s, %s, %s, %s)",
+            "INSERT INTO tst_invited_user (test_fi, user_fi, ip_ranges, tstamp) VALUES (%s, %s, %s, %s)",
             ['integer', 'integer', 'text', 'integer'],
             [$this->getTestId(), $user_id, (strlen($client_ip)) ? $client_ip : null, time()]
         );

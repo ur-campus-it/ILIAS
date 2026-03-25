@@ -231,25 +231,15 @@ class ilTestAccess
         ?Participant $participant,
         string $ip
     ): ?bool {
-        $range_start = $participant?->getClientIpFrom();
-        $range_end = $participant?->getClientIpTo();
+        $ranges = $participant?->getClientIpRanges();
 
-        if ($range_start === null && $range_end === null) {
-            return null;
+        if ($ranges === null) {
+            return false;
         }
 
-        if ($this->isIpTypeOf(FILTER_FLAG_IPV4, $ip, $range_start, $range_end)) {
-            return $this->isIpv4Between($ip, $range_start, $range_end);
-        }
-
-        if ($this->isIpTypeOf(FILTER_FLAG_IPV6, $ip, $range_start, $range_end)) {
-            return $this->isIpv6Between($ip, $range_start, $range_end);
-        }
-
-        return false;
+        return $this->handleIpRanges($ip, $ranges);
     }
 
-    // TODO
     private function isIpAllowedToAccessTest(
         string $ip,
         SettingsAccess $access_settings
@@ -259,16 +249,20 @@ class ilTestAccess
         }
 
         $ranges = $access_settings->getIpRanges();
+        return $this->handleIpRanges($ip, $ranges);
+    }
 
+    private function handleIpRanges(string $ip, string $ranges): bool
+    {
         foreach(explode(",", $ranges) as $v) {
             if (str_contains($v, "-")) {
                 list($start, $end) = explode("-", $v);
-                if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $start, end])) {
-                    return $this->isIpv4Between($ip, $start, end);
+                if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $start, $end])) {
+                    return $this->isIpv4Between($ip, $start, $end);
                 }
 
-                if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $start, end])) {
-                    return $this->isIpv6Between($ip, $start, end);
+                if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $start, $end])) {
+                    return $this->isIpv6Between($ip, $start, $end);
                 }
             }
 
