@@ -1,0 +1,24 @@
+stages:
+  - build
+
+default:
+  image: docker:28.0.1
+  services:
+    - docker:28.0.1-dind
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+    - docker info
+
+variables:
+  DOCKER_TLS_CERTDIR: "/certs"
+  GIT_SUBMODULE_STRATEGY: "recursive"
+
+build:
+  stage: build
+  script:
+    - DOCKER_TAG=$(echo $CI_COMMIT_BRANCH | sed -E 's|sheriff/||g')
+    - docker build -t $CI_REGISTRY_IMAGE:$DOCKER_TAG .
+    - docker tag $CI_REGISTRY_IMAGE:$DOCKER_TAG $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker push $CI_REGISTRY_IMAGE:$DOCKER_TAG
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+
