@@ -141,4 +141,22 @@ class SettingsAccessTest extends ilTestBaseTestCase
             [false]
         ];
     }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('getAndWithIpRangesDataProvider')]
+    public function testGetAndWithIpRanges(string $io): void
+    {
+        $settings_access = (new SettingsAccess())->withIpRanges($io);
+
+        $this->assertInstanceOf(SettingsAccess::class, $settings_access);
+        $this->assertEquals($io, $settings_access->getIpRanges());
+    }
+
+    public static function getAndWithIpRangesDataProvider(): array
+    {
+        return [
+            ["192.168.178.1/24"],
+            ["192.168.178.1-192.168.178.255"],
+            ["192.168.178.1"]
+        ];
+    }
 }
