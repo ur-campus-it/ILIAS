@@ -257,31 +257,57 @@ class ilTestAccess
             if (str_contains($v, '-')) {
                 list($start, $end) = explode('-', $v);
                 if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $start, $end])) {
-                    return $this->isIpv4Between($ip, $start, $end);
+
+                    if ($this->isIpv4Between($ip, $start, $end)) {
+                        return true;
+                    } else {
+                        continue;
+                    }
                 }
 
                 if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $start, $end])) {
-                    return $this->isIpv6Between($ip, $start, $end);
+                    if ($this->isIpv6Between($ip, $start, $end)) {
+                        return true;
+                    } else {
+                        continue;
+                    }
                 }
             }
 
             if (str_contains($v, '/')) {
                 list($addr, $mask) = explode('/', $v);
                 if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $addr])) {
-                    return $this->isIpInSubnet($ip, $v);
+
+                    if ($this->isIpInSubnet($ip, $v)) {
+                        return true;
+                    } else {
+                        continue;
+                    }
                 }
 
                 if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $addr])) {
-                    return $this->isIpInSubnet($ip, $v);
+                    if ($this->isIpInSubnet($ip, $v)) {
+                        return true;
+                    } else {
+                        continue;
+                    }
                 }
             }
 
             if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $v])) {
-                return ($ip === $v);
-            }
 
+                if (isIpv4Between($ip, $v, $v)) {
+                    return true;
+                } else {
+                    continue;
+                }
+            }
             if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $v])) {
-                return ($ip === $v);
+                if (isIpv6Between($ip, $v, $v)) {
+                    return true;
+                } else {
+                    continue;
+                }
             }
         }
 
