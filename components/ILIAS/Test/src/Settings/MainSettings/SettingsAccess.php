@@ -176,7 +176,7 @@ class SettingsAccess extends TestSettings implements Exportable
                 }
 
                 foreach ($vs as $v) {
-                    if (str_contains($v, '/')) {
+                    if (str_contains($v, '-') && !str_contains($v, '/')) {
                         $res = $this->checkIpRangeValidity($v);
                         if (!$res) return false;
                     }
@@ -194,7 +194,7 @@ class SettingsAccess extends TestSettings implements Exportable
                 }
 
                 foreach ($vs as $v) {
-                    if (str_contains($v, '/')) {
+                    if (str_contains($v, '/') && !str_contains($v, '-')) {
                         $res = $this->checkIpSubnetValidity($v);
                         if (!$res) return false;
                     }
@@ -295,6 +295,7 @@ class SettingsAccess extends TestSettings implements Exportable
         $is_ipv6 = filter_var($address, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false;
 
         if (!$is_ipv4 && !$is_ipv6) return false;
+        if ($mask < 0) return false;
 
         return (($is_ipv4 && $mask <= 32) || ($is_ipv6 && $mask <= 128));
     }
