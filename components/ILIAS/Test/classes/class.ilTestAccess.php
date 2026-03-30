@@ -257,23 +257,18 @@ class ilTestAccess
             if (str_contains($v, '-')) {
                 list($start, $end) = explode('-', $v);
                 if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $start, $end])) {
-
                     if ($this->isIpv4Between($ip, $start, $end)) return true;
-
                 }
 
                 if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $start, $end])) {
                     if ($this->isIpv6Between($ip, $start, $end)) return true;
-
                 }
             }
 
             if (str_contains($v, '/')) {
                 list($addr, $mask) = explode('/', $v);
                 if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $addr])) {
-
                     if ($this->isIpInSubnet($ip, $v)) return true;
-
                 }
 
                 if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $addr])) {
