@@ -223,6 +223,19 @@ class SettingsAccess extends TestSettings implements Exportable
             $lng->txt('invalid_ip')
         );
 
+        $validate_no_comma = $refinery->custom()->constraint(
+            function (?array $vs): bool {
+                if ($vs === null) {
+                    return true;
+                }
+
+                foreach ($vs as $v) {
+                    if (str_contains($v, ",")) return false;
+                }
+            },
+            $lng->txt('invalid_ip_comma')
+        );
+
         $trafo = $refinery->custom()->transformation(
             static function (?array $vs): array {
                 if ($vs === null) {
@@ -246,6 +259,7 @@ class SettingsAccess extends TestSettings implements Exportable
                     [],
                     $lng->txt('ip_ranges_label'),
                 )
+                    ->withAdditionalTransformation($validate_no_comma)
                     ->withAdditionalTransformation($validate_ip_ranges)
                     ->withAdditionalTransformation($validate_ip_subnets)
                     ->withAdditionalTransformation($validate_ip_addresses),
