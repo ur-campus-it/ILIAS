@@ -254,35 +254,32 @@ class ilTestAccess
     private function handleIpRanges(string $ip, string $ranges): bool
     {
         foreach(explode(',', $ranges) as $v) {
+
             if (str_contains($v, '-')) {
                 list($start, $end) = explode('-', $v);
-                if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $start, $end])) {
-                    if ($this->isIpv4Between($ip, $start, $end)) return true;
-                }
 
-                if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $start, $end])) {
-                    if ($this->isIpv6Between($ip, $start, $end)) return true;
-                }
+                if ($this->isTypeOf(FILTER_FLAG_IPV4, [$ip, $start, $end])
+                    && $this->isIpv4Between($ip, $start, $end)) return true;
+
+                if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $start, $end])
+                    && $this->isIpv6Between($ip, $start, $end)) return true;                
             }
 
             if (str_contains($v, '/')) {
                 list($addr, $mask) = explode('/', $v);
-                if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $addr])) {
-                    if ($this->isIpInSubnet($ip, $v)) return true;
-                }
 
-                if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $addr])) {
-                    if ($this->isIpInSubnet($ip, $v)) return true;
-                }
+                if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $addr])
+                    && $this->isIpInSubnet($ip, $v)) return true;
+
+                if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $addr])
+                    && $this->isIpInSubnet($ip, $v)) return true;
             }
 
-            if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $v])) {
-                if ($this->isIpv4Between($ip, $v, $v)) return true;
-                
-            }
-            if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $v])) {
-                if (isIpv6Between($ip, $v, $v)) return true;
-            }
+            if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $v])
+                && $this->isIpv4Between($ip, $v, $v)) return true;
+
+            if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $v])
+                && isIpv6Between($ip, $v, $v)) return true;
         }
 
         return false;
