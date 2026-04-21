@@ -1826,6 +1826,7 @@ abstract class ilTestPlayerAbstractGUI extends ilTestServiceGUI
                 $description = htmlspecialchars($row['description'], ENT_QUOTES, null, false);
             }
 
+            $action = null; // initialize for disabled questions that have no action
             if (!$row['disabled']) {
                 $this->ctrl->setParameter($this, 'pmode', '');
                 $this->ctrl->setParameter($this, 'sequence', $row['sequence']);
@@ -1854,6 +1855,30 @@ abstract class ilTestPlayerAbstractGUI extends ilTestServiceGUI
             $questions
         )->withActive($active);
 
+        // Intercept sidebar question list clicks to save the current answer
+        // before navigating to the target question. Uses capture phase (3rd
+        // param = true) to fire before the shy button's jQuery click handler.
+        $this->tpl->addOnLoadCode(
+            ' document.querySelectorAll(".il-workflow.linear .il-workflow-step button[data-action]").forEach(function(btn) {'
+            . '   btn.addEventListener("click", function(e) {'
+            . '     var href = btn.getAttribute("data-action");'
+            . '     if (!href) { return; }'                                          // no target URL, ignore
+            . '     e.preventDefault();'                                              // prevent default button behavior
+            . '     e.stopImmediatePropagation();'                                    // prevent shy button jQuery handler
+            . '     if (typeof il !== "undefined"'
+            . '         && il.TestPlayerQuestionEditControl'
+            . '         && typeof il.TestPlayerQuestionEditControl.checkNavigation === "function") {'
+            . '       var cmd = "";'
+            . '       try {'
+            . '         cmd = (new URL(href, window.location.href)).searchParams.get("cmd") || "";'  // extract cmd for routing
+            . '       } catch (err) {}'
+            . '       il.TestPlayerQuestionEditControl.checkNavigation(href, cmd, e, btn);'          // route through save logic
+            . '       return;'
+            . '     }'
+            . '     window.location.href = href;'                                    // fallback: direct navigation
+            . '   }, true);'                                                          // true = capture phase
+            . ' });'
+        );
 
         $this->global_screen->tool()->context()->current()->addAdditionalData(
             ilTestPlayerLayoutProvider::TEST_PLAYER_QUESTIONLIST,

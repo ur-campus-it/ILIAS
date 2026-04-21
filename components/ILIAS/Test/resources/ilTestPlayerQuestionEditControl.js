@@ -416,16 +416,41 @@ il.TestPlayerQuestionEditControl = new function() {
 
     /**
      * Event handler for clicked links on the test page
+     * @param {string}      href          - target URL (optional, read from source element if undefined)
+     * @param {string}      cmd           - ilCtrl command extracted from href, used for routing logic
+     * @param {Event}       e             - the original DOM event
+     * @param {HTMLElement}  sourceElement - the clicked DOM element (optional; when omitted,
+     *                                      falls back to `this` for backward compat with jQuery handlers)
      * @returns {boolean}
      */
-    this.checkNavigation = (href, cmd, e) => {
+    this.checkNavigation = (href, cmd, e, sourceElement) => {
+
+        // Determine the source element for attribute lookups (id, target, href).
+        // Direct callers (e.g. sidebar navigation) pass the clicked button explicitly.
+        // jQuery click handlers pass no sourceElement; fall back to `this` (which is the
+        // TestPlayerQuestionEditControl object due to arrow function scoping — a pre-existing
+        // limitation that yields undefined for id/target, but does not affect behavior).
+        var source = sourceElement;
+        if (!source) {
+            source = this;
+        }
+
+        var sourceJq = $(source);
 
         // attributes of the clicked link
-        var id = $(this).attr('id');
+        var id = sourceJq.attr('id');
         if (href === undefined) {
-          href = $(this).attr('href');
+          href = sourceJq.attr('href') || sourceJq.attr('data-action'); // buttons use data-action, not href
         }
-        var target = $(this).attr('target');
+        var target = sourceJq.attr('target');
+
+        // Guard: if no URL could be determined, bail out early
+        if (!href) {
+            if (e && typeof e.preventDefault === 'function') {
+                e.preventDefault();
+            }
+            return false;
+        }
 
         // keep default behavior for links that open in another window
         // (fullscreen view of media objects)
