@@ -2,10 +2,11 @@ stages:
   - build
 
 default:
-  image: docker:latest
+  image: docker:24.0.5-cli
   services:
-    - name: docker:dind
-      alias: docker
+    - name: docker:24.0.5-dind
+      variables:
+        HEALTHCHECK_TCP_PORT: "2376"
   before_script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
     - docker info
@@ -13,6 +14,8 @@ default:
 variables:
   DOCKER_HOST: tcp://docker:2376
   DOCKER_TLS_CERTDIR: "/certs"
+  DOCKER_TLS_VERIFY: 1
+  DOCKER_CERT_PATH: "$DOCKER_TLS_CERTDIR/client"
   GIT_SUBMODULE_STRATEGY: "recursive"
 
 build:
