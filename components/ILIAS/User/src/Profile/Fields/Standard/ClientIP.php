@@ -26,6 +26,8 @@ use ILIAS\User\Profile\Fields\FieldDefinition;
 use ILIAS\User\Profile\Fields\AvailableSections;
 use ILIAS\Language\Language;
 
+// TODO UPDATE THIS TO USE ilIpAddressInputFieldGUI;
+
 class ClientIP implements FieldDefinition
 {
     use NoOverrides;
