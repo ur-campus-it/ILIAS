@@ -20,6 +20,7 @@ declare(strict_types=1);
 
 use ILIAS\IpAddress\Objects\IpAddress;
 use ILIAS\IpAddress\Objects\IpAddressRange;
+use ILIAS\IpAddress\Component\ilIpAddressDefinitionFormGUI;
 
 use ILIAS\UI\URLBuilder;
 use ILIAS\UI\URLBuilderToken;
@@ -333,6 +334,66 @@ final class ilObjIpAddressDefinitionGUI extends ilObject2GUI
     public function infoScreen(): void
     {
         $this->ctrl->redirectByClass(strtolower(ilInfoScreenGUI::class), "showSummary");
+    }
+
+    protected function getCreationFormTitle(): string
+    {
+        return $this->lng->txt('ipad_update');
+    }
+
+    public function edit(): void
+    {
+        if (!$this->checkPermissionBool("write")) {
+            $this->error->raiseError($this->lng->txt("msg_no_perm_write"), $this->error->MESSAGE);
+        }
+
+        $this->tabs_gui->activateTab("settings");
+
+        $form = new ilIpAddressDefinitionFormGUI(
+            "update",
+            $this->getEditFormValues()
+        )->get($this);
+
+        $this->tpl->setContent($this->getCreationFormsHTML($form));
+    }
+
+    protected function getEditFormValues(): array
+    {
+        return [
+            'title_and_description' => [
+                'title' => $this->object->getTitle(),
+                'desc' => $this->object->getDescription()
+            ],
+            'activation_online' => !$this->object->getOfflineStatus()
+        ];
+    }
+
+    public function update(): void
+    {
+        if (!$this->checkPermissionBool("write")) {
+            $this->error->raiseError($this->lng->txt("permission_denied"), $this->error->MESSAGE);
+        }
+
+        $form = new ilIpAddressDefinitionFormGUI(
+            "update",
+            $this->getEditFormValues()
+        )->get($this)->withRequest($this->request);
+
+        $data = $form->getData();
+
+        if ($data === null) {
+            $this->tabs_gui->activateTab("settings");
+            $this->tpl->setContent($this->getCreationFormsHTML($form));
+            return;
+        }
+
+        $this->object->setTitle($data['title_and_description']->getTitle());
+        $this->object->setDescription($data['title_and_description']->getDescription());
+        $this->object->setOfflineStatus(!$data['activation_online']);
+        $this->object->update();
+
+        $this->afterUpdate();
+        return;
     }
 
     protected function getTabs(): void
