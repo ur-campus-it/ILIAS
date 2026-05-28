@@ -1082,11 +1082,13 @@ class ilDBPdoMySQLFieldDefinition implements FieldDefinition
             $field['type'] = $type;
         }
 
-        if (!method_exists($this, "get{$type}Declaration")) {
+        $typeDeclaration = $this->getTypeDeclaration($field);
+
+        if ($typeDeclaration == '') {
             throw new ilDatabaseException('type not defined: ' . $type);
         }
 
-        return $this->{"get{$type}Declaration"}($name, $field);
+        return $name . ' ' . $typeDeclaration;
     }
 
     /**
