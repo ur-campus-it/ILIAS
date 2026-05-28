@@ -25,6 +25,10 @@ use ILIAS\Test\TestDIC;
 use ILIAS\Test\Access\ParticipantAccess;
 use ILIAS\Test\Settings\MainSettings\MainSettingsDatabaseRepository;
 use ILIAS\Test\Settings\MainSettings\SettingsAccess;
+use ILIAS\IpAddress\Objects\IpAddress;
+use ILIAS\IpAddress\Objects\IpAddressSubnet;
+use ILIAS\IpAddress\Objects\IpAddressRange;
+use ILIAS\IpAddress\Component\ilIpAddressInputFieldGUI;
 
 /**
  * Class ilTestAccess
@@ -236,7 +240,7 @@ class ilTestAccess
             return null;
         }
 
-        return $this->handleIpRanges($ip, $ranges);
+        return $this->isWithinRanges($ip, $ranges);
     }
 
     private function isIpAllowedToAccessTest(
@@ -248,72 +252,40 @@ class ilTestAccess
         }
 
         $ranges = $access_settings->getIpRanges();
-        return $this->handleIpRanges($ip, $ranges);
+        return $this->isWithinRanges($ip, $ranges);
     }
 
-    private function handleIpRanges(string $ip, string $ranges): bool
+    private function resolveIpAddressReference(string $reference, string $ip): bool
+    {
+        $obj = ilObjectFactory::getInstanceByRefId(
+            (int) str_replace('ref_', '', $reference),
+            false
+        );
+
+        return $obj->matchesAddress($ip);
+    }
+
+    private function isWithinRanges(string $ip, string $ranges): bool
     {
         foreach(explode(',', $ranges) as $v) {
 
-            if (str_contains($v, '-')) {
-                list($start, $end) = explode('-', $v);
-
-                if ($this->isTypeOf(FILTER_FLAG_IPV4, [$ip, $start, $end])
-                    && $this->isIpv4Between($ip, $start, $end)) return true;
-
-                if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $start, $end])
-                    && $this->isIpv6Between($ip, $start, $end)) return true;                
+            if (str_starts_with($v, 'ref_')) {
+                if ($this->resolveIpAddressReference($v, $ip)) return true;
             }
 
-            if (str_contains($v, '/')) {
-                list($addr, $mask) = explode('/', $v);
-
-                if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $addr])
-                    && $this->isIpInSubnet($ip, $v)) return true;
-
-                if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $addr])
-                    && $this->isIpInSubnet($ip, $v)) return true;
+            if (IpAddressSubnet::isStringValid($v)) {
+                [ $addr, $mask ] = explode("/", $v);
+                $ip_obj = new IpAddress($ip);
+                if (new IpAddressSubnet(new IpAddress($addr), intval($mask))->isAddressInSubnet($ip_obj)) return true;
             }
 
-            if ($this->isIpTypeOf(FILTER_FLAG_IPV4, [$ip, $v])
-                && $this->isIpv4Between($ip, $v, $v)) return true;
-
-            if ($this->isIpTypeOf(FILTER_FLAG_IPV6, [$ip, $v])
-                && isIpv6Between($ip, $v, $v)) return true;
+            if (IpAddress::isValid($v)) {
+                $v_obj = new IpAddress($v);
+                $range = new IpAddressRange(new IpAddress($ip));
+                if ($range->isAddressWithinRange($v_obj)) return true;
+            }
         }
 
         return false;
-    }
-
-    private function isIpInSubnet(string $ip, string $subnet): bool
-    {
-        list($address, $prefix) = explode('/', $subnet);
-        $address = inet_pton($address);
-        $ip = inet_pton($ip);
-
-        $mask = str_repeat("\xFF", $prefix >> 3);
-        if ($prefix & 7) $mask .= chr(0xFF << (8 - ($prefix & 7)));
-        $mask = str_pad($mask, strlen($ip), "\x00");
-
-        return ($ip & $mask) == ($address & $mask);
-    }
-
-    private function isIpTypeOf(int $ip_type_flag, array $ips): bool
-    {
-        return array_all($ips, function(?string $v) use ($ip_type_flag): bool {
-            return filter_var($v, FILTER_VALIDATE_IP, $ip_type_flag) !== false;
-        });
-    }
-
-    private function isIpv4Between(string $ip, string $range_start, string $range_end): bool
-    {
-        return ip2long($range_start) <= ip2long($ip)
-            && ip2long($ip) <= ip2long($range_end);
-    }
-
-    private function isIpv6Between(string $ip, string $range_start, string $range_end): bool
-    {
-        return bin2hex(inet_pton($range_start)) <= bin2hex(inet_pton($ip))
-            && bin2hex(inet_pton($ip)) <= bin2hex(inet_pton($range_end));
     }
 }

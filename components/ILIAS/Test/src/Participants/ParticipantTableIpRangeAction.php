@@ -27,7 +27,9 @@ use ILIAS\UI\Component\Table\Action\Action;
 use ILIAS\UI\URLBuilder;
 use ILIAS\UI\URLBuilderToken;
 use Psr\Http\Message\ServerRequestInterface;
+use ILIAS\Test\Settings\MainSettings\SettingsAccess;
 use ILIAS\Refinery\Factory as Refinery;
+use ILIAS\IpAddress\Components\ilIpAddressInputFieldGUI;
 
 class ParticipantTableIpRangeAction implements TableAction
 {
@@ -73,72 +75,28 @@ class ParticipantTableIpRangeAction implements TableAction
         array $selected_participants,
         bool $all_participants_selected
     ): ?Modal {
-        $validate_ip_ranges = $this->refinery->custom()->constraint(
-            function(?array $vs): bool {
-                if ($vs === null) {
-                    return true;
-                }
 
-                foreach ($vs as $v) {
-                    if (str_contains($v, "-")) {
-                        $res = $this->checkIpRangeValidity($v);
-                        if (!$res) return false;
-                    }
-                }
+        $value = $this->isUniqueClientIp($selected_participants) ? $selected_participants[0]->getClientIpRanges() : null;
 
-                return true;
-            },
-            $this->lng->txt('invalid_ip_range')
-        );
+        $input = new ilIpAddressInputFieldGUI()->withURLBuilder($url_builder);
 
-        $validate_ip_subnets = $this->refinery->custom()->constraint(
-            function(?array $vs): bool {
-                if ($vs === null) {
-                    return true;
-                }
-
-                foreach ($vs as $v) {
-                    if (str_contains($v, "/")) {
-                        $res = $this->checkIpSubnetValidity($v);
-                        if (!$res) return false;
-                    }
-                }
-
-                return true;
-            },
-            $this->lng->txt('invalid_ip_subnet')
-        );
-
-        $validate_ip_addresses = $this->refinery->custom()->constraint(
-            function (?array $vs): bool {
-                if ($vs === null) {
-                    return true;
-                }
-
-                foreach($vs as $v) {
-                    if ((str_contains($v, "/")) || (str_contains($v, "-"))) continue;
-
-                    $res = filter_var($v, FILTER_VALIDATE_IP) !== false;    
-                    if (!$res) return false;
-                }
-                
-                return true;
-            },
-            $this->lng->txt('invalid_ip')
-        );
-        $ip_range_group_trafo = $this->refinery->custom()->transformation(
+        $trafo = $this->refinery->custom()->transformation(
             static function (?array $vs): array {
-                if ($vs === null) {
-                    $vs = [
-                        'ip_ranges' => null
-                    ];
-                }
-                $vs['ip_ranges'] = implode(",", $vs['ip_ranges']);
-
-                return $vs;
+                if ($vs === null) return [ 'ip_ranges' => null ];
+                return [ 'ip_ranges' => implode(',', $vs['ip_ranges'])];
             }
         );
 
+        $max_one = $this->refinery->custom()->constraint(
+            function(?array $vs): bool {
+                if ($vs === null) {
+                    return true;
+                }
+
+                return count($vs) <= 1;
+            },
+            $this->lng->txt('ip_max_one_element')
+        );
 
         $participant_rows = array_map(
             fn(Participant $participant) => sprintf(
@@ -164,24 +122,10 @@ class ParticipantTableIpRangeAction implements TableAction
             ],
             [
                 'ip_range' => $this->ui_factory->input()->field()->group([
-                    'ip_ranges' => $this->ui_factory->input()->field()->tag(
-                        $this->lng->txt('ip_ranges'),
-                        [],
-                        $this->lng->txt('ip_ranges_label')
-                    )   
-                        ->withAdditionalTransformation($validate_ip_ranges)
-                        ->withAdditionalTransformation($validate_ip_subnets)
-                        ->withAdditionalTransformation($validate_ip_addresses)
-                ])->withValue(
-                    $this->isUniqueClientIp($selected_participants)
-                    ? [
-                        'ip_ranges' => explode(",", $selected_participants[0]->getClientIpRanges() ?? '')
-                    ]
-                    : [
-                        'ip_ranges' => []
-                    ]
-                )
-                    ->withAdditionalTransformation($ip_range_group_trafo)
+                    'ip_ranges' => $input->get($value)
+                    ->withAdditionalTransformation($max_one),
+                ])
+                ->withAdditionalTransformation($trafo)
             ],
             $url_builder->buildURI()->__toString()
         )->withSubmitLabel($this->lng->txt('change'));
@@ -260,39 +204,6 @@ class ParticipantTableIpRangeAction implements TableAction
             ))) === 1;
     }
 
-    private function checkIpRangeValidity(string $range): bool
-    {
-        $v = explode("-", $range);
-        if (sizeof($v) !== 2) return false;
-
-        list($start, $end) = $v;
-
-        if (filter_var($start, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false
-           && filter_var($end, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) {
-            return ip2long($start) <= ip2long($end);
-        }
-
-        if (filter_var($start, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false
-           && filter_var($end, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
-            return bin2hex(inet_pton($start)) <= bin2hex(inet_pton($end));
-        }
-        return false;
-    }
-
-    private function checkIpSubnetValidity(string $subnet): bool
-    {
-        $v = explode("/", $subnet);
-        if (sizeof($v) !== 2) return false;
-
-        list($address, $mask) = $v;
-
-        $is_ipv4 = filter_var($address, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false;
-        $is_ipv6 = filter_var($address, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false;
-
-        if (!$is_ipv4 && !$is_ipv6) return false;
-
-        return (($is_ipv4 && $mask <= 32) || ($is_ipv6 && $mask <= 128));
-    }
     public function getSelectionErrorMessage(): ?string
     {
         return null;

@@ -28,6 +28,8 @@ use ILIAS\UI\Component\Input\Container\Form\FormInput;
 use ILIAS\UI\Component\Input\Field\OptionalGroup;
 use ILIAS\UI\Component\Input\Field\Group;
 use ILIAS\Refinery\Factory as Refinery;
+use ILIAS\IpAddress\Objects\IpAddress;
+use ILIAS\IpAddress\Components\ilIpAddressInputFieldGUI;
 
 class SettingsAccess extends TestSettings implements Exportable
 {
@@ -169,133 +171,29 @@ class SettingsAccess extends TestSettings implements Exportable
         FieldFactory $f,
         Refinery $refinery
     ): FormInput {
-        $validate_ip_ranges = $refinery->custom()->constraint(
-            function(?array $vs): bool {
-                if ($vs === null) {
-                    return true;
-                }
 
-                foreach ($vs as $v) {
-                    if (str_contains($v, '-') && !str_contains($v, '/')) {
-                        $res = $this->checkIpRangeValidity($v);
-                        if (!$res) return false;
-                    }
-                }
+        $input = new ilIpAddressInputFieldGUI();
 
-                return true;
-            },
-            $lng->txt('invalid_ip_range')
-        );
-
-        $validate_ip_subnets = $refinery->custom()->constraint(
-            function(?array $vs): bool {
-                if ($vs === null) {
-                    return true;
-                }
-
-                foreach ($vs as $v) {
-                    if (str_contains($v, '/') && !str_contains($v, '-')) {
-                        $res = $this->checkIpSubnetValidity($v);
-                        if (!$res) return false;
-                    }
-                }
-
-                return true;
-            },
-            $lng->txt('invalid_ip_subnet')
-        );
-
-        $validate_ip_addresses = $refinery->custom()->constraint(
-            function (?array $vs): bool {
-                if ($vs === null) {
-                    return true;
-                }
-
-                foreach($vs as $v) {
-                    if ((str_contains($v, '/')) || (str_contains($v, '-'))) continue;
-
-                    $res = filter_var($v, FILTER_VALIDATE_IP) !== false;    
-                    if (!$res) return false;
-                }
-                
-                return true;
-            },
-            $lng->txt('invalid_ip')
-        );
-
-        $validate_no_comma = $refinery->custom()->constraint(
-            function (?array $vs): bool {
-                if ($vs === null) {
-                    return true;
-                }
-
-                foreach ($vs as $v) {
-                    if (str_contains($v, ",")) return false;
-                }
-            },
-            $lng->txt('invalid_ip_comma')
-        );
+        if ($this->isIpRangeEnabled()) {
+            $input = $input->get($this->getIpRanges());
+        } else {
+            $input = $input ->get();
+        }
 
         $trafo = $refinery->custom()->transformation(
             static function (?array $vs): array {
-                if ($vs === null) {
-                    $vs = [
-                        'ip_ranges' => null
-                    ];
-                }
-
-                if (gettype($vs['ip_ranges']) == 'array') {
-                    $vs['ip_ranges'] = implode(',', $vs['ip_ranges']);
-                }
-
-                return $vs;
+                if ($vs === null) return [ 'ip_ranges' => null ];
+                return [ 'ip_ranges' => implode(',', $vs['ip_ranges'])];
             }
         );
 
-        $get_ip_ranges = $f->optionalGroup(
+        return $f->optionalGroup(
             [
-                'ip_ranges' => $f->tag(
-                    $lng->txt('ip_ranges'),
-                    [],
-                    $lng->txt('ip_ranges_label'),
-                )
-                    ->withAdditionalTransformation($validate_no_comma)
-                    ->withAdditionalTransformation($validate_ip_ranges)
-                    ->withAdditionalTransformation($validate_ip_subnets)
-                    ->withAdditionalTransformation($validate_ip_addresses),
+                'ip_ranges' => $input
             ],
             $lng->txt('ip_range_label'),
             $lng->txt('ip_range_info')
-        )->withValue(null);
-
-        if ($this->isIpRangeEnabled()) {
-            $get_ip_ranges = $get_ip_ranges->withValue(
-                [
-                    'ip_ranges' => explode(',', $this->getIpRanges()),
-                ]
-            );
-        }
-
-        return $get_ip_ranges->withAdditionalTransformation($trafo);
-    }
-
-    private function checkIpRangeValidity(string $range): bool
-    {
-        $v = explode('-', $range);
-        if (sizeof($v) !== 2) return false;
-
-        list($start, $end) = $v;
-
-        if (filter_var($start, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false
-           && filter_var($end, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) {
-            return ip2long($start) <= ip2long($end);
-        }
-
-        if (filter_var($start, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false
-           && filter_var($end, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
-            return bin2hex(inet_pton($start)) <= bin2hex(inet_pton($end));
-        }
-        return false;
+        )->withAdditionalTransformation($trafo);
     }
 
     private function checkIpSubnetValidity(string $subnet): bool
