@@ -32,6 +32,7 @@ class ilOrgUnitOperationContext
     public const CONTEXT_USRF = "usrf";
     public const CONTEXT_PRG = "prg";
     public const CONTEXT_ETAL = "etal";
+    public const CONTEXT_IPAA = "ipaa";
 
     /**
      * @var array
