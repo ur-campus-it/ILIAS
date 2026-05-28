@@ -64,8 +64,7 @@ class SettingsFactory
                     : null,
                 (bool) $row['password_enabled'],
                 $row['password'],
-                $row['ip_range_from'],
-                $row['ip_range_to'],
+                $row['ip_ranges'],
                 (bool) $row['fixed_participants'],
             ),
             new SettingsTestBehaviour(
@@ -149,7 +148,8 @@ class SettingsFactory
                 ->withScoreCutting((int) $row['score_cutting'])
                 ->withPassScoring((int) $row['pass_scoring']),
             (new SettingsResultSummary())
-                ->withScoreReporting(ScoreReportingTypes::from($row['score_reporting']))
+                // THIS FIX IS UNRELATED TO THE REST OF THIS FEATURE
+                ->withScoreReporting(ScoreReportingTypes::from($row['score_reporting']  ?? 0))
                 ->withReportingDate(!empty($row['reporting_date'])
                     ? \DateTimeImmutable::createFromFormat('U', (string) $row['reporting_date'])
                     : null)
