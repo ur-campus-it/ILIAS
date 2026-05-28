@@ -79,6 +79,12 @@ final class ilObjIpAddressDefinitionGUI extends ilObject2GUI
                 $ilInfoScreenGUI = new ilInfoScreenGUI($this);
                 $this->ctrl->forwardCommand($ilInfoScreenGUI);
                 break;
+            case strtolower(ilExportGUI::class):
+                parent::prepareOutput();
+                $this->tabs_gui->activateTab('export');
+                $ilExportGUI = new ilExportGUI($this);
+                $this->ctrl->forwardCommand($ilExportGUI);
+                break;
             default:
                 parent::executeCommand();
         }
@@ -291,6 +297,39 @@ final class ilObjIpAddressDefinitionGUI extends ilObject2GUI
         $this->tpl->setVariable('IL_OBJECT_ADD_NEW_ITEM_MODAL', $this->ui_renderer->render($modal));
     }
 
+    public function putObjectInTree(ilObject $obj, ?int $parent_node_id = null): void
+    {
+        if (!$parent_node_id) {
+            $parent_node_id = $this->requested_ref_id;
+        }
+
+        // add new object to custom parent container
+        if ($this->requested_crtptrefid > 0) {
+            $parent_node_id = $this->requested_crtptrefid;
+        }
+
+        // Skip actual reference creation and tree insertion
+        // as that is handled by ilIpAddressImporter
+
+        $this->obj_id = $obj->getId();
+        $refs = ilObject::_getAllReferences($this->obj_id);
+        if (count($refs) === 1) {
+            $this->ref_id = current($refs);
+        }
+
+        // BEGIN ChangeEvent: Record save object.
+        ilChangeEvent::_recordWriteEvent($this->obj_id, $this->user->getId(), 'create');
+        // END ChangeEvent: Record save object.
+
+        // rbac log
+        $rbac_log_roles = $this->rbac_review->getParentRoleIds($this->ref_id, false);
+        $rbac_log = ilRbacLog::gatherFaPa($this->ref_id, array_keys($rbac_log_roles), true);
+        ilRbacLog::add(ilRbacLog::CREATE_OBJECT, $this->ref_id, $rbac_log);
+
+        // use forced callback after object creation
+        $this->callCreationCallback($obj, $this->obj_definition, $this->requested_crtcb);
+    }
+
     public function infoScreen(): void
     {
         $this->ctrl->redirectByClass(strtolower(ilInfoScreenGUI::class), "showSummary");
@@ -301,6 +340,10 @@ final class ilObjIpAddressDefinitionGUI extends ilObject2GUI
         if ($this->checkPermissionBool('visible,read')) {
             $this->tabs_gui->addTab('view', $this->lng->txt("view"), $this->ctrl->getLinkTargetByClass(strtolower($this::class), "view"));
             $this->tabs_gui->addTab("info_short", "Info", $this->ctrl->getLinkTargetByClass(strtolower(ilInfoScreenGUI::class), "showSummary"));
+        }
+
+        if ($this->checkPermissionBool('read')) {
+            $this->tabs_gui->addTab('export', $this->lng->txt("export"), $this->ctrl->getLinkTargetByClass(strtolower(ilExportGUI::class), "export"));
         }
 
         if ($this->checkPermissionBool('write')) {

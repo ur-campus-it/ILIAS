@@ -87,6 +87,29 @@ final class ilObjIpAddressDefinition extends ilObject2
         }
     }
 
+    public function toXml(): string
+    {
+        if ($this->ranges === null) {
+            $this->getRanges();
+        }
+
+        $a_xml_writer = new ilXmlWriter();
+
+        $a_xml_writer->xmlStartTag("IpAddressDefinition");
+
+        $a_xml_writer->xmlElement("Id", null, $this->getId());
+        $a_xml_writer->xmlElement("Title", null, $this->getTitle());
+        $a_xml_writer->xmlElement("Description", null, $this->getDescription());
+
+        foreach($this->ranges->findAll() as $id => $range) {
+            $range->toXml($a_xml_writer, false);
+        }
+
+        $a_xml_writer->xmlEndTag("IpAddressDefinition");
+
+        return $a_xml_writer->xmlDumpMem(false);
+    }
+
     public static function _exists(int $id, bool $reference = false, ?string $type = null): bool
     {
         return parent::_exists($id, $reference, self::TYPE);
