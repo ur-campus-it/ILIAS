@@ -14118,6 +14118,8 @@ INSERT INTO `object_data` VALUES (311,'typ','skee','Skill Tree',-1,'2023-12-12 1
 INSERT INTO `object_data` VALUES (312,'skee','Default','',-1,'2023-12-12 16:39:40','2023-12-12 16:39:40',NULL,NULL,NULL);
 INSERT INTO `object_data` VALUES (313,'typ','gsfo','FooterAdministration',-1,'2025-07-18 06:53:06','2025-07-18 06:53:06',NULL,NULL,NULL);
 INSERT INTO `object_data` VALUES (314,'gsfo','FooterAdministration','FooterAdministration',-1,'2025-07-18 06:53:06','2025-07-18 06:53:06',NULL,NULL,NULL);
+INSERT INTO `object_data` VALUES (315,'typ','ipaa','__IpAddressAdministration',-1,'2026-04-20 16:00:00','2026-04-20 16:00:00',NULL,NULL,NULL);
+INSERT INTO `object_data` VALUES (316,'ipaa','__IpAddressAdministration','__IpAddressAdministration',-1,'2026-04-20 16:00:00','2026-04-20 16:00:00',NULL,NULL,NULL);
 
 --
 -- Table structure for table `object_data_del`
@@ -14144,13 +14146,13 @@ CREATE TABLE `object_data_del` (
 CREATE TABLE `object_data_seq` (
   `sequence` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`sequence`)
-)  AUTO_INCREMENT=315;
+)  AUTO_INCREMENT=317;
 
 --
 -- Dumping data for table `object_data_seq`
 --
 
-INSERT INTO `object_data_seq` VALUES (314);
+INSERT INTO `object_data_seq` VALUES (316);
 
 --
 -- Table structure for table `object_description`
@@ -14261,7 +14263,7 @@ INSERT INTO `object_reference` VALUES (82,308,NULL,0);
 INSERT INTO `object_reference` VALUES (83,310,NULL,0);
 INSERT INTO `object_reference` VALUES (84,312,NULL,0);
 INSERT INTO `object_reference` VALUES (85,314,NULL,0);
-
+INSERT INTO `object_reference` VALUES (86,316,NULL,0);
 --
 -- Table structure for table `object_reference_seq`
 --
@@ -14269,13 +14271,13 @@ INSERT INTO `object_reference` VALUES (85,314,NULL,0);
 CREATE TABLE `object_reference_seq` (
   `sequence` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`sequence`)
-)  AUTO_INCREMENT=86;
+)  AUTO_INCREMENT=87;
 
 --
 -- Dumping data for table `object_reference_seq`
 --
 
-INSERT INTO `object_reference_seq` VALUES (85);
+INSERT INTO `object_reference_seq` VALUES (86);
 
 --
 -- Table structure for table `object_reference_ws`
@@ -17433,6 +17435,10 @@ INSERT INTO `rbac_ta` VALUES (313,1);
 INSERT INTO `rbac_ta` VALUES (313,2);
 INSERT INTO `rbac_ta` VALUES (313,3);
 INSERT INTO `rbac_ta` VALUES (313,4);
+INSERT INTO `rbac_ta` VALUES (315,1);
+INSERT INTO `rbac_ta` VALUES (315,2);
+INSERT INTO `rbac_ta` VALUES (315,3);
+INSERT INTO `rbac_ta` VALUES (315,4);
 
 --
 -- Table structure for table `rbac_templates`
@@ -23419,6 +23425,7 @@ INSERT INTO `tree` VALUES (1,82,9,0,0,3,'1.9.82');
 INSERT INTO `tree` VALUES (1,83,9,0,0,3,'1.9.83');
 INSERT INTO `tree` VALUES (1,84,41,0,0,4,'1.9.41.84');
 INSERT INTO `tree` VALUES (1,85,9,0,0,3,'1.9.85');
+INSERT INTO `tree` VALUES (1,86,9,0,0,3,'1.9.86');
 
 --
 -- Table structure for table `tree_workspace`

@@ -39,6 +39,9 @@ class ilOrgUnitOperation
     public const OP_READ_EMPLOYEE_TALK = 'read_employee_talk';
     public const OP_CREATE_EMPLOYEE_TALK = 'create_employee_talk';
     public const OP_EDIT_EMPLOYEE_TALK = 'edit_employee_talk';
+    public const OP_READ_IP_ADDRESS = 'read_ip_address';
+    public const OP_CREATE_IP_ADDRESS = 'create_ip_address';
+    public const OP_EDIT_IP_ADDRESS = 'edit_ip_address';
 
     protected int $operation_id = 0;
     protected string $operation_string = '';
