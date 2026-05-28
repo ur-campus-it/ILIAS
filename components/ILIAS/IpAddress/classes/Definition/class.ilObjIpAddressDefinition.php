@@ -58,6 +58,30 @@ final class ilObjIpAddressDefinition extends ilObject2
         return $this->ranges->matchesAddress($ip);
     }
 
+    public function isReferenced(): bool
+    {
+        if (!isset($this->ref_id)) {
+            $message = "ilObject::read(): No ref_id given! (" . $this->type . ")";
+            $this->error->raiseError($message, $this->error->WARNING);
+        }
+
+        return $this->db->query("SELECT id FROM tst_test_settings WHERE CONCAT(',', ip_ranges, ',') LIKE '%,ref_" . $this->ref_id . ",%'")->numRows() !== 0;
+    }
+
+    public function getTestReferences(): Generator
+    {
+        if (!isset($this->ref_id)) {
+            $message = "ilObject::read(): No ref_id given! (" . $this->type . ")";
+            $this->error->raiseError($message, $this->error->WARNING);
+        }
+
+        $res = $this->db->query("SELECT o.obj_id, o.title FROM object_data o LEFT JOIN tst_tests t ON o.obj_id = t.obj_fi LEFT JOIN tst_test_settings s ON s.id = t.test_id WHERE o.type = 'tst' AND CONCAT(',', s.ip_ranges, ',') LIKE '%,ref_" . $this->ref_id . ",%'");
+
+        while ($row = $res->fetchAssoc()) {
+            yield $row['title'] . " (" . $row['obj_id'] . ")";
+        }
+    }
+
     public static function titleExists(string $title): bool
     {
         global $DIC;

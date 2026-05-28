@@ -50,6 +50,11 @@ final class ilObjIpAddressDefinitionListGUI extends ilObjectListGUI
         return $link;
     }
 
+    public function insertDeleteCommand(): void {
+        $is_referenced = new ilObjIpAddressDefinition($this->ref_id)->isReferenced();
+        if (!$is_referenced) parent::insertDeleteCommand();
+    }
+
     public function insertTimingsCommand(): void {
         return;
     }

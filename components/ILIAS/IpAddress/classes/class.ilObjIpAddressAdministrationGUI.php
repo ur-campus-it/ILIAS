@@ -94,6 +94,59 @@ final class ilObjIpAddressAdministrationGUI extends ilContainerGUI
         }
     }
 
+    public function deleteObject(bool $error = false): void
+    {
+
+        $ref_id = null;
+        if ($this->request_wrapper->has("item_ref_id")) {
+            $ref_id = $this->request_wrapper->retrieve("item_ref_id", $this->refinery->kindlyTo()->int());
+        } else {
+            $ref_id = $this->post_wrapper->retrieve(
+                'id',
+                $this->refinery->kindlyTo()->listOf(
+                    $this->refinery->kindlyTo()->int()
+                )
+            );
+        }
+
+        if ($this->checkReferences($ref_id)) {
+
+            if (is_int($ref_id)) {
+                $obj = new ilObjIpAddressDefinition($ref_id);
+                $ref_tsts = implode(", ", iterator_to_array($obj->getTestReferences()));
+                $txt = sprintf($this->lng->txt('msg_ref_by_tst'), $ref_tsts);
+            }
+
+            if (is_array($ref_id) && count($ref_id) === 1) {
+                $obj = new ilObjIpAddressDefinition(current($ref_id));
+                $ref_tsts = implode(", ", iterator_to_array($obj->getTestReferences()));
+                $txt = sprintf($this->lng->txt('msg_ref_by_tst'), $ref_tsts);
+            }
+
+            if (is_array($ref_id) && count($ref_id) !== 1) {
+                $txt = $this->lng->txt('msg_ref_by_tst_plural');
+            }
+
+            $this->tpl->setOnScreenMessage('failure', $txt, true);
+            $this->ctrl->returnToParent($this);
+        } else {
+            parent::deleteObject($error);
+        }
+    }
+
+    protected function checkReferences(array | int $ref_id): bool
+    {
+        if (is_int($ref_id)) {
+            return new ilObjIpAddressDefinition($ref_id)->isReferenced();
+        }
+
+        foreach($ref_id as $id) {
+            if (new ilObjIpAddressDefinition($id)->isReferenced()) return true;
+        }
+
+        return false;
+    }
+
     /**
      * called by prepare output
      */
