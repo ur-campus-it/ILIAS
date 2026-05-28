@@ -2779,7 +2779,7 @@ class ilObjTest extends ilObject
      * Receives parameters from a QTI parser and creates a valid ILIAS test object
      * @param ilQTIAssessment $assessment
      */
-    public function fromXML(ilQTIAssessment $assessment, array $mappings): void
+    public function fromXML(ilQTIAssessment $assessment, array $mappings, ?bool $is_same_installation = null): void
     {
         $this->saveToDb(true);
 
@@ -2969,7 +2969,21 @@ class ilObjTest extends ilObject
                     )->withPassword($metadata["entry"]);
                     break;
                 case "ip_ranges":
-                    $access_settings = $access_settings->withIpRanges($metadata['entry']);
+                    if ($metadata['entry'] !== '') {
+                        if (!str_contains($metadata['entry'], 'ref_') || $is_same_installation) {
+                            $access_settings = $access_settings->withIpRanges($metadata['entry']);
+                            break;
+                        }
+
+                        $items = array_filter(explode(',', $metadata['entry']), function($v) {
+                            return !str_contains($v, 'ref_');
+                        });
+
+                        if (count($items) !== 0) {
+                            $access_settings = $access_settings->withIpRanges(implode(',', $items));
+                        }
+                    }
+
                     break;
                 case "pass_scoring":
                     $scoring_settings = $scoring_settings->withPassScoring((int) $metadata["entry"]);

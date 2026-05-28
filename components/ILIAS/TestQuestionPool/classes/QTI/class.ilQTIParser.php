@@ -190,6 +190,8 @@ class ilQTIParser extends ilSaxParser
 
     private array $attributes = [];
 
+    private ?int $importInstallationId = null;
+
     public function __construct(
         private readonly string $importdir,
         ?string $a_xml_file,
@@ -215,6 +217,21 @@ class ilQTIParser extends ilSaxParser
 
         $this->depth = $this->createParserStorage();
         $this->setThrowException($throw_errors);
+    }
+
+    public function getImportInstallationId(): ?int
+    {
+        return $this->importInstallationId;
+    }
+
+    public function setImportInstallationId(int $importInstallationId): void
+    {
+        $this->importInstallationId = $importInstallationId;
+    }
+
+    public function isSameInstallation(): bool
+    {
+        return defined('IL_INST_ID') && $this->getImportInstallationId() == IL_INST_ID;
     }
 
     public function isIgnoreItemsEnabled(): bool
@@ -579,7 +596,7 @@ class ilQTIParser extends ilSaxParser
         switch (strtolower($a_name)) {
             case "assessment":
                 if (is_object($this->tst_object)) {
-                    $this->tst_object->fromXML($this->assessment, $this->mappings);
+                    $this->tst_object->fromXML($this->assessment, $this->mappings, $this->isSameInstallation());
                 }
                 $this->in_assessment = false;
                 break;
