@@ -97,8 +97,7 @@ trait TestSettingsSetup
         'show_questionlist' => [T_BOOLEAN, null],
         'hide_info_tab' => [T_BOOLEAN, 'HideInfoTab'],
         'conditions_checkbox_enabled' => [T_BOOLEAN, 'ExamConditionsCheckboxEnabled'],
-        'ip_range_from' => [['type' => \ilDBConstants::T_TEXT, 'length' => 39, 'default' => null], null],
-        'ip_range_to' => [['type' => \ilDBConstants::T_TEXT, 'length' => 39, 'default' => null], null]
+        'ip_ranges' => [['type' => \ilDBConstants::T_TEXT, 'length' => 4000, 'default' => null], null]
     ];
 
     private function columnIsNullable(array $column_def): bool

@@ -114,9 +114,7 @@ class ParticipantTable implements DataRetrieval
                 'total_time_on_task' => $record->getAttemptOverviewInformation()?->getHumanReadableTotalTimeOnTask() ?? '',
                 'status_of_attempt' => $status_of_attempt->getTranslation($this->lng),
                 'id_of_attempt' => $record->getAttemptOverviewInformation()?->getExamId(),
-                'ip_range' => $record->getClientIpTo() !== '' || $record->getClientIpFrom() !== ''
-                    ? sprintf('%s - %s', $record->getClientIpFrom(), $record->getClientIpTo())
-                    : '',
+                'ip_range' => $record->getClientIpRanges(),
                 'total_attempts' => $record->getAttemptOverviewInformation()?->getNrOfAttempts() ?? 0,
                 'extra_time' => $record->getExtraTime() > 0 ? sprintf('%d min', $record->getExtraTime()) : '',
                 'total_duration' => $total_duration > 0 ? sprintf('%d min', $total_duration / 60) : '',

@@ -2968,15 +2968,8 @@ class ilObjTest extends ilObject
                         $metadata["entry"] !== null && $metadata["entry"] !== ''
                     )->withPassword($metadata["entry"]);
                     break;
-                case 'ip_range_from':
-                    if ($metadata['entry'] !== '') {
-                        $access_settings = $access_settings->withIpRangeFrom($metadata['entry']);
-                    }
-                    break;
-                case 'ip_range_to':
-                    if ($metadata['entry'] !== '') {
-                        $access_settings = $access_settings->withIpRangeTo($metadata['entry']);
-                    }
+                case "ip_ranges":
+                    $access_settings = $access_settings->withIpRanges($metadata['entry']);
                     break;
                 case "pass_scoring":
                     $scoring_settings = $scoring_settings->withPassScoring((int) $metadata["entry"]);
@@ -3249,13 +3242,8 @@ class ilObjTest extends ilObject
         $a_xml_writer->xmlEndTag("qtimetadatafield");
 
         $a_xml_writer->xmlStartTag("qtimetadatafield");
-        $a_xml_writer->xmlElement("fieldlabel", null, "ip_range_from");
-        $a_xml_writer->xmlElement("fieldentry", null, $main_settings->getAccessSettings()->getIpRangeFrom());
-        $a_xml_writer->xmlEndTag("qtimetadatafield");
-
-        $a_xml_writer->xmlStartTag("qtimetadatafield");
-        $a_xml_writer->xmlElement("fieldlabel", null, "ip_range_to");
-        $a_xml_writer->xmlElement("fieldentry", null, $main_settings->getAccessSettings()->getIpRangeTo());
+        $a_xml_writer->xmlElement("fieldlabel", null, "ip_ranges");
+        $a_xml_writer->xmlElement("fieldentry", null, $main_settings->getAccessSettings()->getIpRanges());
         $a_xml_writer->xmlEndTag("qtimetadatafield");
 
         $a_xml_writer->xmlStartTag("qtimetadatafield");
@@ -4403,9 +4391,9 @@ class ilObjTest extends ilObject
             [$this->getTestId(), $user_id]
         );
         $this->db->manipulateF(
-            "INSERT INTO tst_invited_user (test_fi, user_fi, ip_range_from, ip_range_to, tstamp) VALUES (%s, %s, %s, %s, %s)",
-            ['integer', 'integer', 'text', 'text', 'integer'],
-            [$this->getTestId(), $user_id, (strlen($client_ip)) ? $client_ip : null, (strlen($client_ip)) ? $client_ip : null,time()]
+            "INSERT INTO tst_invited_user (test_fi, user_fi, ip_ranges, tstamp) VALUES (%s, %s, %s, %s)",
+            ['integer', 'integer', 'text', 'integer'],
+            [$this->getTestId(), $user_id, (strlen($client_ip)) ? $client_ip : null,time()]
         );
     }
 
