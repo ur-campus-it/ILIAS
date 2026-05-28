@@ -2971,10 +2971,8 @@ class ilObjTest extends ilObject
                         $metadata["entry"] !== null && $metadata["entry"] !== ''
                     )->withPassword($metadata["entry"]);
                     break;
-                case 'ip_ranges':
-                    if ($metadata['entry'] !== '') {
-                        $access_settings = $access_settings->withIpRanges($metadata['entry']);
-                    }
+                case "ip_ranges":
+                    $access_settings = $access_settings->withIpRanges($metadata['entry']);
                     break;
                 case "pass_scoring":
                     $scoring_settings = $scoring_settings->withPassScoring((int) $metadata["entry"]);
@@ -4392,7 +4390,7 @@ class ilObjTest extends ilObject
         $this->db->manipulateF(
             "INSERT INTO tst_invited_user (test_fi, user_fi, ip_ranges, tstamp) VALUES (%s, %s, %s, %s)",
             ['integer', 'integer', 'text', 'integer'],
-            [$this->getTestId(), $user_id, (strlen($client_ip)) ? $client_ip : null, time()]
+            [$this->getTestId(), $user_id, (strlen($client_ip)) ? $client_ip : null,time()]
         );
     }
 

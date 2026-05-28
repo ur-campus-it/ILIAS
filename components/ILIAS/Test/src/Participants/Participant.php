@@ -119,13 +119,13 @@ class Participant
         return $this->client_ip_ranges;
     }
 
-    public function withClientIpRanges(?string $ip): self
+    public function withClientIpRanges(?string $ip_ranges): self
     {
-        if ($ip === '') {
-            $ip = null;
+        if ($ip_ranges === '') {
+            $ip_ranges = null;
         }
         $clone = clone $this;
-        $clone->client_ip_ranges = $ip;
+        $clone->client_ip_ranges = $ip_ranges;
         return $clone;
     }
 
