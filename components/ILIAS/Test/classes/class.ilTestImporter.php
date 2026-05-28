@@ -101,6 +101,7 @@ class ilTestImporter extends ilXmlImporter
             $selected_questions,
             $a_mapping->getAllMappings()
         );
+        $qti_parser->setImportInstallationId((int) $this->getInstallId());
         $qti_parser->setTestObject($new_obj);
         $qti_parser->startParsing();
         $new_obj = $qti_parser->getTestObject();
