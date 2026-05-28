@@ -148,7 +148,8 @@ class SettingsFactory
                 ->withScoreCutting((int) $row['score_cutting'])
                 ->withPassScoring((int) $row['pass_scoring']),
             (new SettingsResultSummary())
-                ->withScoreReporting(ScoreReportingTypes::from($row['score_reporting']))
+                // THIS FIX IS UNRELATED TO THE REST OF THIS FEATURE
+                ->withScoreReporting(ScoreReportingTypes::from($row['score_reporting']  ?? 0))
                 ->withReportingDate(!empty($row['reporting_date'])
                     ? \DateTimeImmutable::createFromFormat('U', (string) $row['reporting_date'])
                     : null)
