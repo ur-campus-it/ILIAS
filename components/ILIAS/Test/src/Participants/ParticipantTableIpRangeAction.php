@@ -27,7 +27,9 @@ use ILIAS\UI\Component\Table\Action\Action;
 use ILIAS\UI\URLBuilder;
 use ILIAS\UI\URLBuilderToken;
 use Psr\Http\Message\ServerRequestInterface;
+use ILIAS\Test\Settings\MainSettings\SettingsAccess;
 use ILIAS\Refinery\Factory as Refinery;
+use ILIAS\IpAddress\Components\ilIpAddressInputFieldGUI;
 
 class ParticipantTableIpRangeAction implements TableAction
 {
@@ -73,36 +75,28 @@ class ParticipantTableIpRangeAction implements TableAction
         array $selected_participants,
         bool $all_participants_selected
     ): ?Modal {
-        $valid_ip_constraint = $this->refinery->custom()->constraint(
-            fn(?string $ip): bool => $ip === null
-                || $ip === ''
-                || filter_var($ip, FILTER_VALIDATE_IP) !== false,
-            $this->lng->txt('invalid_ip')
-        );
-        $validate_order = $this->refinery->custom()->constraint(
-            function (?array $vs): bool {
-                if ($vs['from'] === '' && $vs['to'] === '') {
-                    return true;
-                }
-                return $this->checkIpRangeValidity(
-                    $vs['from'],
-                    $vs['to']
-                );
-            },
-            sprintf($this->lng->txt('not_greater_than'), $this->lng->txt('max_ip_label'), $this->lng->txt('min_ip_label'))
-        );
-        $ip_range_group_trafo = $this->refinery->custom()->transformation(
+
+        $value = $this->isUniqueClientIp($selected_participants) ? $selected_participants[0]->getClientIpRanges() : null;
+
+        $input = new ilIpAddressInputFieldGUI()->withURLBuilder($url_builder);
+
+        $trafo = $this->refinery->custom()->transformation(
             static function (?array $vs): array {
-                if ($vs === null) {
-                    $vs = [
-                        'from' => null,
-                        'to' => null
-                    ];
-                }
-                return $vs;
+                if ($vs === null) return [ 'ip_ranges' => null ];
+                return [ 'ip_ranges' => implode(',', $vs['ip_ranges'])];
             }
         );
 
+        $max_one = $this->refinery->custom()->constraint(
+            function(?array $vs): bool {
+                if ($vs === null) {
+                    return true;
+                }
+
+                return count($vs) <= 1;
+            },
+            $this->lng->txt('ip_max_one_element')
+        );
 
         $participant_rows = array_map(
             fn(Participant $participant) => sprintf(
@@ -128,26 +122,10 @@ class ParticipantTableIpRangeAction implements TableAction
             ],
             [
                 'ip_range' => $this->ui_factory->input()->field()->group([
-                    'from' => $this->ui_factory->input()->field()->text(
-                        $this->lng->txt('min_ip_label')
-                    )->withAdditionalTransformation($valid_ip_constraint),
-                    'to' => $this->ui_factory->input()->field()->text(
-                        $this->lng->txt('max_ip_label'),
-                        $this->lng->txt('ip_range_byline')
-                    )->withAdditionalTransformation($valid_ip_constraint),
-                ])->withValue(
-                    $this->isUniqueClientIp($selected_participants)
-                        ? [
-                            'from' => $selected_participants[0]->getClientIpFrom() ?? '',
-                            'to' => $selected_participants[0]->getClientIpTo() ?? ''
-                        ]
-                        : [
-                            'from' => '',
-                            'to' => ''
-                        ]
-                )
-                    ->withAdditionalTransformation($ip_range_group_trafo)
-                    ->withAdditionalTransformation($validate_order)
+                    'ip_ranges' => $input->get($value)
+                    ->withAdditionalTransformation($max_one),
+                ])
+                ->withAdditionalTransformation($trafo)
             ],
             $url_builder->buildURI()->__toString()
         )->withSubmitLabel($this->lng->txt('change'));
@@ -181,8 +159,7 @@ class ParticipantTableIpRangeAction implements TableAction
 
         $this->participant_repository->updateIpRange(
             array_map(
-                static fn(Participant $v) => $v->withClientIpFrom($data['ip_range']['from'])
-                    ->withClientIpTo($data['ip_range']['to']),
+                static fn(Participant $v) => $v->withClientIpRanges($data['ip_range']['ip_ranges']),
                 $selected_participants
             )
         );
@@ -225,20 +202,6 @@ class ParticipantTableIpRangeAction implements TableAction
                 fn(Participant $participant) => $participant->getClientIpFrom() . '-' . $participant->getClientIpTo(),
                 $selected_participants
             ))) === 1;
-    }
-
-    private function checkIpRangeValidity(string $start, string $end): bool
-    {
-        if (filter_var($start, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false
-            && filter_var($end, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) {
-            return ip2long($start) <= ip2long($end);
-        }
-
-        if (filter_var($start, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false
-            && filter_var($end, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
-            return bin2hex(inet_pton($start)) <= bin2hex(inet_pton($end));
-        }
-        return false;
     }
 
     public function getSelectionErrorMessage(): ?string

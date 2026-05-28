@@ -28,6 +28,8 @@ use ILIAS\UI\Component\Input\Container\Form\FormInput;
 use ILIAS\UI\Component\Input\Field\OptionalGroup;
 use ILIAS\UI\Component\Input\Field\Group;
 use ILIAS\Refinery\Factory as Refinery;
+use ILIAS\IpAddress\Objects\IpAddress;
+use ILIAS\IpAddress\Components\ilIpAddressInputFieldGUI;
 
 class SettingsAccess extends TestSettings implements Exportable
 {
@@ -40,8 +42,7 @@ class SettingsAccess extends TestSettings implements Exportable
         protected ?\DateTimeImmutable $end_time = null,
         protected bool $password_enabled = false,
         protected ?string $password = null,
-        protected ?string $ip_range_from = null,
-        protected ?string $ip_range_to = null,
+        protected ?string $ip_ranges = null,
         protected bool $fixed_participants = false
     ) {
         parent::__construct();
@@ -55,7 +56,7 @@ class SettingsAccess extends TestSettings implements Exportable
     ): FormInput {
         $inputs['access_window'] = $this->getInputAccessWindow($lng, $f, $refinery, $environment);
         $inputs['test_password'] = $this->getInputPassword($lng, $f, $refinery);
-        $inputs['ip_range'] = $this->getInputIpRange($lng, $f, $refinery);
+        $inputs['ip_ranges'] = $this->getInputIpRanges($lng, $f, $refinery);
 
         $inputs['fixed_participants_enabled'] = $f->checkbox(
             $lng->txt('participants_invitation'),
@@ -165,81 +166,34 @@ class SettingsAccess extends TestSettings implements Exportable
         );
     }
 
-    private function getInputIpRange(
+    private function getInputIpRanges(
         \ilLanguage $lng,
         FieldFactory $f,
         Refinery $refinery
     ): FormInput {
-        $validate_ip = $refinery->custom()->constraint(
-            static function (?string $v): bool {
-                if ($v === null) {
-                    return true;
-                }
-                return filter_var($v, FILTER_VALIDATE_IP) !== false;
-            },
-            $lng->txt('invalid_ip')
-        );
 
-        $validate_order = $refinery->custom()->constraint(
-            function (?array $vs): bool {
-                if ($vs === null) {
-                    return true;
-                }
-                return $this->checkIpRangeValidity(
-                    $vs['ip_range_from'],
-                    $vs['ip_range_to']
-                );
-            },
-            sprintf($lng->txt('not_greater_than'), $lng->txt('max_ip_label'), $lng->txt('min_ip_label'))
-        );
+        $input = new ilIpAddressInputFieldGUI();
+
+        if ($this->isIpRangeEnabled()) {
+            $input = $input->get($this->getIpRanges());
+        } else {
+            $input = $input ->get();
+        }
+
         $trafo = $refinery->custom()->transformation(
             static function (?array $vs): array {
-                if ($vs === null) {
-                    $vs = [
-                        'ip_range_from' => null,
-                        'ip_range_to' => null
-                    ];
-                }
-                return $vs;
+                if ($vs === null) return [ 'ip_ranges' => null ];
+                return [ 'ip_ranges' => implode(',', $vs['ip_ranges'])];
             }
         );
 
-        $get_ip_range = $f->optionalGroup(
+        return $f->optionalGroup(
             [
-                'ip_range_from' => $f->text($lng->txt('min_ip_label'))
-                    ->withAdditionalTransformation($validate_ip),
-                'ip_range_to' => $f->text($lng->txt('max_ip_label'))
-                    ->withAdditionalTransformation($validate_ip)
+                'ip_ranges' => $input
             ],
             $lng->txt('ip_range_label'),
             $lng->txt('ip_range_info')
-        )->withValue(null);
-
-        if ($this->isIpRangeEnabled()) {
-            $get_ip_range = $get_ip_range->withValue(
-                [
-                    'ip_range_from' => $this->getIpRangeFrom(),
-                    'ip_range_to' => $this->getIpRangeTo()
-                ]
-            );
-        }
-
-        return $get_ip_range->withAdditionalTransformation($validate_order)
-            ->withAdditionalTransformation($trafo);
-    }
-
-    private function checkIpRangeValidity(string $start, string $end): bool
-    {
-        if (filter_var($start, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false
-           && filter_var($end, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) {
-            return ip2long($start) <= ip2long($end);
-        }
-
-        if (filter_var($start, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false
-           && filter_var($end, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
-            return bin2hex(inet_pton($start)) <= bin2hex(inet_pton($end));
-        }
-        return false;
+        )->withAdditionalTransformation($trafo);
     }
 
     public function toStorage(): array
@@ -251,8 +205,7 @@ class SettingsAccess extends TestSettings implements Exportable
             'ending_time' => ['integer', $this->getEndTime() !== null ? $this->getEndTime()->getTimestamp() : 0],
             'password_enabled' => ['integer', (int) $this->getPasswordEnabled()],
             'password' => ['text', $this->getPassword()],
-            'ip_range_from' => ['text', $this->getIpRangeFrom()],
-            'ip_range_to' => ['text', $this->getIpRangeTo()],
+            'ip_ranges' => ['text', $this->getIpRanges()],
             'fixed_participants' => ['integer', (int) $this->getFixedParticipants()]
         ];
     }
@@ -273,8 +226,8 @@ class SettingsAccess extends TestSettings implements Exportable
             AdditionalInformationGenerator::KEY_TEST_START_TIME => $starting_time,
             AdditionalInformationGenerator::KEY_TEST_END_TIME => $end_time,
             AdditionalInformationGenerator::KEY_TEST_PASSWORD => $this->getPassword() ?? $additional_info->getNoneTag(),
-            AdditionalInformationGenerator::KEY_TEST_IP_RANGE => $this->isIpRangeEnabled()
-                ? $this->getIpRangeFrom() . ' - ' . $this->getIpRangeTo()
+            AdditionalInformationGenerator::KEY_TEST_IP_RANGES => $this->isIpRangeEnabled()
+                ? $this->getIpRanges()
                 : $additional_info->getEnabledDisabledTagForBool(false),
             AdditionalInformationGenerator::KEY_TEST_FIXED_PARTICIPANTS => $additional_info
                 ->getEnabledDisabledTagForBool($this->getFixedParticipants())
@@ -347,31 +300,20 @@ class SettingsAccess extends TestSettings implements Exportable
         return $clone;
     }
 
-    public function getIpRangeFrom(): ?string
+    public function getIpRanges(): ?string
     {
-        return $this->ip_range_from;
+        return $this->ip_ranges;
     }
-    public function withIpRangeFrom(?string $ip_range_from): self
+    public function withIpRanges(?string $ip_ranges): self
     {
         $clone = clone $this;
-        $clone->ip_range_from = $ip_range_from;
-        return $clone;
-    }
-
-    public function getIpRangeTo(): ?string
-    {
-        return $this->ip_range_to;
-    }
-    public function withIpRangeTo(?string $ip_range_to): self
-    {
-        $clone = clone $this;
-        $clone->ip_range_to = $ip_range_to;
+        $clone->ip_ranges = $ip_ranges;
         return $clone;
     }
 
     public function isIpRangeEnabled(): ?bool
     {
-        return $this->ip_range_from !== null && $this->ip_range_to !== null;
+        return $this->ip_ranges !== null;
     }
 
     public function getFixedParticipants(): bool
@@ -394,8 +336,7 @@ class SettingsAccess extends TestSettings implements Exportable
             'ending_time' => $this->getEndTime()?->format(\DateTimeInterface::ATOM),
             'password_enabled' => $this->getPasswordEnabled(),
             'password' => $this->getPassword(),
-            'ip_range_from' => $this->getIpRangeFrom(),
-            'ip_range_to' => $this->getIpRangeTo(),
+            'ip_ranges' => $this->getIpRanges(),
             'fixed_participants' => $this->getFixedParticipants()
         ];
     }
@@ -409,8 +350,7 @@ class SettingsAccess extends TestSettings implements Exportable
             $data['ending_time'] !== null ? new \DateTimeImmutable($data['ending_time']) : null,
             (bool) $data['password_enabled'],
             $data['password'],
-            $data['ip_range_from'],
-            $data['ip_range_to'],
+            $data['ip_ranges'],
             (bool) $data['fixed_participants'],
         );
     }

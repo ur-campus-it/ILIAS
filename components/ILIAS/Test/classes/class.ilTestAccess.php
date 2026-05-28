@@ -25,6 +25,10 @@ use ILIAS\Test\TestDIC;
 use ILIAS\Test\Access\ParticipantAccess;
 use ILIAS\Test\Settings\MainSettings\MainSettingsDatabaseRepository;
 use ILIAS\Test\Settings\MainSettings\SettingsAccess;
+use ILIAS\IpAddress\Objects\IpAddress;
+use ILIAS\IpAddress\Objects\IpAddressSubnet;
+use ILIAS\IpAddress\Objects\IpAddressRange;
+use ILIAS\IpAddress\Component\ilIpAddressInputFieldGUI;
 
 /**
  * Class ilTestAccess
@@ -230,22 +234,13 @@ class ilTestAccess
         ?Participant $participant,
         string $ip
     ): ?bool {
-        $range_start = $participant?->getClientIpFrom();
-        $range_end = $participant?->getClientIpTo();
+        $ranges = $participant?->getClientIpRanges();
 
-        if ($range_start === null && $range_end === null) {
+        if ($ranges === null) {
             return null;
         }
 
-        if ($this->isIpTypeOf(FILTER_FLAG_IPV4, $ip, $range_start, $range_end)) {
-            return $this->isIpv4Between($ip, $range_start, $range_end);
-        }
-
-        if ($this->isIpTypeOf(FILTER_FLAG_IPV6, $ip, $range_start, $range_end)) {
-            return $this->isIpv6Between($ip, $range_start, $range_end);
-        }
-
-        return false;
+        return $this->isWithinRanges($ip, $ranges);
     }
 
     private function isIpAllowedToAccessTest(
@@ -256,36 +251,41 @@ class ilTestAccess
             return true;
         }
 
-        $range_start = $access_settings->getIpRangeFrom();
-        $range_end = $access_settings->getIpRangeTo();
+        $ranges = $access_settings->getIpRanges();
+        return $this->isWithinRanges($ip, $ranges);
+    }
 
-        if ($this->isIpTypeOf(FILTER_FLAG_IPV4, $ip, $range_start, $range_end)) {
-            return $this->isIpv4Between($ip, $range_start, $range_end);
-        }
+    private function resolveIpAddressReference(string $reference, string $ip): bool
+    {
+        $obj = ilObjectFactory::getInstanceByRefId(
+            (int) str_replace('ref_', '', $reference),
+            false
+        );
 
-        if ($this->isIpTypeOf(FILTER_FLAG_IPV6, $ip, $range_start, $range_end)) {
-            return $this->isIpv6Between($ip, $range_start, $range_end);
+        return $obj->matchesAddress($ip);
+    }
+
+    private function isWithinRanges(string $ip, string $ranges): bool
+    {
+        foreach(explode(',', $ranges) as $v) {
+
+            if (str_starts_with($v, 'ref_')) {
+                if ($this->resolveIpAddressReference($v, $ip)) return true;
+            }
+
+            if (IpAddressSubnet::isStringValid($v)) {
+                [ $addr, $mask ] = explode("/", $v);
+                $ip_obj = new IpAddress($ip);
+                if (new IpAddressSubnet(new IpAddress($addr), intval($mask))->isAddressInSubnet($ip_obj)) return true;
+            }
+
+            if (IpAddress::isValid($v)) {
+                $v_obj = new IpAddress($v);
+                $range = new IpAddressRange(new IpAddress($ip));
+                if ($range->isAddressWithinRange($v_obj)) return true;
+            }
         }
 
         return false;
-    }
-
-    private function isIpTypeOf(int $ip_type_flag, string $ip, string $range_start, string $range_end): bool
-    {
-        return filter_var($ip, FILTER_VALIDATE_IP, $ip_type_flag) !== false
-            && filter_var($range_start, FILTER_VALIDATE_IP, $ip_type_flag) !== false
-            && filter_var($range_end, FILTER_VALIDATE_IP, $ip_type_flag) !== false;
-    }
-
-    private function isIpv4Between(string $ip, string $range_start, string $range_end): bool
-    {
-        return ip2long($range_start) <= ip2long($ip)
-            && ip2long($ip) <= ip2long($range_end);
-    }
-
-    private function isIpv6Between(string $ip, string $range_start, string $range_end): bool
-    {
-        return bin2hex(inet_pton($range_start)) <= bin2hex(inet_pton($ip))
-            && bin2hex(inet_pton($ip)) <= bin2hex(inet_pton($range_end));
     }
 }
