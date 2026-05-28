@@ -18,6 +18,9 @@
 
 declare(strict_types=1);
 
+use ILIAS\IpAddress\Component\ilIpAddressDefinitionFormGUI;
+use ILIAS\UI\Component\Input\Container\Form\Standard as StandardForm;
+
 /**
  * Class ilObjIpAddressAdministrationGUI GUI class
  * @author            : Bastian Meissner <bastian.meissner@ur.de>
@@ -27,6 +30,7 @@ declare(strict_types=1);
  * @ilCtrl_Calls      ilObjIpAddressAdministrationGUI: ilPermissionGUI
  * @ilCtrl_Calls      ilObjIpAddressAdministrationGUI: ilInfoScreenGUI
  * @ilCtrl_Calls      ilObjIpAddressAdministrationGUI: ilPropertyFormGUI
+ * @ilCtrl_Calls      ilObjIpAddressAdministrationGUI: ilIpAddressDefinitionFormGUI
  */
 final class ilObjIpAddressAdministrationGUI extends ilContainerGUI
 {
@@ -154,6 +158,17 @@ final class ilObjIpAddressAdministrationGUI extends ilContainerGUI
     public function returnObject(): void
     {
         $this->viewObject();
+    }
+
+    protected function getCreationFormTitle(): string
+    {
+        return $this->lng->txt('ipad_add');
+    }
+
+    protected function initCreateForm(string $new_type): StandardForm
+    {
+        $form = new ilIpAddressDefinitionFormGUI("save")->get($this);
+        return $form;
     }
 
     protected function getTabs(): void
