@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema xmlns='http://www.w3.org/2001/XMLSchema'
+	targetNamespace="http://www.ilias.de/Modules/IpAddress/ipad/4_1"
+	xmlns:t='http://www.ilias.de/Modules/IpAddress/ipad/4_1'>
+
+    <!-- t:Data type -->
+    <complexType name='Data' mixed='true'>
+    </complexType>
+
+	<element name='IpAddressDefinition'>
+		<complexType>
+			<sequence>
+				<element ref='t:Id' minOccurs='1' maxOccurs='1'/>
+				<element ref='t:Description' minOccurs='1' maxOccurs='1'/>
+				<element name='Description' type='t:Data' minOccurs='1' maxOccurs='1'/>
+				<element ref='t:IpRange' minOccurs='1' maxOccurs='unbounded'/>
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name='IpRange'>
+		<complexType>
+		<sequence>
+			<element ref="t:From" minOccurs='1' maxOccurs='1'/>
+			<element ref="t:To" minOccurs='0' maxOccurs='1'/>
+		</sequence>
+		</complexType>
+	</element>
+
+	<element name='Id' type='t:Data' />
+	<element name='Description' type='t:Data' />
+	<element name='Title' type='t:Data' />
+	<element name='From' type='t:Data' />
+	<element name='To' type='t:Data' />
+
+</schema>

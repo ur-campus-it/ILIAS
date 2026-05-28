@@ -21,6 +21,7 @@ declare(strict_types=1);
 namespace ILIAS\IpAddress\Objects;
 
 use InvalidArgumentException;
+use ilXmlWriter;
 
 final class IpAddressRange
 {
