@@ -18,6 +18,12 @@
 
 declare(strict_types=1);
 
+use ILIAS\IpAddress\Objects\IpAddress;
+use ILIAS\IpAddress\Objects\IpAddressRange;
+
+use ILIAS\UI\URLBuilder;
+use ILIAS\UI\URLBuilderToken;
+
 /**
  * Class ilObjIpAddressDefinitionGUI
  *
@@ -45,6 +51,11 @@ final class ilObjIpAddressDefinitionGUI extends ilObject2GUI
 
         $this->lng->loadLanguageModule("ipad");
         $this->lng->loadLanguageModule("meta");
+
+        $df = new \ILIAS\Data\Factory();
+        [$this->url_builder, $this->action_token, $this->row_token] = new URLBuilder(
+            $df->uri($this->request->getUri()->__toString())
+        )->acquireParameters([ 'ipar' ], "action", "row_id");
     }
 
     public function executeCommand(): void
@@ -73,9 +84,177 @@ final class ilObjIpAddressDefinitionGUI extends ilObject2GUI
         }
     }
 
+    private function handleRequest(): void
+    {
+        if ($this->request_wrapper->has($this->action_token->getName())) {
+            $action = $this->request_wrapper->retrieve($this->action_token->getName(), $this->refinery->to()->string());
+            $ids = $this->request_wrapper->retrieve($this->row_token->getName(), $this->refinery->custom()->transformation(fn($v) => $v));
+
+            if ($action === 'add') {
+                $modal = $this->buildModal($action)->withRequest($this->request);
+                $data = $modal->getData();
+
+                if ($data === null) {
+                    $this->tpl->setVariable(
+                        'IL_OBJECT_EPHEMRAL_MODALS',
+                        $this->ui_renderer->render($modal->withOnLoad($modal->getShowSignal()))
+                    );
+
+                    return;
+                }
+
+                $this->object->getRanges()->create($data['ip_range'], $this->object->getRefId());
+            }
+
+            if ($action === 'update' && $this->request->getMethod() === 'POST') {
+                $modal = $this->buildModal($action, null, intval($ids))->withRequest($this->request);
+                $data = $modal->getData();
+
+                if ($data === null) {
+                    $this->tpl->setVariable(
+                        'IL_OBJECT_EPHEMRAL_MODALS',
+                        $this->ui_renderer->render($modal->withOnLoad($modal->getShowSignal()))
+                    );
+
+                    return;
+                }
+
+                $this->object->getRanges()->update($data['ip_range'], intval($ids), $this->object->getRefId());
+            }
+
+            if ($action === 'update' && $this->request->getMethod() === 'GET') {
+                $id = intval($ids[0]);
+
+                echo($this->ui_renderer->renderAsync([
+                    $this->buildModal($action, $this->object->getRanges()->findByObjectId($id), $id)
+                ]));
+                exit();
+            }
+
+            if ($action === 'delete' && $this->request->getMethod() === 'POST') {
+                if ($ids === [ 'ALL_OBJECTS' ]) {
+                    $this->object->getRanges()->deleteAll();
+                } else {
+                    foreach ($ids as $id) {
+                        $this->object->getRanges()->deleteByObjId(intval($id));
+                    }
+                }
+            }
+
+            if ($action === 'delete' && $this->request->getMethod() === 'GET') {
+
+                $modal = $this->ui_factory->modal()->interruptive(
+                    $this->lng->txt("ipar_" . $action),
+                    $this->lng->txt('msg_ipar_delete'),
+                    $this->url_builder
+                        ->withParameter($this->action_token, $action)
+                        ->withParameter($this->row_token, $ids)
+                        ->buildURI()->__toString()
+                )->withAffectedItems(array_map(
+                    fn($id) => $this->ui_factory->modal()->interruptiveItem()->keyValue(
+                        $id,
+                        $this->lng->txt('obj_ipar'),
+                        $this->object->getRanges()->findByObjectId((int) $id)->toString()
+                    ),
+                    $ids
+                ));
+
+                echo($this->ui_renderer->renderAsync([ $modal ]));
+                exit();
+            }
+
+            $this->tpl->setOnScreenMessage('success', $this->lng->txt("ipar_" . $action . "_success"), true);
+            $this->ctrl->redirect($this, "view");
+        }
+    }
+
+    public function buildModal(string $action, ?IpAddressRange $range = null, ?int $range_id = null): ILIAS\UI\Implementation\Component\Modal\RoundTrip
+    {
+        $from_ip_constraint = $this->refinery->custom()->constraint(
+            fn (?string $ip): bool => IpAddress::isValid($ip),
+            $this->lng->txt('err_invalid_ip')
+        );
+
+        $to_ip_constraint = $this->refinery->custom()->constraint(
+            function (?string $ip): bool {
+                if ($ip === null || $ip === "") return true;
+                return IpAddress::isValid($ip);
+            },
+            $this->lng->txt('err_invalid_ip')
+        );
+
+        $ip_range_trafo = $this->refinery->custom()->transformation(
+            function (?array $vs) use ($range): ?IpAddressRange {
+                if ($vs === null) return null;
+
+                $from_address = new IpAddress($vs['from']);
+
+                $to_address = null;
+                if (($vs['to'] !== null) && ($vs['to'] !== "")) {
+                    $to_address = new IpAddress($vs['to']);
+                }
+
+                return new IpAddressRange($from_address, $to_address);
+            }
+        );
+
+        $url_builder = $this->url_builder->withParameter($this->action_token, $action);
+
+        if ($range) {
+            $url_builder = $url_builder->withParameter($this->row_token, strval($range_id));
+        }
+
+        $to_address = "";
+        if ($range !== null) {
+            if ($range->getToAddress(true) !== null) $to_address = $range->getToAddress()->toString();
+        }
+
+        return $this->ui_factory->modal()->roundtrip(
+            $this->lng->txt("ipar_" . $action),
+            null,
+            [
+                'ip_range' => $this->ui_factory->input()->field()->group([
+                    'from' => $this->ui_factory->input()->field()->text(
+                        $this->lng->txt('ipar_min_label'),
+                        $this->lng->txt('ipar_byline')
+                    )
+                    ->withRequired(true)
+                    ->withAdditionalTransformation($from_ip_constraint),
+                    'to' => $this->ui_factory->input()->field()->text(
+                        $this->lng->txt('ipar_max_label'),
+                        $this->lng->txt('ipar_to_byline')
+                    )
+                    ->withRequired(false)
+                    ->withAdditionalTransformation($to_ip_constraint),
+                ])
+                ->withValue([
+                    'from' => $range !== null ? $range->getFromAddress()->toString() : "",
+                    'to' => $to_address
+                ])
+                ->withAdditionalTransformation($ip_range_trafo)
+            ],
+            $url_builder->buildURI()->__toString()
+        )->withSubmitLabel($this->lng->txt($action));
+    }
+
     public function view(): void
     {
         $this->tabs_gui->activateTab('view');
+
+        $this->handleRequest();
+
+        $modal = $this->buildModal("add");
+
+        if ($this->checkPermissionBool('write')) {
+            $this->toolbar->addComponent(
+                $this->ui_factory->button()->primary(
+                    $this->lng->txt('cntr_add_new_item'),
+                    $modal->getShowSignal()
+                )
+            );
+        }
+
+        $this->tpl->setVariable('IL_OBJECT_ADD_NEW_ITEM_MODAL', $this->ui_renderer->render($modal));
     }
 
     public function infoScreen(): void
