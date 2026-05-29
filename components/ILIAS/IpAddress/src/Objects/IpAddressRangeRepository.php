@@ -111,6 +111,17 @@ class IpAddressRangeRepository implements DataRetrieval {
         );
     }
 
+    public function matchesAddress(string $ip): bool {
+        if (!IpAddress::isValid($ip)) return false;
+
+        $ip_obj = $this->df->ip()->address($ip);
+        foreach ($this->findAll() as $id => $range) {
+            if ($range->isAddressWithinRange($ip_obj)) return true;
+        }
+
+        return false;
+    }
+
     private function parseFromStdClass($val): IpAddressRange {
 
         $from_address = new IpAddress($val->ip_range_from);
