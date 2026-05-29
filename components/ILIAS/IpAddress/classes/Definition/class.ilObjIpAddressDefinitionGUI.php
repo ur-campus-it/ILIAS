@@ -237,6 +237,37 @@ final class ilObjIpAddressDefinitionGUI extends ilObject2GUI
         )->withSubmitLabel($this->lng->txt($action));
     }
 
+    public function renderTable(): string
+    {
+        $columns = [
+            'ip_range_from' => $this->ui_factory->table()->column()->text($this->lng->txt("ipar_min_label"))
+                ->withIsSortable(false),
+            'ip_range_to' => $this->ui_factory->table()->column()->text($this->lng->txt("ipar_max_label"))
+                ->withIsSortable(false)
+        ];
+
+        $actions = $this->checkPermissionBool('write') ? [
+            'update' => $this->ui_factory->table()->action()->single(
+                $this->lng->txt('update'),
+                $this->url_builder->withParameter($this->action_token, "update"),
+                $this->row_token
+            )->withAsync(),
+            'delete' => $this->ui_factory->table()->action()->standard(
+                $this->lng->txt('delete'),
+                $this->url_builder->withParameter($this->action_token, "delete"),
+                $this->row_token
+            )->withAsync()
+        ] : [];
+
+        $table = $this->ui_factory->table()->data(
+            $this->object->getRanges(),
+            $this->lng->txt('objs_ipar'),
+            $columns
+        )->withActions($actions)->withRequest($this->request);
+
+        return $this->ui_renderer->render($table);
+    }
+
     public function view(): void
     {
         $this->tabs_gui->activateTab('view');
@@ -254,6 +285,9 @@ final class ilObjIpAddressDefinitionGUI extends ilObject2GUI
             );
         }
 
+        $this->tpl->setContent(
+            $this->renderTable()
+        );
         $this->tpl->setVariable('IL_OBJECT_ADD_NEW_ITEM_MODAL', $this->ui_renderer->render($modal));
     }
 
