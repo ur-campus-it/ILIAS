@@ -6150,7 +6150,6 @@ content#:#cont_Headline2#:#Nagłówek 2
 content#:#cont_Headline3#:#Nagłówek 3
 content#:#cont_Information#:#Information###07 02 2020 new variable
 content#:#cont_Interaction#:#Interaction###07 02 2020 new variable
-content#:#cont_Link#:#Link###07 02 2020 new variable
 content#:#cont_List#:#Lista
 content#:#cont_Literature#:#Literature###07 02 2020 new variable
 content#:#cont_Media#:#Media (standard)
@@ -6740,7 +6739,6 @@ content#:#cont_mastery_score_12_info#:#Jeśli SCO nie ustali samodzielnie status
 content#:#cont_mastery_score_2004#:#scaled_passing_score nadpisanie
 content#:#cont_mastery_score_2004_info#:#Główne cele dydaktyczne tego modułu nauczania uznawane są za zaliczone, jeśli osiągnięta liczba punktów ma określoną wartość - scaled_passing_score. Tę wartość, która jest podawana w procentach, można tutaj nadpisać, aby np. obniżyć poziom wymagań. Jeśli to pole pozostanie puste, obowiązują zasady określone w regulaminie SCORM. Przewidziane są następujące wartości:
 content#:#cont_max_time_allowed#:#Maks. dostępny czas
-content#:#cont_media#:#Images/Media###29 07 2022 new variable
 content#:#cont_media_placeh#:#Kliknij i edytuj, aby wstawić obiekt multimedialny
 content#:#cont_media_placehl#:#Media Placeholder
 content#:#cont_media_source#:#Źródło mediów
@@ -15918,7 +15916,6 @@ stus#:#stus_target_ref_id_required#:#Select a target object.###29 10 2025 new va
 stus#:#stus_toggle#:#Deactivate/Activate###29 10 2025 new variable
 stus#:#stus_toggle_shortlink#:#Change status###29 10 2025 new variable
 stus#:#stus_toggle_shortlink_msg#:#Would you like to change the active status of the following entries?###29 10 2025 new variable
-style#:#Style#:#Style###07 02 2020 new variable
 style#:#adapt_icon#:#Dopasowanie ikon
 style#:#adapt_icon_description#:#Dostosuj kolor ikony lub ikonę.
 style#:#adapt_icons#:#Dostosowanie kolorów ikon

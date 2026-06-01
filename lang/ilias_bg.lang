@@ -6150,10 +6150,8 @@ content#:#cont_Headline2#:#Заглавен ред 2
 content#:#cont_Headline3#:#Заглавен ред 3
 content#:#cont_Information#:#Information###07 02 2020 new variable
 content#:#cont_Interaction#:#Interaction###07 02 2020 new variable
-content#:#cont_Link#:#Link###07 02 2020 new variable
 content#:#cont_List#:#Списък
 content#:#cont_Literature#:#Literature###07 02 2020 new variable
-content#:#cont_Media#:#Media (Standard)###24 02 2009 new variable
 content#:#cont_Mnemonic#:#Мнемонично
 content#:#cont_Numbers#:#Numbers###29 07 2022 new variable
 content#:#cont_Poly#:#Многоъгълник
@@ -16345,7 +16343,6 @@ style#:#sty_white_space#:#White Space###25 02 2007 new variable
 style#:#sty_width#:#Width###24 02 2009 new variable
 style#:#sty_width_height#:#Width x Height###24 02 2009 new variable
 style#:#sty_word_spacing#:#Word Spacing###25 02 2007 new variable
-style#:#style#:#Style###25 10 2016 new variable
 style#:#style_assignments_deleted#:#Style assignments of the following Sub Style have been deleted:###25 10 2016 new variable
 style#:#style_copied#:#Style has been successfully copied.###25 10 2016 new variable
 style#:#style_current_style#:#Current Style###21 09 2009 new variable

@@ -6150,10 +6150,8 @@ content#:#cont_Headline2#:#Rubrik 2
 content#:#cont_Headline3#:#Rubrik 3
 content#:#cont_Information#:#Information
 content#:#cont_Interaction#:#interaktion
-content#:#cont_Link#:#Länk
 content#:#cont_List#:#Lista
 content#:#cont_Literature#:#Litteratur
-content#:#cont_Media#:#Media (Standard)
 content#:#cont_Mnemonic#:#Merkset
 content#:#cont_Numbers#:#Nummer
 content#:#cont_Poly#:#Polygon
@@ -15918,7 +15916,6 @@ stus#:#stus_target_ref_id_required#:#Select a target object.###29 10 2025 new va
 stus#:#stus_toggle#:#Deactivate/Activate###29 10 2025 new variable
 stus#:#stus_toggle_shortlink#:#Change status###29 10 2025 new variable
 stus#:#stus_toggle_shortlink_msg#:#Would you like to change the active status of the following entries?###29 10 2025 new variable
-style#:#Style#:#Stil
 style#:#adapt_icon#:#Anpassning av ikonerna
 style#:#adapt_icon_description#:#Justera ikonens färg eller ikon.
 style#:#adapt_icons#:#Justering av ikonernas färger

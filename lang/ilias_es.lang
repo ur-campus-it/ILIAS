@@ -6152,7 +6152,6 @@ content#:#cont_Headline2#:#Cabecera 2
 content#:#cont_Headline3#:#Cabecera 3
 content#:#cont_Information#:#Information###07 02 2020 new variable
 content#:#cont_Interaction#:#Interaction###07 02 2020 new variable
-content#:#cont_Link#:#Link###07 02 2020 new variable
 content#:#cont_List#:#Lista
 content#:#cont_Literature#:#Literature###07 02 2020 new variable
 content#:#cont_Media#:#Media (Genérico)
@@ -6742,7 +6741,6 @@ content#:#cont_mastery_score_12_info#:#Si un SCO no determina de forma autónoma
 content#:#cont_mastery_score_2004#:#Sobreescribir scaled_passing_score, que es la puntuación mínima escalada (-1, 1) que debe superarse para considerar superado un SCO.
 content#:#cont_mastery_score_2004_info#:#Los objetivos de aprendizaje primarios de este módulo de aprendizaje se considerarán superados si la puntuación alcanzada supera un cierto nivel: scaled_passing_score. Este valor, (en porcentaje), se puede sobreescribir aquí p.e. para reducir el nivel requerido. Si el campo está vacío, el valor incluido en el fichero imsmanifest.xml del paquete SCORM es válido (p.e. <imsss:minNormalizedMeasure>0.6</imsss:minNormalizedMeasure>). El valor de scaled_passing_score almacenado en el fichero imsmanifest.xml es el siguiente:
 content#:#cont_max_time_allowed#:#adlcp:max_tiempo_permitido
-content#:#cont_media#:#Images/Media###29 07 2022 new variable
 content#:#cont_media_placeh#:#Pulsar y editar para insertar media
 content#:#cont_media_placehl#:#Marcador de posición de objeto
 content#:#cont_media_source#:#Fuente Multimedia
@@ -15920,7 +15918,6 @@ stus#:#stus_target_ref_id_required#:#Select a target object.###29 10 2025 new va
 stus#:#stus_toggle#:#Deactivate/Activate###29 10 2025 new variable
 stus#:#stus_toggle_shortlink#:#Change status###29 10 2025 new variable
 stus#:#stus_toggle_shortlink_msg#:#Would you like to change the active status of the following entries?###29 10 2025 new variable
-style#:#Style#:#Style###07 02 2020 new variable
 style#:#adapt_icon#:#Adaptar icono
 style#:#adapt_icon_description#:#Adaptar los colores del icono o cambiar el propio icono.
 style#:#adapt_icons#:#Adaptar colores de iconos

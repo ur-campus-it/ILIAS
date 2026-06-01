@@ -6150,7 +6150,6 @@ content#:#cont_Headline2#:#Naslov 2
 content#:#cont_Headline3#:#Naslov 3
 content#:#cont_Information#:#Informacija
 content#:#cont_Interaction#:#Interakcija
-content#:#cont_Link#:#Link###19 08 2022 new variable
 content#:#cont_List#:#Seznam
 content#:#cont_Literature#:#Literatura
 content#:#cont_Media#:#Mediji (privzeto)
@@ -6740,7 +6739,6 @@ content#:#cont_mastery_score_12_info#:#Če SCO statusa ne določi sam, se šteje
 content#:#cont_mastery_score_2004#:#prepiši scaled_passing_score
 content#:#cont_mastery_score_2004_info#:#Osrednji učni cilji tega učnega modula veljajo kot opravljeni, če je doseženo število točk doseglo določeno vrednost – scaled_passing_score. To vrednost, ki je navedena v odstotkih, lahko tukaj prepišete, da npr. zmanjšate raven zahtevnosti. Če je polje prazno, veljajo podatki v manifestu SCORM. Tukaj so predvidene naslednje vrednosti:
 content#:#cont_max_time_allowed#:#adlcp
-content#:#cont_media#:#Images/Media###19 08 2022 new variable
 content#:#cont_media_placeh#:#Kliknite in uredite, da vstavite medijski objekt
 content#:#cont_media_placehl#:#Rezervirano mesto za slike/medije
 content#:#cont_media_source#:#Medijski vir
@@ -15918,7 +15916,6 @@ stus#:#stus_target_ref_id_required#:#Select a target object.###29 10 2025 new va
 stus#:#stus_toggle#:#Deactivate/Activate###29 10 2025 new variable
 stus#:#stus_toggle_shortlink#:#Change status###29 10 2025 new variable
 stus#:#stus_toggle_shortlink_msg#:#Would you like to change the active status of the following entries?###29 10 2025 new variable
-style#:#Style#:#Style###19 08 2022 new variable
 style#:#adapt_icon#:#Adapt Icon
 style#:#adapt_icon_description#:#Adapt icon colors or change the icon itself.
 style#:#adapt_icons#:#Adapt Icon Colors
