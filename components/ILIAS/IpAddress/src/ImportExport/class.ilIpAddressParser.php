@@ -16,8 +16,7 @@
  *
  *********************************************************************/
 
-use ILIAS\IpAddress\Objects\IpAddress;
-use ILIAS\IpAddress\Objects\IpAddressRange;
+use ILIAS\Data\IpAddress\IpAddressRange;
 
 class ilIpAddressParser extends ilSaxParser
 {
@@ -35,6 +34,7 @@ class ilIpAddressParser extends ilSaxParser
         ?bool $throw_exception = false
     ) {
         parent::__construct($path_to_file);
+        $this->df = new \ILIAS\Data\Factory();
         $this->setThrowException($throw_exception);
     }
 
@@ -84,11 +84,11 @@ class ilIpAddressParser extends ilSaxParser
                 $this->description = $a_data;
                 break;
             case "from":
-                $addr = new IpAddress($a_data);
+                $addr = $this->df->ip()->address($a_data);
                 $this->range->setFromAddress($addr);
                 break;
             case "to":
-                $addr = new IpAddress($a_data);
+                $addr = $this->df->ip()->address($a_data);
                 $this->range->setToAddress($addr);
                 break;
             default:
@@ -97,8 +97,8 @@ class ilIpAddressParser extends ilSaxParser
     }
 
     private function ipRangeBeginTag(): void {
-        $from_address = new IpAddress("::");
-        $this->range = $this->ranges[] = new IpAddressRange($from_address);
+        $from_address = $this->df->ip()->address("::");
+        $this->range = $this->ranges[] = $this->df->ip()->range($from_address);
     }
 
     public function getTitle(): ?string {

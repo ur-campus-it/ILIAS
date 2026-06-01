@@ -28,7 +28,6 @@ use ILIAS\UI\Component\Input\Container\Form\FormInput;
 use ILIAS\UI\Component\Input\Field\OptionalGroup;
 use ILIAS\UI\Component\Input\Field\Group;
 use ILIAS\Refinery\Factory as Refinery;
-use ILIAS\IpAddress\Objects\IpAddress;
 use ILIAS\IpAddress\Components\ilIpAddressInputFieldGUI;
 
 class SettingsAccess extends TestSettings implements Exportable

@@ -25,9 +25,8 @@ use ILIAS\Test\TestDIC;
 use ILIAS\Test\Access\ParticipantAccess;
 use ILIAS\Test\Settings\MainSettings\MainSettingsDatabaseRepository;
 use ILIAS\Test\Settings\MainSettings\SettingsAccess;
-use ILIAS\IpAddress\Objects\IpAddress;
-use ILIAS\IpAddress\Objects\IpAddressSubnet;
-use ILIAS\IpAddress\Objects\IpAddressRange;
+use ILIAS\Data\IpAddress\IpAddress;
+use ILIAS\Data\IpAddress\IpAddressSubnet;
 use ILIAS\IpAddress\Component\ilIpAddressInputFieldGUI;
 
 /**
@@ -55,6 +54,7 @@ class ilTestAccess
         global $DIC;
         $this->db = $DIC['ilDB'];
         $this->lng = $DIC['lng'];
+        $this->df = new \ILIAS\Data\Factory();
         $this->participant_access_filter = new ilTestParticipantAccessFilterFactory($DIC['ilAccess']);
         $this->participant_repository = TestDIC::dic()['participant.repository'];
         $this->access = $DIC->access();
@@ -275,14 +275,14 @@ class ilTestAccess
 
             if (IpAddressSubnet::isStringValid($v)) {
                 [ $addr, $mask ] = explode("/", $v);
-                $ip_obj = new IpAddress($ip);
-                if (new IpAddressSubnet(new IpAddress($addr), intval($mask))->isAddressInSubnet($ip_obj)) return true;
+                $ip_obj = $this->df->ip()->address($ip);
+                if ($this->df->ip()->subnet($this->df->ip()->address($addr), intval($mask))->isAddressInSubnet($ip_obj)) return true;
             }
 
             if (IpAddress::isValid($v)) {
-                $v_obj = new IpAddress($v);
-                $range = new IpAddressRange(new IpAddress($ip));
-                if ($range->isAddressWithinRange($v_obj)) return true;
+                $ip_obj = $this->df->ip()->address($ip);
+                $v_obj = $this->df->ip()->address($v);
+                if ($this->df->ip()->range($v_obj)->isAddressWithinRange($ip_obj)) return true;
             }
         }
 

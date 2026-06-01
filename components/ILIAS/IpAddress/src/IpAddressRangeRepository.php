@@ -23,6 +23,8 @@ use ILIAS\UI\Component\Table\DataRetrieval;
 use ILIAS\UI\Component\Table\DataRowBuilder;
 use ILIAS\Data\Range;
 use ILIAS\Data\Order;
+use ILIAS\Data\IpAddress\IpAddress;
+use ILIAS\Data\IpAddress\IpAddressRange;
 
 class IpAddressRangeRepository implements DataRetrieval {
 
@@ -35,6 +37,7 @@ class IpAddressRangeRepository implements DataRetrieval {
     ) {
         $container = $GLOBALS['DIC'];
         $this->db = $container->database();
+        $this->df = new \ILIAS\Data\Factory();
     }
 
     public function findAll(): Generator {
@@ -123,15 +126,14 @@ class IpAddressRangeRepository implements DataRetrieval {
     }
 
     private function parseFromStdClass($val): IpAddressRange {
-
-        $from_address = new IpAddress($val->ip_range_from);
+        $from_address = $this->df->ip()->address($val->ip_range_from);
 
         $to_address = null;
         if ($val->ip_range_to !== null && $val->ip_range_to !== "") {
-            $to_address = new IpAddress($val->ip_range_to);
+            $to_address = $this->df->ip()->address($val->ip_range_to);
         }
 
-        return new IpAddressRange($from_address, $to_address);
+        return $this->df->ip()->range($from_address, $to_address);
     }
 
     protected static function getToAddress(IpAddressRange $range): string {

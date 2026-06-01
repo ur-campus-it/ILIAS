@@ -18,7 +18,7 @@
 
 declare(strict_types=1);
 
-namespace ILIAS\IpAddress\Objects;
+namespace ILIAS\Data\IpAddress;
 
 use InvalidArgumentException;
 use ilXmlWriter;
@@ -144,6 +144,19 @@ final class IpAddressRange
         return false;
     }
 
+    public static function isValid(IpAddress $from_address, IpAddress $to_address): bool
+    {
+        if ($from_address->isIpv4() && $to_address->isIpv4()) {
+            return $from_address->toLong() <= $to_address->toLong();
+        }
+    
+        if ($from_address->isIpv6() && $to_address->isIpv6()) {
+            return $from_address->toHex() <= $to_address->toHex();
+        }
+    
+        return false;
+    }
+
     public function toXml(
         ilXmlWriter $a_xml_writer = new ilXmlWriter(),
         bool $dump_mem = true
@@ -175,16 +188,8 @@ final class IpAddressRange
         return $this->getFromAddress()->toString() . " - " . $this->getToAddress()->toString();
     }
 
-    protected static function isValid(IpAddress $from_address, IpAddress $to_address): bool
+    public function __toString(): string
     {
-        if ($from_address->isIpv4() && $to_address->isIpv4()) {
-            return $from_address->toLong() <= $to_address->toLong();
-        }
-
-        if ($from_address->isIpv6() && $to_address->isIpv6()) {
-            return $from_address->toHex() <= $to_address->toHex();
-        }
-
-        return false;
+        return $this->toString();
     }
 }
