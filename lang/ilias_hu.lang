@@ -6150,7 +6150,6 @@ content#:#cont_Headline2#:#Címsor 2
 content#:#cont_Headline3#:#Címsor 3
 content#:#cont_Information#:#Információ
 content#:#cont_Interaction#:#Kölcsönhatás
-content#:#cont_Link#:#Link
 content#:#cont_List#:#Lista
 content#:#cont_Literature#:#Irodalom
 content#:#cont_Media#:#Média (standard)
@@ -6740,7 +6739,6 @@ content#:#cont_mastery_score_12_info#:#Ha egy SCO nem automatikusan határoz meg
 content#:#cont_mastery_score_2004#:#scaled_passing_score felülírása
 content#:#cont_mastery_score_2004_info#:#Ennek a tananyagnak a központi tanulási céljai teljesítettként kerül figyelembe vételre, ha a pontszám egy bizonyos szintet elér - ez a scaled_passing_score. Ezt az értéket - ami százalékérték - lehet itt felülírni, például csökkenteni így az elvárt szintet. Amennyiben ez a mező üres, a SCORM manifest-ben lévő információ a valid. Az alábbi következő értékek szerepelnek a manifest-fájlban:
 content#:#cont_max_time_allowed#:#adlcp:maxtimeallowed
-content#:#cont_media#:#Images/Media###29 07 2022 new variable
 content#:#cont_media_placeh#:#Kattintson és szerkesszen média beszúrásához
 content#:#cont_media_placehl#:#Kép-/médiahelyőrző
 content#:#cont_media_source#:#Médiaforrás
@@ -15935,7 +15933,6 @@ stus#:#stus_target_ref_id_required#:#Select a target object.###29 10 2025 new va
 stus#:#stus_toggle#:#Deactivate/Activate###29 10 2025 new variable
 stus#:#stus_toggle_shortlink#:#Change status###29 10 2025 new variable
 stus#:#stus_toggle_shortlink_msg#:#Would you like to change the active status of the following entries?###29 10 2025 new variable
-style#:#Style#:#Stílus
 style#:#adapt_icon#:#Ikon átvétele
 style#:#adapt_icon_description#:#Ikonszínek átvétele vagy az ikon módosítása.
 style#:#adapt_icons#:#Ikonszínek átalakítása

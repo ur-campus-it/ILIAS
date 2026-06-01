@@ -6150,7 +6150,6 @@ content#:#cont_Headline2#:#Titlul 2
 content#:#cont_Headline3#:#Titlul 3
 content#:#cont_Information#:#Information###07 02 2020 new variable
 content#:#cont_Interaction#:#Interaction###07 02 2020 new variable
-content#:#cont_Link#:#Link###07 02 2020 new variable
 content#:#cont_List#:#Lista
 content#:#cont_Literature#:#Literature###07 02 2020 new variable
 content#:#cont_Media#:#Media (Standard)###24 02 2009 new variable
@@ -6740,7 +6739,6 @@ content#:#cont_mastery_score_12_info#:#If a SCO does not autonomously determines
 content#:#cont_mastery_score_2004#:#overwrite scaled_passing_score###30 08 2015 new variable
 content#:#cont_mastery_score_2004_info#:#Central learning objectives of this learning module are considered as passed if the score reached at least a certain level - the scaled_passing_score. This value - to be stated as a percentage value - can be overwritten here e.g. to reduce the requirement level. If the field is empty, the information in the SCORM manifest are valid. The following values are provided in the manifest-file:###30 08 2015 new variable
 content#:#cont_max_time_allowed#:#adlcp:timpulmaximpermis
-content#:#cont_media#:#Images/Media###29 07 2022 new variable
 content#:#cont_media_placeh#:#Click and edit to insert media###26 06 2009 new variable
 content#:#cont_media_placehl#:#Media Placeholder###24 02 2009 new variable
 content#:#cont_media_source#:#Sursa Media
@@ -15934,7 +15932,6 @@ stus#:#stus_target_ref_id_required#:#Select a target object.###29 10 2025 new va
 stus#:#stus_toggle#:#Deactivate/Activate###29 10 2025 new variable
 stus#:#stus_toggle_shortlink#:#Change status###29 10 2025 new variable
 stus#:#stus_toggle_shortlink_msg#:#Would you like to change the active status of the following entries?###29 10 2025 new variable
-style#:#Style#:#Style###25 10 2016 new variable
 style#:#adapt_icon#:#Adapt Icon###25 10 2016 new variable
 style#:#adapt_icon_description#:#Adapt icon colors or change the icon itself.###25 10 2016 new variable
 style#:#adapt_icons#:#Adapt Icon Colors###25 10 2016 new variable

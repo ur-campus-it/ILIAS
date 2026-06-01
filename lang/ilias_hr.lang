@@ -6673,7 +6673,6 @@ content#:#cont_left_float#:#Lijevo, plutajuće
 content#:#cont_license#:#Licenca
 content#:#cont_license_info#:#Omogućuje značajku licence
 content#:#cont_light#:#Svijetlo
-content#:#cont_link#:#Link###04 06 2021 new variable
 content#:#cont_link_area#:#Područje poveznice
 content#:#cont_link_ext#:#Poveznica (vanjska)
 content#:#cont_link_glo_in_lm#:#Trebaju li svi pojmovi pojmovnika sada biti povezani u modulu za učenje?
@@ -6740,7 +6739,6 @@ content#:#cont_mastery_score_12_info#:#Ako SCO samostalno ne odredi status, SCO 
 content#:#cont_mastery_score_2004#:#prepiši scaled_passing_score
 content#:#cont_mastery_score_2004_info#:#Središnji ciljevi učenja ovog modula učenja smatraju se usvojenima ako je rezultat dosegnuo barem određenu razinu - scaled_passing_score. Ova vrijednost - koja se navodi kao postotna vrijednost - ovdje se može prepisati npr. kako bi se smanjila razina zahtjeva. Ako je polje prazno, podaci u SCORM manifestu su valjani. Sljedeće su vrijednosti navedene u datoteci manifesta:
 content#:#cont_max_time_allowed#:#adlcp:maxtimeallowed
-content#:#cont_media#:#Images/Media###29 07 2022 new variable
 content#:#cont_media_placeh#:#Kliknite i uredite kako biste umetnuli medij
 content#:#cont_media_placehl#:#Zamjenski znak za medije
 content#:#cont_media_source#:#Izvor medija
@@ -15934,7 +15932,6 @@ stus#:#stus_target_ref_id_required#:#Select a target object.###29 10 2025 new va
 stus#:#stus_toggle#:#Deactivate/Activate###29 10 2025 new variable
 stus#:#stus_toggle_shortlink#:#Change status###29 10 2025 new variable
 stus#:#stus_toggle_shortlink_msg#:#Would you like to change the active status of the following entries?###29 10 2025 new variable
-style#:#Style#:#Style###04 06 2021 new variable
 style#:#adapt_icon#:#Adapt Icon
 style#:#adapt_icon_description#:#Adapt icon colors or change the icon itself.
 style#:#adapt_icons#:#Adapt Icon Colors

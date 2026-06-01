@@ -6658,7 +6658,6 @@ content#:#cont_left_float#:#Flottant à  gauche
 content#:#cont_license#:#Licence
 content#:#cont_license_info#:#Autorise la fonction de licence
 content#:#cont_light#:#Clair
-content#:#cont_link#:#Link###31 10 2023 new variable
 content#:#cont_link_area#:#Surface de lien
 content#:#cont_link_ext#:#Lien (externe)
 content#:#cont_link_glo_in_lm#:#Tous les termes du glossaire doivent-ils être liés au module maintenant ?
@@ -6725,7 +6724,6 @@ content#:#cont_mastery_score_12_info#:#Si un SCO ne détermine pas un statut de 
 content#:#cont_mastery_score_2004#:#écraser scaled_passing_score
 content#:#cont_mastery_score_2004_info#:#Les objectifs d’apprentissage centraux de ce module d’apprentissage sont considérés comme atteints si la note obtenue atteint au moins un certain niveau - la scaled_passing_score. Cette valeur, qui doit être exprimée en pourcentage, peut être écrasée ici, par ex. pour réduire le niveau d’exigence. Si le champ est vide, les informations dans le manifeste SCORM sont valides. Les valeurs suivantes sont fournies dans le fichier manifeste 
 content#:#cont_max_time_allowed#:#adlcp:maxtimeallowed
-content#:#cont_media#:#Images/Media###31 10 2023 new variable
 content#:#cont_media_placeh#:#Cliquer et modifier pour ajouter le média
 content#:#cont_media_placehl#:#Emplacement du média
 content#:#cont_media_source#:#Source du Média
@@ -16346,7 +16344,6 @@ style#:#sty_white_space#:#Espace blanc
 style#:#sty_width#:#Largeur
 style#:#sty_width_height#:#Largeur x hauteur
 style#:#sty_word_spacing#:#Espacement de mot
-style#:#style#:#Style###31 10 2023 new variable
 style#:#style_assignments_deleted#:#Les affectations de styles du sous-style suivant ont été supprimés:
 style#:#style_copied#:#Le style a été copié avec succès.
 style#:#style_current_style#:#Style Actuel

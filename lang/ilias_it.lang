@@ -6674,7 +6674,6 @@ content#:#cont_left_float#:#Sinistra, Floating
 content#:#cont_license#:#Licenza
 content#:#cont_license_info#:#Consenti la funzione di autorizzazione
 content#:#cont_light#:#Chiara
-content#:#cont_link#:#Link###09 03 2022 new variable
 content#:#cont_link_area#:#Collega area
 content#:#cont_link_ext#:#Link (esterno)
 content#:#cont_link_glo_in_lm#:#Tutti i termini del glossario dovrebbero essere collegati adesso al modulo di apprendimento?
@@ -6741,7 +6740,6 @@ content#:#cont_mastery_score_12_info#:#Se uno SCO non determina autonomamente un
 content#:#cont_mastery_score_2004#:#sovrascrivi punteggio_di passaggio_scalare
 content#:#cont_mastery_score_2004_info#:#Gli obiettivi dell’apprendimento principali di questo modulo di apprendimento vengono considerati superati se il punteggio ha raggiunto almeno un certo livello di punteggio_di passaggio_scalare. Questo valore-da affermare come valore percentuale-può essere sovrascritto qui ad esempio per ridurre il livello di necessità. Se il campo è vuoto, le informazioni nel manifesto SCORN sono valide. Ne file-manifesto vengono forniti tutti i seguenti valori:
 content#:#cont_max_time_allowed#:#tempo massimo consentito
-content#:#cont_media#:#Images/Media###09 03 2022 new variable
 content#:#cont_media_placeh#:#Clicca e edita per inserire oggetto
 content#:#cont_media_placehl#:#Segnaposto Media
 content#:#cont_media_source#:#Sorgenti multimediali
@@ -16354,7 +16352,6 @@ style#:#sty_white_space#:#Spazio Vuoto
 style#:#sty_width#:#Larghezza
 style#:#sty_width_height#:#Larghezza x Altezza
 style#:#sty_word_spacing#:#Spaziatura delle Parole
-style#:#style#:#Style###09 03 2022 new variable
 style#:#style_assignments_deleted#:#Le assegnazioni di stile del seguente stile secondario è stato eliminato:
 style#:#style_copied#:#Lo stile è stato copiato con successo.
 style#:#style_current_style#:#Stile corrente.

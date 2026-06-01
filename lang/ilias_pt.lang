@@ -6150,7 +6150,6 @@ content#:#cont_Headline2#:#Título 2
 content#:#cont_Headline3#:#Título 3
 content#:#cont_Information#:#Information###07 02 2020 new variable
 content#:#cont_Interaction#:#Interaction###07 02 2020 new variable
-content#:#cont_Link#:#Link###07 02 2020 new variable
 content#:#cont_List#:#Lista
 content#:#cont_Literature#:#Literature###07 02 2020 new variable
 content#:#cont_Media#:#Media (padrão)
@@ -6740,7 +6739,6 @@ content#:#cont_mastery_score_12_info#:#Se um SCO não determinar automaticamente
 content#:#cont_mastery_score_2004#:#substituir scaled_passing_score
 content#:#cont_mastery_score_2004_info#:#Os objetivos de aprendizagem centrais deste módulo de aprendizagem são considerados aprovados se a pontuação alcançou pelo menos um certo nível - a scaled_passing_score. Este valor, em percentagem, pode ser substituído aqui p. ex. reduzindo o nível de exigência. Se o campo estiver vazio, as informações no manifesto SCORM são válidas. Os seguintes valores são fornecidos no ficheiro do manifesto:
 content#:#cont_max_time_allowed#:#Os seguintes tipos de dados acima são visíveis para os administradores do curso:
-content#:#cont_media#:#Images/Media###29 07 2022 new variable
 content#:#cont_media_placeh#:#Admissão
 content#:#cont_media_placehl#:#Tem de solicitar a adesão para aceder a este curso. Descreva o seu interesse em tornar-se membro no formulário de mensagens. Será notificado assim que um administrador tiver aceite ou recusado o seu pedido.
 content#:#cont_media_source#:#A aceitação para o curso fechou.
@@ -15934,7 +15932,6 @@ stus#:#stus_target_ref_id_required#:#Select a target object.###29 10 2025 new va
 stus#:#stus_toggle#:#Deactivate/Activate###29 10 2025 new variable
 stus#:#stus_toggle_shortlink#:#Change status###29 10 2025 new variable
 stus#:#stus_toggle_shortlink_msg#:#Would you like to change the active status of the following entries?###29 10 2025 new variable
-style#:#Style#:#Style###07 02 2020 new variable
 style#:#adapt_icon#:#Adaptar ícone
 style#:#adapt_icon_description#:#Adaptar cores do ícone ou mudar o próprio ícone.
 style#:#adapt_icons#:#Adaptar cores do ícone

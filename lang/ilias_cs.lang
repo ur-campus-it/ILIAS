@@ -6150,7 +6150,6 @@ content#:#cont_Headline2#:#Nadpis 2
 content#:#cont_Headline3#:#Nadpis 3
 content#:#cont_Information#:#Information###07 02 2020 new variable
 content#:#cont_Interaction#:#Interaction###07 02 2020 new variable
-content#:#cont_Link#:#Link###07 02 2020 new variable
 content#:#cont_List#:#Seznam
 content#:#cont_Literature#:#Literature###07 02 2020 new variable
 content#:#cont_Media#:#Média (Standardní)
@@ -6740,7 +6739,6 @@ content#:#cont_mastery_score_12_info#:#Pokud SCO neurčuje stav nezávisle, je S
 content#:#cont_mastery_score_2004#:#přepsat scaled_passing_score
 content#:#cont_mastery_score_2004_info#:#Centrální cíle učení tohoto výukového modulu jsou považovány za úspěšně absolvované, pokud skóre dosáhlo alespoň určité úrovně - scaled_passing_score. Tuto hodnotu - musí být uvedena jako procentuální hodnota - zde lze přepsat např. pro snížení úrovně požadavku. Pokud je pole prázdné, informace v manifestu SCORM jsou platné. V souboru manifestu jsou uvedeny následující hodnoty:
 content#:#cont_max_time_allowed#:#adlcp:maxtimeallowed
-content#:#cont_media#:#Images/Media###29 07 2022 new variable
 content#:#cont_media_placeh#:#Klepnou a upravit k vložení média
 content#:#cont_media_placehl#:#Rezervované místo média
 content#:#cont_media_source#:#Zdroj média

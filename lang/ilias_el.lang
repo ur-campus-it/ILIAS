@@ -6151,7 +6151,6 @@ content#:#cont_Headline2#:#Επικεφαλίδα 2
 content#:#cont_Headline3#:#Επικεφαλίδα 3
 content#:#cont_Information#:#Information###07 02 2020 new variable
 content#:#cont_Interaction#:#Interaction###07 02 2020 new variable
-content#:#cont_Link#:#Link###07 02 2020 new variable
 content#:#cont_List#:#Λίστα
 content#:#cont_Literature#:#Literature###07 02 2020 new variable
 content#:#cont_Media#:#Media (Standard)###30 04 2009 new variable
@@ -6741,7 +6740,6 @@ content#:#cont_mastery_score_12_info#:#If a SCO does not autonomously determines
 content#:#cont_mastery_score_2004#:#overwrite scaled_passing_score###30 08 2015 new variable
 content#:#cont_mastery_score_2004_info#:#Central learning objectives of this learning module are considered as passed if the score reached at least a certain level - the scaled_passing_score. This value - to be stated as a percentage value - can be overwritten here e.g. to reduce the requirement level. If the field is empty, the information in the SCORM manifest are valid. The following values are provided in the manifest-file:###30 08 2015 new variable
 content#:#cont_max_time_allowed#:#adlcp:μέγιστος επιτρεπτός χρόνος
-content#:#cont_media#:#Images/Media###29 07 2022 new variable
 content#:#cont_media_placeh#:#Click and edit to insert media###26 06 2009 new variable
 content#:#cont_media_placehl#:#Media Placeholder###30 04 2009 new variable
 content#:#cont_media_source#:#Πηγή Πολυμέσων
@@ -16362,7 +16360,6 @@ style#:#sty_white_space#:#Κενό
 style#:#sty_width#:#Width###30 04 2009 new variable
 style#:#sty_width_height#:#Width x Height###30 04 2009 new variable
 style#:#sty_word_spacing#:#Απόσταση λέξεων
-style#:#style#:#Style###25 10 2016 new variable
 style#:#style_assignments_deleted#:#Style assignments of the following Sub Style have been deleted:###25 10 2016 new variable
 style#:#style_copied#:#Style has been successfully copied.###25 10 2016 new variable
 style#:#style_current_style#:#Current Style###21 09 2009 new variable
