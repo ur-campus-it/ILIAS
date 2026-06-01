@@ -18,7 +18,7 @@
 
 declare(strict_types=1);
 
-namespace ILIAS\IpAddress\Objects;
+namespace ILIAS\Data\IpAddress;
 
 use InvalidArgumentException;
 
@@ -50,11 +50,6 @@ final class IpAddress
         return filter_var($this->ip_address, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false;
     }
 
-    public function toString(): string
-    {
-        return $this->ip_address;
-    }
-
     public function toLong(): int
     {
         return ip2long($this->ip_address);
@@ -73,5 +68,15 @@ final class IpAddress
     public static function isValid(?string $ip): bool
     {
         return $ip !== null && $ip !== '' && filter_var($ip, FILTER_VALIDATE_IP);
+    }
+
+    public function toString(): string
+    {
+        return $this->ip_address;
+    }
+
+    public function __toString(): string
+    {
+        return $this->toString();
     }
 }

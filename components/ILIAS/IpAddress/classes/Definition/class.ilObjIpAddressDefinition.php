@@ -18,8 +18,8 @@
 
 declare(strict_types=1);
 
-use ILIAS\IpAddress\Objects\IpAddress;
-use ILIAS\IpAddress\Objects\IpAddressRangeRepository;
+use ILIAS\Data\IpAddress\IpAddress;
+use ILIAS\IpAddress\IpAddressRangeRepository;
 
 final class ilObjIpAddressDefinition extends ilObject2
 {
@@ -29,6 +29,8 @@ final class ilObjIpAddressDefinition extends ilObject2
 
     public function __construct(int $id = 0, bool $a_call_by_reference = true)
     {
+        $this->setType(self::TYPE);
+        $this->df = new \ILIAS\Data\Factory();
         parent::__construct($id, $a_call_by_reference);
     }
 

@@ -18,8 +18,8 @@
 
 declare(strict_types=1);
 
-use ILIAS\IpAddress\Objects\IpAddress;
-use ILIAS\IpAddress\Objects\IpAddressRange;
+use ILIAS\Data\IpAddress\IpAddress;
+use ILIAS\Data\IpAddress\IpAddressRange;
 use ILIAS\IpAddress\Component\ilIpAddressDefinitionFormGUI;
 
 use ILIAS\UI\URLBuilder;
@@ -53,9 +53,9 @@ final class ilObjIpAddressDefinitionGUI extends ilObject2GUI
         $this->lng->loadLanguageModule("ipad");
         $this->lng->loadLanguageModule("meta");
 
-        $df = new \ILIAS\Data\Factory();
+        $this->df = new \ILIAS\Data\Factory();
         [$this->url_builder, $this->action_token, $this->row_token] = new URLBuilder(
-            $df->uri($this->request->getUri()->__toString())
+            $this->df->uri($this->request->getUri()->__toString())
         )->acquireParameters([ 'ipar' ], "action", "row_id");
     }
 
@@ -194,14 +194,14 @@ final class ilObjIpAddressDefinitionGUI extends ilObject2GUI
             function (?array $vs) use ($range): ?IpAddressRange {
                 if ($vs === null) return null;
 
-                $from_address = new IpAddress($vs['from']);
+                $from_address = $this->df->ip()->address($vs['from']);
 
                 $to_address = null;
                 if (($vs['to'] !== null) && ($vs['to'] !== "")) {
-                    $to_address = new IpAddress($vs['to']);
+                    $to_address = $this->df->ip()->address($vs['to']);
                 }
 
-                return new IpAddressRange($from_address, $to_address);
+                return $this->df->ip()->range($from_address, $to_address);
             }
         );
 

@@ -41,6 +41,7 @@ class Factory
     private ?Meta\Html\OpenGraph\Factory $open_graph_metadata_factory = null;
     private ?Text\Factory $text_factory = null;
     private ?Description\Factory $description_factory = null;
+    private ?IpAddress\Factory $ip_factory = null;
 
     /**
      * Get an ok result.
@@ -248,5 +249,14 @@ class Factory
             $this->description_factory = new Description\Factory();
         }
         return $this->description_factory;
+    }
+
+    public function ip(): IpAddress\Factory
+    {
+        if ($this->ip_factory === null) {
+            $this->ip_factory = new IpAddress\Factory();
+        }
+
+        return $this->ip_factory;
     }
 }

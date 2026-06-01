@@ -18,7 +18,7 @@
 
 declare(strict_types=1);
 
-namespace ILIAS\IpAddress\Objects;
+namespace ILIAS\Data\IpAddress;
 
 use InvalidArgumentException;
 
@@ -110,5 +110,10 @@ final class IpAddressSubnet
     public static function isValid(IpAddress $ip_address, int $mask): bool
     {
         return ($ip_address->isIpv4() && $mask <= 32) || ($ip_address->isIpv6() && $mask <= 128);
+    }
+
+    public function __toString(): string
+    {
+        return $this->toString();
     }
 }
