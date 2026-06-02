@@ -18,7 +18,7 @@
 
 declare(strict_types=1);
 
-use ILIAS\Data\IpAddress\IpAddressRange;
+use ILIAS\Data\Ip\IpAddressRange;
 use SimpleXMLElement;
 
 class ilIpAddressImporter extends ilXmlImporter

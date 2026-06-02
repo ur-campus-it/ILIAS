@@ -18,7 +18,7 @@
 
 declare(strict_types=1);
 
-use ILIAS\Data\IpAddress\IpAddress;
+use ILIAS\Data\Ip\IpAddress;
 use ILIAS\IpAddress\IpAddressRangeRepository;
 
 final class ilObjIpAddressDefinition extends ilObject2

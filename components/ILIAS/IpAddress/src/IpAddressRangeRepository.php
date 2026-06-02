@@ -23,8 +23,8 @@ use ILIAS\UI\Component\Table\DataRetrieval;
 use ILIAS\UI\Component\Table\DataRowBuilder;
 use ILIAS\Data\Range;
 use ILIAS\Data\Order;
-use ILIAS\Data\IpAddress\IpAddress;
-use ILIAS\Data\IpAddress\IpAddressRange;
+use ILIAS\Data\Ip\IpAddress;
+use ILIAS\Data\Ip\IpAddressRange;
 
 class IpAddressRangeRepository implements DataRetrieval {
 

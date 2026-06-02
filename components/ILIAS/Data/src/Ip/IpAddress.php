@@ -18,7 +18,7 @@
 
 declare(strict_types=1);
 
-namespace ILIAS\Data\IpAddress;
+namespace ILIAS\Data\Ip;
 
 use InvalidArgumentException;
 

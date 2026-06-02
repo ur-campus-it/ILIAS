@@ -25,8 +25,8 @@ use ILIAS\Test\TestDIC;
 use ILIAS\Test\Access\ParticipantAccess;
 use ILIAS\Test\Settings\MainSettings\MainSettingsDatabaseRepository;
 use ILIAS\Test\Settings\MainSettings\SettingsAccess;
-use ILIAS\Data\IpAddress\IpAddress;
-use ILIAS\Data\IpAddress\IpAddressSubnet;
+use ILIAS\Data\Ip\IpAddress;
+use ILIAS\Data\Ip\Subnet;
 use ILIAS\IpAddress\Component\ilIpAddressInputFieldGUI;
 
 /**
@@ -273,7 +273,7 @@ class ilTestAccess
                 if ($this->resolveIpAddressReference($v, $ip)) return true;
             }
 
-            if (IpAddressSubnet::isStringValid($v)) {
+            if (Subnet::isStringValid($v)) {
                 [ $addr, $mask ] = explode("/", $v);
                 $ip_obj = $this->df->ip()->address($ip);
                 if ($this->df->ip()->subnet($this->df->ip()->address($addr), intval($mask))->isAddressInSubnet($ip_obj)) return true;

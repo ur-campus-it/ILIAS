@@ -18,8 +18,8 @@
 
 declare(strict_types=1);
 
-use ILIAS\Data\IpAddress\IpAddress;
-use ILIAS\Data\IpAddress\IpAddressRange;
+use ILIAS\Data\Ip\IpAddress;
+use ILIAS\Data\Ip\IpAddressRange;
 use ILIAS\IpAddress\Component\ilIpAddressDefinitionFormGUI;
 
 use ILIAS\UI\URLBuilder;

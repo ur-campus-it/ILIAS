@@ -23,8 +23,8 @@ namespace ILIAS\IpAddress\Components;
 use Generator;
 use ilObjectFactory;
 use ilObject;
-use ILIAS\Data\IpAddress\IpAddress;
-use ILIAS\Data\IpAddress\IpAddressSubnet;
+use ILIAS\Data\Ip\IpAddress;
+use ILIAS\Data\Ip\Subnet;
 use ILIAS\UI\URLBuilder;
 use ILIAS\Refinery\Factory as Refinery;
 use \ILIAS\Data\Factory as DataFactory;
@@ -163,7 +163,7 @@ class ilIpAddressInputFieldGUI {
                 }
 
                 foreach ($vs as $v) {
-                    if (IpAddressSubnet::isStringValid($v) || IpAddress::isValid($v)) continue;
+                    if (Subnet::isStringValid($v) || IpAddress::isValid($v)) continue;
 
                     if (str_starts_with($v, 'ref_')) {
                         if (!$this->refExists((int) str_replace('ref_', '', $v))) {
@@ -187,7 +187,7 @@ class ilIpAddressInputFieldGUI {
             function(?array $vs): bool {
                 if ($vs === null) return true;
 
-                if (array_any($vs, fn($v) => str_contains($v, '/') && !IpAddressSubnet::isStringValid($v))) return false;
+                if (array_any($vs, fn($v) => str_contains($v, '/') && !Subnet::isStringValid($v))) return false;
 
                 return true;
             },
@@ -217,7 +217,7 @@ class ilIpAddressInputFieldGUI {
                 if ($vs === null) return [];
 
                 return array_map(function ($v): string {
-                    if (IpAddress::isValid($v) || IpAddressSubnet::isStringValid($v) || str_starts_with($v, 'ref_')) {
+                    if (IpAddress::isValid($v) || Subnet::isStringValid($v) || str_starts_with($v, 'ref_')) {
                         return $v;
                     }
 

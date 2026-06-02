@@ -18,11 +18,11 @@
 
 declare(strict_types=1);
 
-namespace ILIAS\Data\IpAddress;
+namespace ILIAS\Data\Ip;
 
 use InvalidArgumentException;
 
-final class IpAddressSubnet
+final class Subnet
 {
     private IpAddress $ip_address;
     private int $mask;
@@ -30,7 +30,7 @@ final class IpAddressSubnet
     public function __construct(IpAddress $address, int $mask) {
 
         if (!self::isValid($address, $mask)) {
-            throw new InvalidArgumentException("IP subnet is invalid.");
+            throw new InvalidArgumentException("Subnet is invalid.");
         }
 
         $this->ip_address = $address;
@@ -45,7 +45,7 @@ final class IpAddressSubnet
         return $this->ip_address;
     }
 
-    public function setIpAddress(IpAddress $ip_address): IpAddressSubnet
+    public function setIpAddress(IpAddress $ip_address): Subnet
     {
         if (!self::isValid($ip_address, $this->mask)) {
             throw new InvalidArgumentException("Invalid IP address for given subnet mask");
@@ -60,7 +60,7 @@ final class IpAddressSubnet
         return $this->mask;
     }
 
-    public function setMask(int $mask): IpAddressSubnet
+    public function setMask(int $mask): Subnet
     {
         if (!self::isValid($this->ip_address, $mask)) {
             throw new InvalidArgumentException("Invalid subnet mask for given IP address.");
