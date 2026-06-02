@@ -18,7 +18,7 @@
 
 declare(strict_types=1);
 
-namespace ILIAS\Data\IpAddress;
+namespace ILIAS\Data\Ip;
 
 class Factory
 {
@@ -32,8 +32,8 @@ class Factory
         return new IpAddressRange($from, $to);
     }
 
-    public function subnet(string $cidr): IpAddressSubnet
+    public function subnet(string $cidr): Subnet
     {
-        return new IpAddressSubnet($cidr);
+        return new Subnet($cidr);
     }
 }

@@ -16,7 +16,7 @@
  *
  *********************************************************************/
 
-use ILIAS\Data\IpAddress\IpAddressRange;
+use ILIAS\Data\Ip\IpAddressRange;
 
 class ilIpAddressParser extends ilSaxParser
 {
