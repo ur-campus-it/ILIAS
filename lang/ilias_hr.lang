@@ -782,14 +782,13 @@ assessment#:#interaction_type#:#Interaction Type###26 08 2024 new variable
 assessment#:#internal_links#:#Unutarnje poveznice
 assessment#:#intprecision#:#Djeljivo s
 assessment#:#intprecision_info#:#‘Djeljivo s’ utječe samo na kreiranje varijabli, ako je vrijednost za preciznost 0. U tom slučaju, za ‘djeljivo s’ određujete s kojim cijelim brojem kreirana varijabla mora biti djeljiva. Vrijednost od 10 tako generira samo cijele brojeve koji su djeljiv s 10. Vrijednost od 5 generira samo cijele brojeve koji su djeljiv s 5 itd. U slučaju preciznosti od 0 ‘Dijeljivo s’ je obvezno polje i mora sadržavati pozitivan cijeli broj. Unaprijed zadana vrijednost za sve cijele brojeve je 1.
-assessment#:#invalid_ip#:#Invalid IP###26 08 2024 new variable
-assessment#:#ip_range_byline#:#Only IP addresses within the defined range can start the test. You can either use IPv4 OR IPv6 addresses.###28 10 2024 new variable
 assessment#:#ip_range_for_all_participants#:#You are changing the IP Range of all participants###28 10 2024 new variable
 assessment#:#ip_range_for_selected_participants#:#You are changing the IP Range of the following participant.###28 10 2024 new variable
 assessment#:#ip_range_for_single_participant#:#You are changing the IP Range of the selected participants.###28 10 2024 new variable
 assessment#:#ip_range_info#:#Only clients with an IP in the provided range will be able to access the test.###26 08 2024 new variable
 assessment#:#ip_range_label#:#IP Range###26 08 2024 new variable
 assessment#:#ip_range_updated#:#The IP-Range has been update for the selected participants.###28 10 2024 new variable
+assessment#:#ip_max_one_element#:#Only one element is allowed.
 assessment#:#kiosk#:#Pregled za ispit
 assessment#:#kiosk_description#:#Pregled za ispit prikazuje test u načinu rada kiosk. U tom se načinu rada skrivaju traka za pretraživanje i navigaciju kao i drugi elementi zaslona koji nisu sastavni dio testa. Sudionicima se onemogućava otvaranje druge internetske stranice. <br />Učinkovito sprječavanje sudionika u otvaranju drugih internetskih stranica tijekom testova dodatno zahtijeva postavljanje odgovarajućeg okruženja preglednika (npr. preglednik Safe Exam).
 assessment#:#kiosk_options#:#Opcije prikaza ispita
@@ -910,14 +909,12 @@ assessment#:#matching_shuffle_terms_definitions#:#Oboje (pojmovi i definicije)
 assessment#:#matching_type#:#Podvrsta odgovarajućeg pitanja
 assessment#:#material#:#Materijal
 assessment#:#material_file#:#Datoteka materijala
-assessment#:#max_ip_label#:#Highest IP With Access###26 08 2024 new variable
 assessment#:#maxchars#:#Maksimalni broj znakova
 assessment#:#maximum_nr_of_tries_reached#:#Dosegli ste maksimalan broj prolaza za ovaj test. Test se ne može još jednom pokrenuti!
 assessment#:#maximum_points#:#Maksimalno raspoloživi broj bodova
 assessment#:#maxsize#:#Maksimalna veličina datoteke za učitavanje
 assessment#:#maxsize_info#:#Navedite u bajtovima maksimalnu veličinu koju bi smjela imati datoteka namijenjena za učitavanje. Ako ovo polje ostavite prazno, koristit će se umjesto toga maksimalna veličina osnovnog sustava.
 assessment#:#min_auto_complete#:#Automatsko dopunjavanje
-assessment#:#min_ip_label#:#Lowest IP With Access###26 08 2024 new variable
 assessment#:#min_percentage_ne_0#:#Morate odrediti minimalni postotak od 0 posto! Shema ocjena nije spremljena.
 assessment#:#misc#:#Razne opcije
 assessment#:#mode_allatonce#:#All###29 10 2025 new variable
@@ -6040,6 +6037,11 @@ common#:#zip#:#Poštanski broj
 common#:#zip_structure_error#:#Arhiva sadrži ista imena datoteka. Učitavanje prekinuto.
 common#:#zip_test_failed#:#Zip-test nije uspio. Molimo kontaktirajte svog ILIAS administratora.
 common#:#zipcode#:#Poštanski broj
+common#:#obj_ipad#:#IP Address Definition
+common#:#obj_ipaa#:#IP Address Definitions
+common#:#objs_ipad#:#IP Address Definitions
+common#:#obj_ipar#:#IP Address Range
+common#:#objs_ipar#:#IP Address Ranges
 cond#:#cond_under_parent_control#:#Preduvjeti su pod nadzorom nadređenog objekta.
 cont#:#cont_add_global_profile#:#Add Global Profile###04 06 2021 new variable
 cont#:#cont_add_local_profile#:#Add Local Profile###04 06 2021 new variable
@@ -17978,3 +17980,29 @@ wsp#:#wsp_type_scov#:#Certificate: SCORM###04 06 2021 new variable
 wsp#:#wsp_type_tstv#:#Certificate: Test###04 06 2021 new variable
 wsp#:#wsp_type_webr#:#Weblink###04 06 2021 new variable
 wsp#:#wsp_type_wfld#:#Folder###04 06 2021 new variable
+ipad#:#mm_ip_address_definition#:#IP Address Definitions
+ipad#:#obj_ipad_desc#:#Predefined IP Address range restrictions for ILIAS objects.
+ipad#:#ipad_activation_online_info#:#By enabling this option, this IP address definition can be used by other ILIAS objects, and can then no longer be set 'offline' or deleted.
+ipad#:#msg_no_perm_view#:#You are not permitted to access IP address definitions. The Administrator role is required to access IP address definitions.
+ipad#:#msg_ref_by_tst#:#This IP address definition is being used by the following test(s): %s
+ipad#:#msg_ref_by_tst_plural#:#The selected IP address definitions are being used by tests.
+ipad#:#msg_title_exists#:#Another IP address definition with this title already exists.
+ipad#:#msg_ipar_delete#:#You are about to delete the following IP Address Ranges from this IP address definition. This will immediately impact all referencing ILIAS objects.
+ipad#:#ipad_add#:#Create new IP Address Definition
+ipad#:#ipad_update#:#Update IP Address Definition
+ipad#:#ipar_add#:#Add new IP Address Range
+ipad#:#ipar_update#:#Update IP Address Range
+ipad#:#ipar_delete#:#Delete IP address range
+ipad#:#ipar_add_success#:#IP address range created.
+ipad#:#ipar_delete_success#:#IP address range deleted.
+ipad#:#ipar_update_success#:#IP address range updated.
+ipad#:#err_invalid_ipad#:#Invalid IP address definition.
+ipad#:#err_invalid_ip#:#Invalid IP address.
+ipad#:#err_invalid_ipar#:#Invalid IP address range.
+ipad#:#err_invalid_subnet#:#Invalid IP Subnet.
+ipad#:#err_invalid_proto#:#Both IP addresses must use the same protocol (IPv4 or IPv6).
+ipad#:#ipad_input_byline#:#Supported entries are: Individual IP addresses, IP address subnet definitions in CIDR-Notation and IP address definitions. Both IPv4 and IPv6 are supported.
+ipad#:#ipar_min_label#:#Lowest IP for range
+ipad#:#ipar_max_label#:#Highest IP for range
+ipad#:#ipar_byline#:#Both IPv4 and IPv6 addresses are supported.
+ipad#:#ipar_to_byline#:#Leave blank to create a singular IP address.

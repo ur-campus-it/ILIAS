@@ -782,14 +782,13 @@ assessment#:#interaction_type#:#Interaktion
 assessment#:#internal_links#:#Interne Verweise
 assessment#:#intprecision#:#Teilbar durch
 assessment#:#intprecision_info#:#„Teilbar durch“ hat nur Auswirkungen auf die Variablenerzeugung, wenn der Wert für die Präzision 0 beträgt. In diesem Fall legt „Teilbar durch“ fest, durch welche ganze Zahl die erzeugte Variable teilbar sein muss. Ein Wert von 10 erzeugt also nur ganze Zahlen, die durch 10 teilbar sind, ein Wert von 5 erzeugt ganze Zahlen, die durch 5 teilbar sind usw. Bei einer Präzision von 0 ist „Teilbar durch“ ein Pflichtfeld und muss eine positive, ganze Zahl enthalten. Voreingestellt ist der Wert 1 für beliebige ganze Zahlen.
-assessment#:#invalid_ip#:#Ungültige IP
-assessment#:#ip_range_byline#:#Nur IP Adressen die innerhalb der IP Bereich liegen, können den Test starten. Sie können entweder IPv4 ODER IPv6 verwenden.
 assessment#:#ip_range_for_all_participants#:#Sie bearbeiten die IP Bereich für alle Teilnehmer.
 assessment#:#ip_range_for_selected_participants#:#Sie bearbeiten die IP Bereich für die folgende Teilnehmer:
 assessment#:#ip_range_for_single_participant#:#Sie bearbeiten die IP Bereich für folgenden Teilnehmer:
 assessment#:#ip_range_info#:#Nur Geräte mit einer IP aus der festgelegten Spanne können den Test starten.
 assessment#:#ip_range_label#:#Beschränkung auf IPs
 assessment#:#ip_range_updated#:#Die IP Bereich wurde für die gewählten Teilnehmer aktualisiert.
+assessment#:#ip_max_one_element#:#Es ist maximal ein Element erlaubt.
 assessment#:#kiosk#:#Prüfungsansicht
 assessment#:#kiosk_description#:#Die Prüfungsansicht zeigt den Test im Kiosk-Modus. Dabei werden alle Bildschirmelemente, die nicht zum Test gehören, ausgeblendet. Um Teilnehmer effektiv daran zu hindern, während des Tests andere Webseiten zu öffnen, setzen Sie bitte zusätzlich einen auf E-Klausuren spezialisierten Browser ein (z.B. den „Safe Exam Browser“).
 assessment#:#kiosk_options#:#Angezeigte Informationen
@@ -910,14 +909,12 @@ assessment#:#matching_shuffle_terms_definitions#:#Beides (Terme und Definitionen
 assessment#:#matching_type#:#Untertyp der Zuordnungsfrage
 assessment#:#material#:#Material
 assessment#:#material_file#:#Materialdatei
-assessment#:#max_ip_label#:#Größte IP mit Zugriff
 assessment#:#maxchars#:#Maximale Anzahl von Zeichen
 assessment#:#maximum_nr_of_tries_reached#:#Sie haben die maximale Anzahl von Testdurchläufen für diesen Test ausgeschöpft. Der Test kann nicht noch einmal gestartet werden.
 assessment#:#maximum_points#:#Maximal erreichbare Punktezahl
 assessment#:#maxsize#:#Maximale Dateigröße
 assessment#:#maxsize_info#:#Geben Sie die maximale Größe in Bytes an, die eine hochgeladene Datei haben darf. Wenn Sie das Feld leer lassen, wird die Einstellung des zugrunde liegenden Systems verwendet.
 assessment#:#min_auto_complete#:#Autovervollständigung
-assessment#:#min_ip_label#:#Kleinste IP mit Zugriff
 assessment#:#min_percentage_ne_0#:#Das Notenschema muss mindestens eine Stufe mit einem minimalen Prozentsatz von 0 Prozent enthalten.
 assessment#:#misc#:#Verschiedene Optionen
 assessment#:#mode_allatonce#:#Alle
@@ -6045,6 +6042,11 @@ common#:#zip#:#PLZ
 common#:#zip_structure_error#:#Archiv enthält gleiche Dateinamen. Upload abgebrochen
 common#:#zip_test_failed#:#Der ZIP-Test ist fehlgeschlagen. Bitte kontaktieren Sie Ihre technische Betreuung.
 common#:#zipcode#:#Postleitzahl
+common#:#obj_ipad#:#IP-Adressdefinition
+common#:#obj_ipaa#:#IP-Adressdefinitionen
+common#:#objs_ipad#:#IP-Adressdefinitionen
+common#:#obj_ipar#:#IP-Adressbereich
+common#:#objs_ipar#:#IP-Adressbereiche
 cond#:#cond_under_parent_control#:#Die Vorbedingungen werden vom übergeordneten Objekt verwaltet.
 cont#:#cont_add_global_profile#:#Globales Profil hinzufügen
 cont#:#cont_add_local_profile#:#Lokales Profil hinzufügen
@@ -16438,7 +16440,6 @@ style#:#sty_white_space#:#Leerzeile
 style#:#sty_width#:#Breite
 style#:#sty_width_height#:#Breite x Höhe
 style#:#sty_word_spacing#:#Wortabstand
-style#:#style#:#Style
 style#:#style_assignments_deleted#:#Style-Zuweisungen des folgenden Sub-Styles wurden gelöscht:
 style#:#style_copied#:#Style wurde erfolgreich kopiert.
 style#:#style_current_style#:#Derzeitiger Style
@@ -18082,3 +18083,29 @@ wsp#:#wsp_type_scov#:#Zertifikat: SCORM
 wsp#:#wsp_type_tstv#:#Zertifikat: Test
 wsp#:#wsp_type_webr#:#Weblink
 wsp#:#wsp_type_wfld#:#Ordner
+ipad#:#mm_ip_address_definition#:#IP-Adressdefinitionen
+ipad#:#obj_ipad_desc#:#Vordefinierte IP-Adressbeschränkungen für ILIAS-Objekte.
+ipad#:#ipad_activation_online_info#:#Mit dem Einschalten dieser Option kann diese IP-Adressdefinition von anderen ILIAS-Objekten verwendet werden. Von anderen ILIAS-Objekten verwendete IP-Adressdefinitionen können nichtmehr "offline" geschaltet werden.
+ipad#:#msg_no_perm_view#:#Sie sind nicht dazu berechtigt, auf IP-Adressdefinitionen zuzugreifen. Um auf IP-Adressdefinitionen zuzugreifen, wird die Administrator-Rolle benötigt.
+ipad#:#msg_ref_by_tst#:#Diese IP-Adressdefinition wird von folgenden Test(s) verwendet: %s
+ipad#:#msg_ref_by_tst_plural#:#Die ausgewählten IP-Adressdefinitionen werden aktuell von Tests verwendet.
+ipad#:#msg_title_exists#:#Es existiert bereits eine IP-Adressdefinition mit diesem Titel.
+ipad#:#msg_ipar_delete#:#Sie sind dabei, folgende IP-Adressbereiche aus dieser IP-Adressdefinition zu entfernen. Alle ILIAS-Objekte, die diese IP-Adressdefinition verwenden, werden automatisch dementsprechend aktualisiert.
+ipad#:#ipad_add#:#Neue IP-Adressdefinition erstellen
+ipad#:#ipad_update#:#IP-Adressdefinition bearbeiten
+ipad#:#ipar_add#:#Neuen IP-Adressbereich hinzufügen
+ipad#:#ipar_update#:#IP-Adressbereich bearbeiten
+ipad#:#ipar_delete#:#IP-Adressbereich löschen
+ipad#:#ipar_add_success#:#Neuen IP-Adressbereich erstellt.
+ipad#:#ipar_delete_success#:#IP-Adressbereich gelöscht.
+ipad#:#ipar_update_success#:#IP-Adressbereich aktualisiert.
+ipad#:#err_invalid_ipad#:#Ungültige IP-Adressdefinition.
+ipad#:#err_invalid_ip#:#Ungültige IP-Adresse.
+ipad#:#err_invalid_ipar#:#Ungültiger IP-Adressbereich.
+ipad#:#err_invalid_subnet#:#Ungültiges Subnetz.
+ipad#:#err_invalid_proto#:#Beide IP-Adressen müssen dasselbe Protokoll verwenden (IPv4 oder IPv6).
+ipad#:#ipad_input_byline#:#Unterstützt werden: Einzelne IP-Adressen, Subnetze in CIDR-Notation und IP-Adressdefinitionen. Sowohl IPv4 als auch IPv6 werden unterstützt.
+ipad#:#ipar_min_label#:#Kleinste IP-Adresse im Adressbereich
+ipad#:#ipar_max_label#:#Größte IP-Adresse im Adressbereich
+ipad#:#ipar_byline#:#Sowohl IPv4 als auch IPv6 werden unterstützt.
+ipad#:#ipar_to_byline#:#Wenn Sie das Feld leer lassen wird eine einzelne IP-Adresse angelegt.

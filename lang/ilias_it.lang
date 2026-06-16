@@ -781,14 +781,13 @@ assessment#:#interaction_type#:#Interaction Type###28 11 2025 new variable
 assessment#:#internal_links#:#Link interni
 assessment#:#intprecision#:#Divisibile per
 assessment#:#intprecision_info#:#"Divisibile per" influenza solo la creazione di variabili, se il valore per la precisione è 0. In questo caso, si definisce per "Divisibile per" un valore intero, che deve essere divisibile per la variabile creata. Un valore di 10 genera quindi solo numeri interi che sono divisibili per 10. Un valore di 5 produce numeri interi che sono divisibili per 5, ecc. Per una precisione di 0, "Divisibile per" è un campo obbligatorio e deve contenere un numero intero positivo. Il valore predefinito è 1 per qualsiasi numero intero.
-assessment#:#invalid_ip#:#Invalid IP###28 11 2025 new variable
-assessment#:#ip_range_byline#:#Only IP addresses within the defined range can start the test. You can either use IPv4 OR IPv6 addresses.###28 11 2025 new variable
 assessment#:#ip_range_for_all_participants#:#You are changing the IP Range of all participants###28 11 2025 new variable
 assessment#:#ip_range_for_selected_participants#:#You are changing the IP Range of the following participant.###28 11 2025 new variable
 assessment#:#ip_range_for_single_participant#:#You are changing the IP Range of the selected participants.###28 11 2025 new variable
 assessment#:#ip_range_info#:#Only clients with an IP in the provided range will be able to access the test.###28 11 2025 new variable
 assessment#:#ip_range_label#:#IP Range###28 11 2025 new variable
 assessment#:#ip_range_updated#:#The IP-Range has been update for the selected participants.###28 11 2025 new variable
+assessment#:#ip_max_one_element#:#Only one element is allowed.
 assessment#:#kiosk#:#Visione esame
 assessment#:#kiosk_description#:#Fai partire il test in Kiosk Mode. Tutti gli elementi che non fanno parte di questo test verranno nascosti per evitare che gli utenti abbandonino il test.
 assessment#:#kiosk_options#:#Informazioni mostrate
@@ -909,14 +908,12 @@ assessment#:#matching_shuffle_terms_definitions#:#Entrambi (Termini e Definizion
 assessment#:#matching_type#:#Sottogruppo di domande corrispondenti
 assessment#:#material#:#Materiale
 assessment#:#material_file#:#File di materiale
-assessment#:#max_ip_label#:#Highest IP With Access###28 11 2025 new variable
 assessment#:#maxchars#:#Numero massimo di caratteri
 assessment#:#maximum_nr_of_tries_reached#:#Hai raggiunto il numero massimo di passaggi per questo test. Il test non può essere inserito!
 assessment#:#maximum_points#:#Punteggio massimo disponibile
 assessment#:#maxsize#:#massima dimensione file di upload
 assessment#:#maxsize_info#:#Inserire la massima dimensione in, bytes, dei files da caricare. Se il campo è lasciato in bianco, la dimensione sarà definita dal sistema.
 assessment#:#min_auto_complete#:#Completamento automatico
-assessment#:#min_ip_label#:#Lowest IP With Access###28 11 2025 new variable
 assessment#:#min_percentage_ne_0#:#Devi raggiungere la percentuale minima dello 0 percento! Lo schema voti non e' stato salvato.
 assessment#:#misc#:#Opzioni varie
 assessment#:#mode_allatonce#:#All###28 11 2025 new variable
@@ -6041,6 +6038,11 @@ common#:#zip#:#CAP
 common#:#zip_structure_error#:#L'archivio contiene gli stessi nomi dei file. Caricamento annullato.
 common#:#zip_test_failed#:#Zip-test non riuscito. Si prega di contattare il proprio amministratore ILIAS.
 common#:#zipcode#:#Codice postale
+common#:#obj_ipad#:#IP Address Definition
+common#:#obj_ipaa#:#IP Address Definitions
+common#:#objs_ipad#:#IP Address Definitions
+common#:#obj_ipar#:#IP Address Range
+common#:#objs_ipar#:#IP Address Ranges
 cond#:#cond_under_parent_control#:#I presupposti vengono gestiti dall'oggetto genitore/superiore.
 cont#:#cont_add_global_profile#:#Aggiungi Profilo Globale
 cont#:#cont_add_local_profile#:#Aggiungi Profilo Locale
@@ -17985,3 +17987,29 @@ wsp#:#wsp_type_scov#:#Certificato: SCORM
 wsp#:#wsp_type_tstv#:#Certificato: Test
 wsp#:#wsp_type_webr#:#Collegamento web
 wsp#:#wsp_type_wfld#:#Cartella
+ipad#:#mm_ip_address_definition#:#IP Address Definitions
+ipad#:#obj_ipad_desc#:#Predefined IP Address range restrictions for ILIAS objects.
+ipad#:#ipad_activation_online_info#:#By enabling this option, this IP address definition can be used by other ILIAS objects, and can then no longer be set 'offline' or deleted.
+ipad#:#msg_no_perm_view#:#You are not permitted to access IP address definitions. The Administrator role is required to access IP address definitions.
+ipad#:#msg_ref_by_tst#:#This IP address definition is being used by the following test(s): %s
+ipad#:#msg_ref_by_tst_plural#:#The selected IP address definitions are being used by tests.
+ipad#:#msg_title_exists#:#Another IP address definition with this title already exists.
+ipad#:#msg_ipar_delete#:#You are about to delete the following IP Address Ranges from this IP address definition. This will immediately impact all referencing ILIAS objects.
+ipad#:#ipad_add#:#Create new IP Address Definition
+ipad#:#ipad_update#:#Update IP Address Definition
+ipad#:#ipar_add#:#Add new IP Address Range
+ipad#:#ipar_update#:#Update IP Address Range
+ipad#:#ipar_delete#:#Delete IP address range
+ipad#:#ipar_add_success#:#IP address range created.
+ipad#:#ipar_delete_success#:#IP address range deleted.
+ipad#:#ipar_update_success#:#IP address range updated.
+ipad#:#err_invalid_ipad#:#Invalid IP address definition.
+ipad#:#err_invalid_ip#:#Invalid IP address.
+ipad#:#err_invalid_ipar#:#Invalid IP address range.
+ipad#:#err_invalid_subnet#:#Invalid IP Subnet.
+ipad#:#err_invalid_proto#:#Both IP addresses must use the same protocol (IPv4 or IPv6).
+ipad#:#ipad_input_byline#:#Supported entries are: Individual IP addresses, IP address subnet definitions in CIDR-Notation and IP address definitions. Both IPv4 and IPv6 are supported.
+ipad#:#ipar_min_label#:#Lowest IP for range
+ipad#:#ipar_max_label#:#Highest IP for range
+ipad#:#ipar_byline#:#Both IPv4 and IPv6 addresses are supported.
+ipad#:#ipar_to_byline#:#Leave blank to create a singular IP address.
