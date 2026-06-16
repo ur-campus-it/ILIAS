@@ -773,7 +773,7 @@ assessment#:#ip_range_for_single_participant#:#You are changing the IP Range of 
 assessment#:#ip_range_info#:#Only clients with an IP in the provided range will be able to access the test.###26 08 2024 new variable
 assessment#:#ip_range_label#:#IP Range###26 08 2024 new variable
 assessment#:#ip_range_updated#:#The IP-Range has been update for the selected participants.###28 10 2024 new variable
-assessment#:#ip_max_one_element#:#Only one element is allowed.
+assessment#:#ip_max_one_element#:#Un seul élément est autorisé.
 assessment#:#kiosk#:#Mode Kiosk
 assessment#:#kiosk_description#:#Lancer le test en mode Kiosk. Tous les éléments qui ne font pas partie du test seront cachés de manière à  empêcher les utilisateurs de quitter le test.
 assessment#:#kiosk_options#:#Options du mode Kiosk
@@ -6022,11 +6022,11 @@ common#:#zip#:#Code Postal
 common#:#zip_structure_error#:#L'archive ZIP contient des noms de fichiers identiques. Le dépôt est abandonné.
 common#:#zip_test_failed#:#Le test ZIP a échoué. Veuillez contacter votre administrateur ILIAS.
 common#:#zipcode#:#Code postal
-common#:#obj_ipad#:#IP Address Definition
-common#:#obj_ipaa#:#IP Address Definitions
-common#:#objs_ipad#:#IP Address Definitions
-common#:#obj_ipar#:#IP Address Range
-common#:#objs_ipar#:#IP Address Ranges
+common#:#obj_ipad#:#Définition de l'adresse IP
+common#:#obj_ipaa#:#Définitions de l'adresse IP
+common#:#objs_ipad#:#Définitions de l'adresse IP
+common#:#obj_ipar#:#Plage des adresses IP
+common#:#objs_ipar#:#Plages des adresses IP
 cond#:#cond_under_parent_control#:#Preconditions are under the control of the parent object.
 cont#:#cont_add_global_profile#:#Add Global Profile
 cont#:#cont_add_local_profile#:#Add Local Profile
@@ -17981,29 +17981,29 @@ wsp#:#wsp_type_scov#:#Certificat : SCORM
 wsp#:#wsp_type_tstv#:#Certificat : Test
 wsp#:#wsp_type_webr#:#Lien Web
 wsp#:#wsp_type_wfld#:#Dossier
-ipad#:#mm_ip_address_definition#:#IP Address Definitions
-ipad#:#obj_ipad_desc#:#Predefined IP Address range restrictions for ILIAS objects.
-ipad#:#ipad_activation_online_info#:#By enabling this option, this IP address definition can be used by other ILIAS objects, and can then no longer be set 'offline' or deleted.
-ipad#:#msg_no_perm_view#:#You are not permitted to access IP address definitions. The Administrator role is required to access IP address definitions.
-ipad#:#msg_ref_by_tst#:#This IP address definition is being used by the following test(s): %s
-ipad#:#msg_ref_by_tst_plural#:#The selected IP address definitions are being used by tests.
-ipad#:#msg_title_exists#:#Another IP address definition with this title already exists.
-ipad#:#msg_ipar_delete#:#You are about to delete the following IP Address Ranges from this IP address definition. This will immediately impact all referencing ILIAS objects.
-ipad#:#ipad_add#:#Create new IP Address Definition
-ipad#:#ipad_update#:#Update IP Address Definition
-ipad#:#ipar_add#:#Add new IP Address Range
-ipad#:#ipar_update#:#Update IP Address Range
-ipad#:#ipar_delete#:#Delete IP address range
-ipad#:#ipar_add_success#:#IP address range created.
-ipad#:#ipar_delete_success#:#IP address range deleted.
-ipad#:#ipar_update_success#:#IP address range updated.
-ipad#:#err_invalid_ipad#:#Invalid IP address definition.
-ipad#:#err_invalid_ip#:#Invalid IP address.
-ipad#:#err_invalid_ipar#:#Invalid IP address range.
-ipad#:#err_invalid_subnet#:#Invalid IP Subnet.
-ipad#:#err_invalid_proto#:#Both IP addresses must use the same protocol (IPv4 or IPv6).
-ipad#:#ipad_input_byline#:#Supported entries are: Individual IP addresses, IP address subnet definitions in CIDR-Notation and IP address definitions. Both IPv4 and IPv6 are supported.
-ipad#:#ipar_min_label#:#Lowest IP for range
-ipad#:#ipar_max_label#:#Highest IP for range
-ipad#:#ipar_byline#:#Both IPv4 and IPv6 addresses are supported.
-ipad#:#ipar_to_byline#:#Leave blank to create a singular IP address.
+ipad#:#mm_ip_address_definition#:#Définitions des adresses IP
+ipad#:#obj_ipad_desc#:#Restrictions prédéfinies de plages d'adresses IP pour les objets ILIAS.
+ipad#:#ipad_activation_online_info#:#En activant cette Option, cette définition de l'adresse IP peut être utilisée par d'autres objets ILIAS et ne peut alors plus être mise "hors ligne" ni supprimée.
+ipad#:#msg_no_perm_view#:#Vous n'êtes pas autorisé à accéder aux définitions des adresses IP. Le rôle d'administrateur est réquis pour accéder aux définitions d'adresses IP.
+ipad#:#msg_ref_by_tst#:#Cette définition de l'adresse IP est utilisée par le(s) test(s) suivant(s) : %s
+ipad#:#msg_ref_by_tst_plural#:#Les définitions d'adresses IP sélectionnées sont en utilisation par des tests.
+ipad#:#msg_title_exists#:#Il existe déjà une autre définition de d'adresse IP ayant ce même titre.
+ipad#:#msg_ipar_delete#:#Vous êtes sur le point de supprimer ces plages d'adresses IP suivantes de cette définition d'adresse IP. Cela aura un impact immédiat sur tous les objets ILIAS qui y font référence.
+ipad#:#ipad_add#:#Créer une nouvelle définition d'adresse IP
+ipad#:#ipad_update#:#Mettre à jour la définition de l'adresse IP
+ipad#:#ipar_add#:#Ajouter une nouvelle plage d'adresses IP
+ipad#:#ipar_update#:#Mettre à jour la plage d'adresses IP
+ipad#:#ipar_delete#:#Supprimer la plage d'adresses IP
+ipad#:#ipar_add_success#:#Plage d'adresses IP créée.
+ipad#:#ipar_delete_success#:#Plage d'adresses IP supprimée.
+ipad#:#ipar_update_success#:#Plage d'adresses IP actualisée.
+ipad#:#err_invalid_ipad#:#Definition d'adresse IP invalide.
+ipad#:#err_invalid_ip#:#Adresse IP invalide.
+ipad#:#err_invalid_ipar#:#Plage d'adresses IP invalide.
+ipad#:#err_invalid_subnet#:#Sous-réseau invalide.
+ipad#:#err_invalid_proto#:#Les deux Adresses IP doivent utiliser le même protocole (IPV4 ou IPV6).
+ipad#:#ipad_input_byline#:#Sont prises en charge les entrées suivantes: adresses IP individuelles, définition de sous-réseaux IP au Format CIDR et définitions d'adresses IP. Les protocoles IPV4 et IPV6 sont tous les deux pris en charge.
+ipad#:#ipar_min_label#:#Plus basse Adresse IP de la plage
+ipad#:#ipar_max_label#:#Plus haute Adresse IP de la plage
+ipad#:#ipar_byline#:#Les adresses IP IPV4 et IPV6 sont toutes deux prises en charge.
+ipad#:#ipar_to_byline#:#Laisser vide pour créer une unique Adresse IP.
