@@ -782,14 +782,13 @@ assessment#:#interaction_type#:#Interaction Type###26 08 2024 new variable
 assessment#:#internal_links#:#Interne links
 assessment#:#intprecision#:#Deelbaar door
 assessment#:#intprecision_info#:#"Divisible by" affects only the creation of variables, if the value for the precision is 0. In this case, you define for "Divisible by" an integer value, which must be divisible by with the created variable. A value of 10 thus generates only integers that are divisible by 10. A value of 5 produces integers that are divisible by 5, etc. For a precision of 0, "Divisible by" is a mandatory field and must contain a positive integer. The default value is 1 for any integers.
-assessment#:#invalid_ip#:#Invalid IP###26 08 2024 new variable
-assessment#:#ip_range_byline#:#Only IP addresses within the defined range can start the test. You can either use IPv4 OR IPv6 addresses.###28 10 2024 new variable
 assessment#:#ip_range_for_all_participants#:#You are changing the IP Range of all participants###28 10 2024 new variable
 assessment#:#ip_range_for_selected_participants#:#You are changing the IP Range of the following participant.###28 10 2024 new variable
 assessment#:#ip_range_for_single_participant#:#You are changing the IP Range of the selected participants.###28 10 2024 new variable
 assessment#:#ip_range_info#:#Only clients with an IP in the provided range will be able to access the test.###26 08 2024 new variable
 assessment#:#ip_range_label#:#IP Range###26 08 2024 new variable
 assessment#:#ip_range_updated#:#The IP-Range has been update for the selected participants.###28 10 2024 new variable
+assessment#:#ip_max_one_element#:#Er is maximaal een element toegestaan.
 assessment#:#kiosk#:#Kiosk Modus
 assessment#:#kiosk_description#:#Voer de toets uit in Kiosk Modus. Inhoud dat geen onderdeel is van de toets worden verborgen om te voorkomen dat  gebruikers de toets verlaten.
 assessment#:#kiosk_options#:#Kiosk Modus Opties
@@ -910,17 +909,12 @@ assessment#:#matching_shuffle_terms_definitions#:#Beide (Termen en Definities)
 assessment#:#matching_type#:#'Matching' Vraag Subtype
 assessment#:#material#:#Materiaal
 assessment#:#material_file#:#Materiaal bestand
-assessment#:#max_ip_label#:#Highest IP With Access###26 08 2024 new variable
 assessment#:#maxchars#:#Maximum number of characters
 assessment#:#maximum_nr_of_tries_reached#:#Je hebt het maximum aantal pogingen voor deze toets bereikt. Je kunt de toets niet meer opnieuw maken.
 assessment#:#maximum_points#:#Maximum behaalbare punten
 assessment#:#maxsize#:#Maximum file upload size
 assessment#:#maxsize_info#:#Vul in de maximale hoeveelheid bytes die wordt toegestaan voor bestand-uploads. Als je dit vak blanco laat, wordt de maximale grootte van deze installatie gekozen.
 assessment#:#min_auto_complete#:#Autocomplete###25 10 2016 new variable
-assessment#:#ip_ranges#:#IP reeksen### 24 03 2026 new variable
-assessment#:#ip_ranges_label#:#Toegestane waarden zijn: individuele IP adressen (bv. "10.0.0.25"), IP-adresbereiken (bv. "10.0.0.10-10.0.0.25") en subnetten in CIDR-notatie (bv. "10.0.0.0/16"). Zowel IPv4 als IPv6 zijn ondersteund.###24 03 2026 new variable
-assessment#:#invalid_ip_subnet#:#Ongeldig subnet.### 24 03 2026 new variable
-assessment#:#invalid_ip_range#:#Ongeldig IP-adresbereik.### 24 03 2026 new variable
 assessment#:#min_percentage_ne_0#:#Je moet een minimum percentage opgeven van ministens 0 procent! Het punten schema is niet opgeslaan
 assessment#:#misc#:#Misc Options
 assessment#:#mode_allatonce#:#All###29 10 2025 new variable
@@ -6043,6 +6037,11 @@ common#:#zip#:#Postcode
 common#:#zip_structure_error#:#Archive contains same filenames. Upload aborted.
 common#:#zip_test_failed#:#Zip-test faalt. Neem contact op met de ILIAS beheerder.
 common#:#zipcode#:#Postcode
+common#:#obj_ipad#:#IP-adresdefinitie
+common#:#obj_ipaa#:#IP-adresdefinities
+common#:#objs_ipad#:#IP-adresdefinities
+common#:#obj_ipar#:#IP-adresreeks
+common#:#objs_ipar#:#IP-adresreeksen
 cond#:#cond_under_parent_control#:#Preconditions are under the control of the parent object.###10 11 2018 new variable
 cont#:#cont_add_global_profile#:#Add Global Profile###29 07 2022 new variable
 cont#:#cont_add_local_profile#:#Add Local Profile###29 07 2022 new variable
@@ -17998,3 +17997,29 @@ wsp#:#wsp_type_scov#:#Certificaat: SCORM
 wsp#:#wsp_type_tstv#:#Certificaat: Toets
 wsp#:#wsp_type_webr#:#Weblink
 wsp#:#wsp_type_wfld#:#Map
+ipad#:#mm_ip_address_definition#:#IP-adresdefinities
+ipad#:#obj_ipad_desc#:#Vooraf gedefinieerde beperkingen voor IP-adresreeks voor ILIAS-objecten.
+ipad#:#ipad_activation_online_info#:#Door het aanzetten van deze optie, kan deze IP-adresdefinitie gebruikt worden door andere ILIAS-objecten en niet langer worden verwijderd of 'offline' gezet.
+ipad#:#msg_no_perm_view#:#Je hebt geen toegang tot IP-adresdefinities. De rol 'Administrator' is vereist voor toegang tot IP-adresdefinities.
+ipad#:#msg_ref_by_tst#:#Deze IP-adresdefinitie wordt gebruikt door de volgende tests: %s
+ipad#:#msg_ref_by_tst_plural#:#De geselecteerde IP-adresdefinities worden door tests gebruikt.
+ipad#:#msg_title_exists#:#Er bestaat al een IP-adresdefinitie met deze naam.
+ipad#:#msg_ipar_delete#:#Je staat op het punt om de volgende IP-adresreeksen van deze IP-adresdefinitie te verwijderen. Alle ILIAS-objecten die gebruikmaken van deze IP-adresdefinitie worden dienovereenkomstig geüpdatet.
+ipad#:#ipad_add#:#Nieuwe IP-adresdefinitie
+ipad#:#ipad_update#:#Update IP-adresdefinitie
+ipad#:#ipar_add#:#Nieuwe IP-reeks
+ipad#:#ipar_update#:#Update IP-reeks
+ipad#:#ipar_delete#:#Verwijder IP-reeks
+ipad#:#ipar_add_success#:#IP-reeks aangemaakt.
+ipad#:#ipar_delete_success#:#IP-reeks verwijderd.
+ipad#:#ipar_update_success#:#IP-reeks geüpdatet.
+ipad#:#err_invalid_ipad#:#Ongeldige IP-adresdefinitie.
+ipad#:#err_invalid_ip#:#Ongeldige IP-adres.
+ipad#:#err_invalid_ipar#:#Ongeldig IP-reeks.
+ipad#:#err_invalid_subnet#:#Ongeldig subnet.
+ipad#:#err_invalid_proto#:#Beide IP-adressen moeten hetzelfde protocol gebruiken (IPv4 of IPv6).
+ipad#:#ipad_input_byline#:#Ondersteunde invoer: IP-adres, IP-adresdefinities of subnet in CIDR-notatie. Zowel IPv4 als IPv6 worden ondersteund.
+ipad#:#ipar_min_label#:#Eerste IP-adres in reeks
+ipad#:#ipar_max_label#:#Laatste IP-adres in reeks
+ipad#:#ipar_byline#:#Zowel IPv4 als IPv6 worden ondersteund.
+ipad#:#ipar_to_byline#:#Laat leeg om enkel IP-adres toe te voegen.

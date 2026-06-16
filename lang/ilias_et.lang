@@ -782,14 +782,13 @@ assessment#:#interaction_type#:#Interaction Type###26 08 2024 new variable
 assessment#:#internal_links#:#Sisemised lingid
 assessment#:#intprecision#:#Divisible By
 assessment#:#intprecision_info#:#"Divisible by" affects only the creation of variables, if the value for the precision is 0. In this case, you define for "Divisible by" an integer value, which must be divisible by with the created variable. A value of 10 thus generates only integers that are divisible by 10. A value of 5 produces integers that are divisible by 5, etc. For a precision of 0, "Divisible by" is a mandatory field and must contain a positive integer. The default value is 1 for any integers.
-assessment#:#invalid_ip#:#Invalid IP###26 08 2024 new variable
-assessment#:#ip_range_byline#:#Only IP addresses within the defined range can start the test. You can either use IPv4 OR IPv6 addresses.###28 10 2024 new variable
 assessment#:#ip_range_for_all_participants#:#You are changing the IP Range of all participants###28 10 2024 new variable
 assessment#:#ip_range_for_selected_participants#:#You are changing the IP Range of the following participant.###28 10 2024 new variable
 assessment#:#ip_range_for_single_participant#:#You are changing the IP Range of the selected participants.###28 10 2024 new variable
 assessment#:#ip_range_info#:#Only clients with an IP in the provided range will be able to access the test.###26 08 2024 new variable
 assessment#:#ip_range_label#:#IP Range###26 08 2024 new variable
 assessment#:#ip_range_updated#:#The IP-Range has been update for the selected participants.###28 10 2024 new variable
+assessment#:#ip_max_one_element#:#Only one element is allowed.
 assessment#:#kiosk#:#Täisekraanivaade
 assessment#:#kiosk_description#:#Jooksuta testi täisekraanivaates. Kõik sisuelemendid, mis pole testi osad, on peidetud, et vältida kasutajate lahkumist testist.
 assessment#:#kiosk_options#:#Täisekraanivaate seaded
@@ -910,17 +909,12 @@ assessment#:#matching_shuffle_terms_definitions#:#Mõlemad (mõisted ja definits
 assessment#:#matching_type#:#Kokkusobitusküsimuse alatüüp
 assessment#:#material#:#Materjal
 assessment#:#material_file#:#Materjalifail
-assessment#:#max_ip_label#:#Highest IP With Access###26 08 2024 new variable
 assessment#:#maxchars#:#Tähemärkide maksimaalne arv
 assessment#:#maximum_nr_of_tries_reached#:#Lubatud soorituste arv on täis. Testi pole enam võimalik siseneda!
 assessment#:#maximum_points#:#Maksimaalsed võimalikud punktid
 assessment#:#maxsize#:#Üleslaetava faili maksimaalne suurus
 assessment#:#maxsize_info#:#Sisesta üleslaetavate failide lubatud maksimumsuurus baitides. Kui jätad selle välja tühjaks, valib see installatsioon lubatud maksimumsuruse ise.
 assessment#:#min_auto_complete#:#Autocomplete###25 10 2016 new variable
-assessment#:#ip_ranges#:#IP Ranges### 24 03 2026 new variable
-assessment#:#ip_ranges_label#:#Allowed values are: singular IP addresses (e.g. "10.0.0.25"), IP address ranges (e.g. "10.0.0.10-10.0.0.25") and IP subnet blocks in CIDR notation (e.g. "10.0.0.0/16"). IPv4 and IPv6 addresses are supported.###24 03 2026 new variable
-assessment#:#invalid_ip_subnet#:#Invalid subnet.### 24 03 2026 new variable
-assessment#:#invalid_ip_range#:#Invalid IP address range.### 24 03 2026 new variable
 assessment#:#min_percentage_ne_0#:#Sa pead määrama miinimumtasemeks 0 protsenti! Hindeskeemi ei salvestatud.
 assessment#:#misc#:#Misc Options
 assessment#:#mode_allatonce#:#All###29 10 2025 new variable
@@ -6043,6 +6037,11 @@ common#:#zip#:#Postiindeks
 common#:#zip_structure_error#:#Archive contains same filenames. Upload aborted.
 common#:#zip_test_failed#:#Zip-test ebaõnnestus. Võtke ühendust ILIASe administraatoriga.
 common#:#zipcode#:#Postiindeks
+common#:#obj_ipad#:#IP Address Definition
+common#:#obj_ipaa#:#IP Address Definitions
+common#:#objs_ipad#:#IP Address Definitions
+common#:#obj_ipar#:#IP Address Range
+common#:#objs_ipar#:#IP Address Ranges
 cond#:#cond_under_parent_control#:#Preconditions are under the control of the parent object.###10 11 2018 new variable
 cont#:#cont_add_global_profile#:#Add Global Profile###29 07 2022 new variable
 cont#:#cont_add_local_profile#:#Add Local Profile###29 07 2022 new variable
@@ -17997,3 +17996,29 @@ wsp#:#wsp_type_scov#:#Certificate: SCORM
 wsp#:#wsp_type_tstv#:#Tunnistus: test
 wsp#:#wsp_type_webr#:#Veebilink
 wsp#:#wsp_type_wfld#:#Kaust
+ipad#:#mm_ip_address_definition#:#IP Address Definitions
+ipad#:#obj_ipad_desc#:#Predefined IP Address range restrictions for ILIAS objects.
+ipad#:#ipad_activation_online_info#:#By enabling this option, this IP address definition can be used by other ILIAS objects, and can then no longer be set 'offline' or deleted.
+ipad#:#msg_no_perm_view#:#You are not permitted to access IP address definitions. The Administrator role is required to access IP address definitions.
+ipad#:#msg_ref_by_tst#:#This IP address definition is being used by the following test(s): %s
+ipad#:#msg_ref_by_tst_plural#:#The selected IP address definitions are being used by tests.
+ipad#:#msg_title_exists#:#Another IP address definition with this title already exists.
+ipad#:#msg_ipar_delete#:#You are about to delete the following IP Address Ranges from this IP address definition. This will immediately impact all referencing ILIAS objects.
+ipad#:#ipad_add#:#Create new IP Address Definition
+ipad#:#ipad_update#:#Update IP Address Definition
+ipad#:#ipar_add#:#Add new IP Address Range
+ipad#:#ipar_update#:#Update IP Address Range
+ipad#:#ipar_delete#:#Delete IP address range
+ipad#:#ipar_add_success#:#IP address range created.
+ipad#:#ipar_delete_success#:#IP address range deleted.
+ipad#:#ipar_update_success#:#IP address range updated.
+ipad#:#err_invalid_ipad#:#Invalid IP address definition.
+ipad#:#err_invalid_ip#:#Invalid IP address.
+ipad#:#err_invalid_ipar#:#Invalid IP address range.
+ipad#:#err_invalid_subnet#:#Invalid IP Subnet.
+ipad#:#err_invalid_proto#:#Both IP addresses must use the same protocol (IPv4 or IPv6).
+ipad#:#ipad_input_byline#:#Supported entries are: Individual IP addresses, IP address subnet definitions in CIDR-Notation and IP address definitions. Both IPv4 and IPv6 are supported.
+ipad#:#ipar_min_label#:#Lowest IP for range
+ipad#:#ipar_max_label#:#Highest IP for range
+ipad#:#ipar_byline#:#Both IPv4 and IPv6 addresses are supported.
+ipad#:#ipar_to_byline#:#Leave blank to create a singular IP address.
