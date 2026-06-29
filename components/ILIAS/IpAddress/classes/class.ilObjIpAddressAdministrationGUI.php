@@ -251,4 +251,15 @@ final class ilObjIpAddressAdministrationGUI extends ilContainerGUI
     {
         $this->getTabs();
     }
+
+    public static function _goto(): void
+    {
+        $container = $GLOBALS['DIC'];
+        $container->ctrl()->setParameterByClass(strtolower(self::class), 'ref_id', ilObjIpAddressAdministration::getRootRefId());
+        $container->ctrl()->redirectByClass([
+            strtolower(ilAdministrationGUI::class),
+            strtolower(self::class),
+        ], 'view');
+    }
+
 }
