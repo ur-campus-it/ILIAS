@@ -20,6 +20,7 @@ declare(strict_types=1);
 
 namespace ILIAS\Test\Participants;
 
+use ilObjectFactory;
 use ILIAS\Language\Language;
 use ILIAS\Test\Results\Data\AttemptOverview;
 
@@ -101,7 +102,6 @@ class Participant
     {
         return $this->extra_time;
     }
-
     public function withAddedExtraTime(int $extra_time): self
     {
         $clone = clone $this;
@@ -114,9 +114,27 @@ class Participant
         return $this->attempts;
     }
 
-    public function getClientIpRanges(): ?string
+    public function getClientIpRanges(bool $resolve = false): ?string
     {
-        return $this->client_ip_ranges;
+        if (!$resolve) return $this->client_ip_ranges;
+        if ($this->client_ip_ranges === null) return null; 
+        
+        $ranges = [];
+
+        foreach(explode(',', $this->client_ip_ranges) as $v) {
+
+            if (str_starts_with($v, 'ref_')) {
+                $obj = ilObjectFactory::getInstanceByRefId(
+                    (int) str_replace('ref_', '', $v), false
+                );
+
+                $ranges[] = $obj->getTitle();
+            } else {
+                $ranges[] = $v;
+            }
+        }
+ 
+        return implode(",", $ranges);
     }
 
     public function withClientIpRanges(?string $ip_ranges): self
@@ -147,7 +165,7 @@ class Participant
 
         return $processing_time + $this->extra_time * 60;
     }
-
+ 
     public function getLastStartedAttempt(): ?int
     {
         return $this->last_started_attempt;
