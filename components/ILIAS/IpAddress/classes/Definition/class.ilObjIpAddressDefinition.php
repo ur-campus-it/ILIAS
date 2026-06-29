@@ -19,6 +19,8 @@
 declare(strict_types=1);
 
 use ILIAS\Data\Ip\IpAddress;
+use ILIAS\Data\Ip\IpAddressRange;
+use ILIAS\Data\UUID\Factory as UUIDFactory;
 use ILIAS\IpAddress\IpAddressRangeRepository;
 
 final class ilObjIpAddressDefinition extends ilObject2
@@ -136,6 +138,32 @@ final class ilObjIpAddressDefinition extends ilObject2
         return $a_xml_writer->xmlDumpMem(false);
     }
 
+    public static function fromIpRange(IpAddressRange $range): int
+    {
+        $obj = new ilObjIpAddressDefinition();
+
+        $uuid_factory = new UUIDFactory();
+        $title = $uuid_factory->uuid4AsString();
+
+        while (ilObjIpAddressDefinition::titleExists($title)) {
+            $title = $uuid_factory->uuid4AsString();
+        }
+
+        $obj->setTitle($title);
+        $obj_id = $obj->create();
+
+        $obj->setDescription("Automatically created.");
+        $obj->setType("ipad");
+        $obj->update();
+        $ref_id = $obj->createReference();
+        $obj->setRefId($ref_id);
+        $obj->putInTree(ilObjIpAddressAdministration::getRootRefId());
+        $obj->setPermissions(ilObjIpAddressAdministration::getRootRefId());
+
+        $obj->getRanges()->create($range, $ref_id);
+        return $ref_id;
+    }
+    
     public static function _exists(int $id, bool $reference = false, ?string $type = null): bool
     {
         return parent::_exists($id, $reference, self::TYPE);

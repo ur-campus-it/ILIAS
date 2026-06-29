@@ -18,6 +18,8 @@
 
 declare(strict_types=1);
 
+use \ILIAS\Data\Factory as DataFactory;
+use ILIAS\IpAddress\Component\ilObjIpAddressDefinition;
 use ILIAS\MediaObjects\MediaObjectRepository;
 use ILIAS\ResourceStorage\Identification\ResourceIdentification;
 use ILIAS\ResourceStorage\Services as ResourceStorage;
@@ -2823,6 +2825,8 @@ class ilObjTest extends ilObject
         $result_details_settings = $score_settings->getResultDetailsSettings();
 
         $mark_steps = [];
+        $df = new DataFactory();
+        $ip_range = null;
         foreach ($assessment->qtimetadata as $metadata) {
             switch ($metadata["label"]) {
                 case "solution_details":
@@ -2985,6 +2989,26 @@ class ilObjTest extends ilObject
                     }
 
                     break;
+                case "ip_range_from":
+                    if ($metadata['entry'] !== '') {
+                        $ip_range = $df->ip()->range(
+                            $df->ip()->address($metadata['entry'])
+                        );    
+                    }
+                    break;
+                case "ip_range_to":
+                    if ($metadata['entry'] !== '') {
+                        if ($ip_range !== null) {
+                            $ip_range->setToAddress(
+                                $df->ip()->address($metadata['entry'])
+                            );
+                        } else {
+                            $ip_range = $df->ip()->range(
+                                $df->ip()->address($metadata['entry'])
+                            );
+                        }
+                    }
+                    break;
                 case "pass_scoring":
                     $scoring_settings = $scoring_settings->withPassScoring((int) $metadata["entry"]);
                     break;
@@ -3085,6 +3109,12 @@ class ilObjTest extends ilObject
                 ->withDescription($assessment->getComment())
         );
         $this->addToNewsOnOnline(false, $this->getObjectProperties()->getPropertyIsOnline()->getIsOnline());
+        
+        if ($ip_range !== null) {
+            $ip_addr_def = IpAddressDefinition::fromIpRange($ip_range); 
+            $access_settings = $access_settings->withIpRanges("ref_" . $ip_addr_def);
+        }
+
         $main_settings = $main_settings
             ->withGeneralSettings($general_settings)
             ->withIntroductionSettings($introduction_settings)
