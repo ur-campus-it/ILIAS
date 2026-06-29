@@ -4,10 +4,10 @@
         <objectgroup id="ipaa" name="IP Address Definitions" default_pres_pos="20"/>
     </objectgroups>
     <objects>
-        <object id="ipaa" class_name="IpAddressAdministration" dir="classes" checkbox="0" inherit="0" translate="ipad" rbac="1" system="1" administration="1">
+        <object id="ipaa" class_name="IpAddressAdministration" dir="classes" checkbox="0" inherit="0" translate="sys" rbac="1" system="1" administration="1">
             <parent id="adm" max="1">adm</parent>
         </object>
-        <object id="ipad" class_name="IpAddressDefinition" dir="classes/Definition" checkbox="1" inherit="1" translate="ipad" rbac="1" system="0" default_pos="10" default_pres_pos="10" group="ipaa" administration="1" export="1" repository="0">
+        <object id="ipad" class_name="IpAddressDefinition" dir="classes/Definition" checkbox="1" inherit="1" translate="0" rbac="1" system="0" default_pos="10" default_pres_pos="10" group="ipaa" administration="1" export="1" repository="0">
             <parent id="ipaa" max="0">ipaa</parent>
         </object>
     </objects>
