@@ -46,10 +46,9 @@ final class ilObjIpAddressDefinitionGUI extends ilObject2GUI
 
         $container = $GLOBALS['DIC'];
         $ref_id = $container->http()->wrapper()->query()->retrieve("ref_id", $container->refinery()->kindlyTo()->int());
-        $root_id = ilObjIpAddressAdministration::getRootObjId();
 
-        parent::__construct($ref_id, self::REPOSITORY_NODE_ID, $root_id);
-
+        parent::__construct($ref_id);
+        
         $this->lng->loadLanguageModule("ipad");
         $this->lng->loadLanguageModule("meta");
 
@@ -59,6 +58,16 @@ final class ilObjIpAddressDefinitionGUI extends ilObject2GUI
         )->acquireParameters([ 'ipar' ], "action", "row_id");
     }
 
+    protected function setTitleAndDescription(): void
+    {
+        // Ugly hack to bypass the fact that addAdminLocatorItems has been
+        // set final.
+        $this->locator->clearItems();
+        $this->locator->addContextItems($this->node_id, false, ROOT_FOLDER_ID);
+
+        parent::setTitleAndDescription();
+    }
+
     public function executeCommand(): void
     {
         $cmd = $this->ctrl->getCmd();
@@ -66,10 +75,6 @@ final class ilObjIpAddressDefinitionGUI extends ilObject2GUI
 
         if (!$next_class && ($cmd === 'create' || $cmd === 'save')) {
             $this->setCreationMode();
-        }
-
-        if ($this->id_type === self::REPOSITORY_NODE_ID) {
-            $this->setLocator();
         }
 
         switch ($next_class) {
@@ -396,7 +401,7 @@ final class ilObjIpAddressDefinitionGUI extends ilObject2GUI
         return;
     }
 
-    protected function getTabs(): void
+    public function getAdminTabs(): void
     {
         if ($this->checkPermissionBool('visible,read')) {
             $this->tabs_gui->addTab('view', $this->lng->txt("view"), $this->ctrl->getLinkTargetByClass(strtolower($this::class), "view"));
