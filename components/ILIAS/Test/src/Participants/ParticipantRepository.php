@@ -271,12 +271,6 @@ class ParticipantRepository
             }
         }
 
-        if ($this->isFilterSet($filter, 'ip_range')) {
-            $where[] = '(ip_ranges LIKE %s)';
-            $types = array_merge($types, ['string']);
-            $values = array_merge($values, ["%{$filter['ip_range']}%"]);
-        }
-
         return [$where, $types, $values];
     }
 

@@ -313,7 +313,6 @@ class ParticipantTable implements DataRetrieval
         $filters = [
             'name' => [$field_factory->text($this->lng->txt('name')), true],
             'login' => [$field_factory->text($this->lng->txt('login')), true],
-            'ip_range' => [$field_factory->text($this->lng->txt('client_ip_range')), true],
             'solution' => [$field_factory->select($this->lng->txt('solutions'), $solution_options), true],
         ];
 
