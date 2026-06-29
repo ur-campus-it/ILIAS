@@ -6038,6 +6038,7 @@ common#:#zip_test_failed#:#zip压缩测试失败。请联系您的ILIAS管理员
 common#:#zipcode#:#邮政编码
 common#:#obj_ipad#:#IP Address Definition
 common#:#obj_ipaa#:#IP Address Definitions
+common#:#objs_ipaa#:#IP Address Definitions
 common#:#objs_ipad#:#IP Address Definitions
 common#:#obj_ipar#:#IP Address Range
 common#:#objs_ipar#:#IP Address Ranges

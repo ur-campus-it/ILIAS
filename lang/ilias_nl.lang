@@ -6039,6 +6039,7 @@ common#:#zip_test_failed#:#Zip-test faalt. Neem contact op met de ILIAS beheerde
 common#:#zipcode#:#Postcode
 common#:#obj_ipad#:#IP-adresdefinitie
 common#:#obj_ipaa#:#IP-adresdefinities
+common#:#objs_ipaa#:#IP-adresdefinities
 common#:#objs_ipad#:#IP-adresdefinities
 common#:#obj_ipar#:#IP-adresreeks
 common#:#objs_ipar#:#IP-adresreeksen

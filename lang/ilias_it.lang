@@ -6040,6 +6040,7 @@ common#:#zip_test_failed#:#Zip-test non riuscito. Si prega di contattare il prop
 common#:#zipcode#:#Codice postale
 common#:#obj_ipad#:#IP Address Definition
 common#:#obj_ipaa#:#IP Address Definitions
+common#:#objs_ipaa#:#IP Address Definitions
 common#:#objs_ipad#:#IP Address Definitions
 common#:#obj_ipar#:#IP Address Range
 common#:#objs_ipar#:#IP Address Ranges

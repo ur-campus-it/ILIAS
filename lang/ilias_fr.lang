@@ -6024,6 +6024,7 @@ common#:#zip_test_failed#:#Le test ZIP a échoué. Veuillez contacter votre admi
 common#:#zipcode#:#Code postal
 common#:#obj_ipad#:#Définition de l'adresse IP
 common#:#obj_ipaa#:#Définitions de l'adresse IP
+common#:#objs_ipaa#:#Définitions de l'adresse IP
 common#:#objs_ipad#:#Définitions de l'adresse IP
 common#:#obj_ipar#:#Plage des adresses IP
 common#:#objs_ipar#:#Plages des adresses IP

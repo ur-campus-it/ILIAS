@@ -6045,6 +6045,7 @@ common#:#zip_test_failed#:#Der ZIP-Test ist fehlgeschlagen. Bitte kontaktieren S
 common#:#zipcode#:#Postleitzahl
 common#:#obj_ipad#:#IP-Adressdefinition
 common#:#obj_ipaa#:#IP-Adressdefinitionen
+common#:#objs_ipaa#:#IP-Adressdefinitionen
 common#:#objs_ipad#:#IP-Adressdefinitionen
 common#:#obj_ipar#:#IP-Adressbereich
 common#:#objs_ipar#:#IP-Adressbereiche

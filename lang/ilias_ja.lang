@@ -6039,6 +6039,7 @@ common#:#zip_test_failed#:#郵便番号テストに失敗しました。ILIAS �
 common#:#zipcode#:#郵便番号
 common#:#obj_ipad#:#IP Address Definition
 common#:#obj_ipaa#:#IP Address Definitions
+common#:#objs_ipaa#:#IP Address Definitions
 common#:#objs_ipad#:#IP Address Definitions
 common#:#obj_ipar#:#IP Address Range
 common#:#objs_ipar#:#IP Address Ranges
