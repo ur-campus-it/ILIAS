@@ -8,6 +8,7 @@ services:
     volumes:
       - .:/var/www/html
       - ilias:/var/www/data
+      - ./config.json:/config.json
     ports:
       - 8080:80
     depends_on:

@@ -24,7 +24,7 @@ use ILIAS\Database\PDO\FieldDefinition\ForeignKeyConstraints;
 
 class Test11DBUpdateSteps implements \ilDatabaseUpdateSteps
 {
-    use TestSettingsSetup;  
+    use TestSettingsSetup;
 
     protected \ilDBInterface $db;
 
@@ -251,10 +251,6 @@ class Test11DBUpdateSteps implements \ilDatabaseUpdateSteps
         $this->db->manipulate(
             'UPDATE tst_invited_user SET ip_ranges = ip_range_to WHERE ip_range_to IS NOT NULL AND ip_range_from IS NULL'
         );
-
-        // 5. Remove columns ip_range_from and ip_range_to
-        $this->db->dropTableColumn('tst_invited_user', 'ip_range_from');
-        $this->db->dropTableColumn('tst_invited_user', 'ip_range_to');
     }
 
     public function step_10(): void
@@ -262,6 +258,10 @@ class Test11DBUpdateSteps implements \ilDatabaseUpdateSteps
         // 1. Ensure that a new column for IP ranges is present
         if (!$this->db->tableColumnExists('tst_test_settings', 'ip_ranges')) {
             $this->db->addTableColumn('tst_test_settings', 'ip_ranges', ['type' => \ilDBConstants::T_TEXT, 'length' => 4000, 'default' => null]);
+        }
+
+        if (!$this->db->tableColumnExists('tst_test_settings', 'ip_ranges_from') && !$this->db->tableColumnExists('tst_test_settings', 'ip_ranges_to')) {
+            return;
         }
 
         // 2. Fetch all preexisting IP ranges
@@ -321,20 +321,17 @@ class Test11DBUpdateSteps implements \ilDatabaseUpdateSteps
             }
 
         }
-
-        // 5. Remove columns ip_range_from and ip_range_to
-        $this->db->dropTableColumn('tst_test_settings', 'ip_range_from');
-        $this->db->dropTableColumn('tst_test_settings', 'ip_range_to');
     }
 
     public function step_11(): void
     {
-        if ($this->db->tableColumnExists('tst_invited_user', 'ip_ranges')) {
-            return;
+        if (!$this->db->tableColumnExists('tst_invited_user', 'ip_ranges')) {
+            $this->db->addTableColumn('tst_invited_user', 'ip_ranges', ['type' => \ilDBConstants::T_TEXT, 'length' => 4000, 'default' => null]);
         }
 
-        // 1. Create new column for IP ranges
-        $this->db->addTableColumn('tst_invited_user', 'ip_ranges', ['type' => \ilDBConstants::T_TEXT, 'length' => 4000, 'default' => null]);
+        if (!$this->db->tableColumnExists('tst_test_settings', 'ip_ranges_from') && !$this->db->tableColumnExists('tst_test_settings', 'ip_ranges_to')) {
+            return;
+        }
 
         $this->db->manipulate(
             'UPDATE tst_invited_user SET ip_ranges = ip_range_from, ip_range_from = NULL, ip_range_to = NULL WHERE ip_range_from == ip_range_to AND ip_range_from IS NOT NULL AND ip_range_to IS NOT NULL'
@@ -354,6 +351,10 @@ class Test11DBUpdateSteps implements \ilDatabaseUpdateSteps
         // 1. Ensure that a new column for IP ranges is present
         if (!$this->db->tableColumnExists('tst_invited_user', 'ip_ranges')) {
             $this->db->addTableColumn('tst_invited_user', 'ip_ranges', ['type' => \ilDBConstants::T_TEXT, 'length' => 4000, 'default' => null]);
+        }
+
+        if (!$this->db->tableColumnExists('tst_test_settings', 'ip_ranges_from') && !$this->db->tableColumnExists('tst_test_settings', 'ip_ranges_to')) {
+            return;
         }
 
         // 2. Fetch all preexisting IP ranges
