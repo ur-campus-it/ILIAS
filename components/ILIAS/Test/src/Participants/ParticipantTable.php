@@ -108,7 +108,7 @@ class ParticipantTable implements DataRetrieval
             $total_duration = $record->getTotalDuration($processing_time);
             $status_of_attempt = $record->getAttemptOverviewInformation()?->getStatusOfAttempt() ?? StatusOfAttempt::NOT_YET_STARTED;
             $row = [
-                'name' => $record->getDisplayName($this->lng),
+                'name' => $record->getDisplayName($this->lng, $this->test_object->getAnonymity()),
                 'login' => $record->getLogin(),
                 'matriculation' => $record->getMatriculation(),
                 'total_time_on_task' => $record->getAttemptOverviewInformation()?->getHumanReadableTotalTimeOnTask() ?? '',
@@ -242,8 +242,8 @@ class ParticipantTable implements DataRetrieval
             'test_passed' => static fn(
                 Participant $a,
                 Participant $b
-            ) => $b->getAttemptOverviewInformation()?->hasPassingMark()
-                <=> $a->getAttemptOverviewInformation()?->hasPassingMark(),
+            ) => $a->getAttemptOverviewInformation()?->hasPassingMark()
+                <=> $b->getAttemptOverviewInformation()?->hasPassingMark(),
             'mark' => static fn(
                 Participant $a,
                 Participant $b
@@ -365,14 +365,17 @@ class ParticipantTable implements DataRetrieval
             'name' => $column_factory->text($this->lng->txt('name'))
                 ->withIsSortable(!$this->test_object->getAnonymity())
         ];
+
         if (!$this->test_object->getAnonymity()) {
-            $columns['login'] = $column_factory->text($this->lng->txt('login'))->withIsSortable(true);
+            $columns += [
+                'login' => $column_factory->text($this->lng->txt('login'))->withIsSortable(true),
+                'matriculation' => $column_factory->text($this->lng->txt('matriculation'))
+                    ->withIsOptional(true, false)
+                    ->withIsSortable(true)
+            ];
         }
 
         $columns += [
-            'matriculation' => $column_factory->text($this->lng->txt('matriculation'))
-                ->withIsOptional(true, false)
-                ->withIsSortable(true),
             'ip_range' => $column_factory->text($this->lng->txt('client_ip_range'))
                 ->withIsOptional(true, false)
                 ->withIsSortable(true),
@@ -411,7 +414,8 @@ class ParticipantTable implements DataRetrieval
                 ->withOrderingLabels(...$column_factory->number($this->lng->txt('tst_reached_points'))->getOrderingLabels());
             $columns['nr_of_answered_questions'] = $column_factory->text($this->lng->txt('tst_answered_questions'))
                 ->withIsOptional(true, false)
-                ->withIsSortable(true);
+                ->withIsSortable(true)
+                ->withOrderingLabels(...$column_factory->number($this->lng->txt('tst_answered_questions'))->getOrderingLabels());
             $columns['percent_of_available_points'] = $column_factory->number($this->lng->txt('tst_percent_solved'))
                 ->withUnit('%')
                 ->withIsOptional(true, false)
@@ -430,8 +434,8 @@ class ParticipantTable implements DataRetrieval
                 )
             )->withIsSortable(true)
             ->withOrderingLabels(
-                "{$this->lng->txt('tst_passed')}, {$this->lng->txt('yes')} {$this->lng->txt('order_option_first')}",
-                "{$this->lng->txt('tst_passed')}, {$this->lng->txt('no')} {$this->lng->txt('order_option_first')}"
+                "{$this->lng->txt('tst_passed')}, {$this->lng->txt('no')} {$this->lng->txt('order_option_first')}",
+                "{$this->lng->txt('tst_passed')}, {$this->lng->txt('yes')} {$this->lng->txt('order_option_first')}"
             );
             $columns['mark'] = $column_factory->text($this->lng->txt('tst_mark'))
                 ->withIsOptional(true, false)

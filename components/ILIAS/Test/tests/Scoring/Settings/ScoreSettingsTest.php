@@ -134,7 +134,7 @@ class ScoreSettingsTest extends ilTestBaseTestCase
     public function testScoreSettingsSectionScoring(): void
     {
         $s = new SettingsScoring(666);
-        $actual = $this->render(
+        $actual = $this->renderInsideContainer(
             $s->toForm(...$this->getUIPack())
         );
 
@@ -223,12 +223,20 @@ class ScoreSettingsTest extends ilTestBaseTestCase
 
     public function getUIFactory(): NoUIFactory
     {
-        return new class () extends NoUIFactory {
+        $language_mock = $this->createMock(\ILIAS\Language\Language::class);
+        $language_mock->method('txt')->willReturnArgument(0);
+
+        return new class ($language_mock) extends NoUIFactory {
+            public function __construct(
+                protected \ILIAS\Language\Language $language,
+            ) {
+            }
+
             public function symbol(): S\Factory
             {
                 return new S\Factory(
                     new S\Icon\Factory(),
-                    new S\Glyph\Factory(),
+                    new S\Glyph\Factory($this->language),
                     new S\Avatar\Factory()
                 );
             }
@@ -252,7 +260,7 @@ class ScoreSettingsTest extends ilTestBaseTestCase
         $ui = [$language, $field_factory, $refinery];
 
         $s = new SettingsResultSummary(666);
-        $actual = $this->render(
+        $actual = $this->renderInsideContainer(
             $s->toForm(...array_merge($ui, [[
                 'user_time_zone' => 'Europe/Berlin',
                 'user_date_format' => $data_factory->dateFormat()->withTime24(
@@ -385,7 +393,7 @@ class ScoreSettingsTest extends ilTestBaseTestCase
     {
         $s = new SettingsResultDetails(666);
         $tax_ids = [1,2];
-        $actual = $this->render(
+        $actual = $this->renderInsideContainer(
             $s->toForm(
                 ...array_merge(
                     $this->getUIPack(),
@@ -435,7 +443,7 @@ class ScoreSettingsTest extends ilTestBaseTestCase
     public function testScoreSettingsSectionGamification(): void
     {
         $s = new SettingsGamification(666);
-        $actual = $this->render(
+        $actual = $this->renderInsideContainer(
             $s->toForm(...$this->getUIPack())
         );
 

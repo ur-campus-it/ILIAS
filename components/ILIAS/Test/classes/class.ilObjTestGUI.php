@@ -558,8 +558,11 @@ class ilObjTestGUI extends ilObjectGUI implements ilCtrlBaseClassInterface, ilDe
                 $this->tabs_manager->activateTab(TabsManager::TAB_ID_LEARNING_PROGRESS);
 
                 $test_session = $this->test_session_factory->getSessionByUserId($this->user->getId());
-                if (!$this->test_access->checkOtherParticipantsLearningProgressAccess()
-                    && !$this->getTestObject()->canShowTestResults($test_session)) {
+                if (
+                    !$this->test_access->checkOtherParticipantsLearningProgressAccess()
+                    && !$this->getTestObject()->canShowTestResults($test_session)
+                    && !\ilLearningProgressAccess::checkAccess($this->getTestObject()->getRefId())
+                ) {
                     $this->tpl->setOnScreenMessage(
                         'info',
                         $this->lng->txt('tst_res_tab_msg_no_lp_access'),
@@ -1038,7 +1041,8 @@ class ilObjTestGUI extends ilObjectGUI implements ilCtrlBaseClassInterface, ilDe
             $this->ref_id
         );
 
-        if ($nr_of_participants_with_results > 0) {
+        if ($nr_of_participants_with_results > 0
+            && $this->getTestObject()->getGlobalSettings()->isAdjustingQuestionsWithResultsAllowed()) {
             $gui->addAdditionalCmd(
                 $this->lng->txt('tst_corrections_qst_form'),
                 $this->ctrl->getLinkTargetByClass(ilTestCorrectionsGUI::class, 'showQuestion')

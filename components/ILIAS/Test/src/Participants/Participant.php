@@ -245,19 +245,29 @@ class Participant
         return $this->scoring_finalized;
     }
 
-    public function getDisplayName(Language $language): string
+    public function getDisplayName(Language $language, bool $anonymous_test = false): string
     {
+        if ($this->user_id === ANONYMOUS_USER_ID && $this->importname !== null && $this->importname !== '') {
+            return "{$this->importname} ({$language->txt('imported')})";
+        }
+
+        if ($anonymous_test) {
+            return $language->txt('anonymous');
+        }
+
+        if ($this->login === '' && $this->firstname === '' && $this->lastname === '') {
+            return $language->txt('user_deleted');
+        }
+
         $display_name = '';
 
-        if ($this->firstname) {
+        if ($this->firstname !== '') {
             $display_name .= $this->firstname . ' ';
         }
-        if ($this->lastname) {
+        if ($this->lastname !== '') {
             $display_name .= $this->lastname;
         }
 
-        return $this->user_id === ANONYMOUS_USER_ID && $this->importname !== null && $this->importname !== ''
-            ? "{$this->importname} ({$language->txt('imported')})"
-            : $display_name;
+        return $display_name;
     }
 }
