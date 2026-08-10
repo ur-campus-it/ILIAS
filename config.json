@@ -17,6 +17,11 @@
   "http": {
     "path": "http://localhost:8080"
   },
+  "logging": {
+    "enable": true,
+    "path_to_logfile": "/var/www/data/logs/ilias.log",
+    "errorlog_dir": "/var/www/data/logs"
+  },
   "systemfolder": {
     "contact": {
       "firstname": "Bastian",
