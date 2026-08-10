@@ -214,7 +214,7 @@ class Test11DBUpdateSteps implements \ilDatabaseUpdateSteps
 
         // 2. Add ip_range_from to ip_ranges if both ip_range_from and ip_range_to are identical
         $this->db->manipulate(
-            'UPDATE tst_test_settings SET ip_ranges = ip_range_from, ip_range_from = NULL, ip_range_to = NULL WHERE ip_range_from == ip_range_to AND ip_range_from IS NOT NULL AND ip_range_to IS NOT NULL'
+            'UPDATE tst_test_settings SET ip_ranges = ip_range_from, ip_range_from = NULL, ip_range_to = NULL WHERE ip_range_from = ip_range_to AND ip_range_from IS NOT NULL AND ip_range_to IS NOT NULL'
         );
 
         // 3. Add ip_range_from to ip_ranges if ip_range_to is empty
@@ -244,7 +244,7 @@ class Test11DBUpdateSteps implements \ilDatabaseUpdateSteps
 
         // 3. Add preexisting IP restrictions into column, handle edge cases where only ip_range_from is set
         $this->db->manipulate(
-            'UPDATE tst_invited_user SET ip_ranges = ip_range_from WHERE ip_range_from == ip_range_to OR (ip_range_from IS NOT NULL AND ip_range_to IS NULL)'
+            'UPDATE tst_invited_user SET ip_ranges = ip_range_from WHERE ip_range_from = ip_range_to OR (ip_range_from IS NOT NULL AND ip_range_to IS NULL)'
         );
 
         // 4. Handle further edge cases where only ip_range_to is set
