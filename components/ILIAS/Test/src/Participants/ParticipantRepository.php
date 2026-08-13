@@ -271,6 +271,15 @@ class ParticipantRepository
             }
         }
 
+        if ($this->isFilterSet($filter, 'active_ids')) {
+            $where[] = $this->database->in(
+                'participants.active_id',
+                $filter['active_ids'],
+                false,
+                \ilDBConstants::T_INTEGER
+            );
+        }
+
         return [$where, $types, $values];
     }
 
@@ -296,7 +305,8 @@ class ParticipantRepository
 
     private function isFilterSet(array $filter, string $key): bool
     {
-        return isset($filter[$key]) && trim($filter[$key]) !== "";
+        return isset($filter[$key])
+            && (is_array($filter[$key]) || trim($filter[$key]) !== '');
     }
 
 
