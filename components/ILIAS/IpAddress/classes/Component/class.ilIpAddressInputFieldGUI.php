@@ -188,7 +188,7 @@ class ilIpAddressInputFieldGUI {
                 if ($vs === null) return true;
 
                 
-                if (version_compare(PHP_VERSION, '8.4.0', '>=') {
+                if (version_compare(PHP_VERSION, '8.4.0', '>=')) {
                     if (array_any($vs, fn($v) => str_contains($v, '/') && !Subnet::isStringValid($v))) return false;
                 } else {
                     foreach($vs as $v) {
@@ -212,7 +212,7 @@ class ilIpAddressInputFieldGUI {
                     fn ($v) => !(str_contains($v, '/') || str_starts_with($v, 'ref_') || $this->titleExists($v))
                 );
 
-                if (version_compare(PHP_VERSION, '8.4.0', '>=') {
+                if (version_compare(PHP_VERSION, '8.4.0', '>=')) {
                     if (array_any($ips, fn ($v) => !IpAddress::isValid($v))) return false;
                 } else {
                     foreach($vs as $v) {
