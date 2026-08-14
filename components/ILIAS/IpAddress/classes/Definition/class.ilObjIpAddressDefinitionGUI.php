@@ -53,9 +53,9 @@ final class ilObjIpAddressDefinitionGUI extends ilObject2GUI
         $this->lng->loadLanguageModule("meta");
 
         $this->df = new \ILIAS\Data\Factory();
-        [$this->url_builder, $this->action_token, $this->row_token] = new URLBuilder(
+        [$this->url_builder, $this->action_token, $this->row_token] = (new URLBuilder(
             $this->df->uri($this->request->getUri()->__toString())
-        )->acquireParameters([ 'ipar' ], "action", "row_id");
+        ))->acquireParameters([ 'ipar' ], "action", "row_id");
     }
 
     protected function setTitleAndDescription(): void
@@ -354,10 +354,10 @@ final class ilObjIpAddressDefinitionGUI extends ilObject2GUI
 
         $this->tabs_gui->activateTab("settings");
 
-        $form = new ilIpAddressDefinitionFormGUI(
+        $form = (new ilIpAddressDefinitionFormGUI(
             "update",
             $this->getEditFormValues()
-        )->get($this);
+        ))->get($this);
 
         $this->tpl->setContent($this->getCreationFormsHTML($form));
     }
@@ -379,10 +379,10 @@ final class ilObjIpAddressDefinitionGUI extends ilObject2GUI
             $this->error->raiseError($this->lng->txt("permission_denied"), $this->error->MESSAGE);
         }
 
-        $form = new ilIpAddressDefinitionFormGUI(
+        $form = (new ilIpAddressDefinitionFormGUI(
             "update",
             $this->getEditFormValues()
-        )->get($this)->withRequest($this->request);
+        ))->get($this)->withRequest($this->request);
 
         $data = $form->getData();
 

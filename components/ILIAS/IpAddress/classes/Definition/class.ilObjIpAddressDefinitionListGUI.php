@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of ILIAS, a powerful learning management system
  * published by ILIAS open source e-Learning e.V.
@@ -15,8 +17,6 @@
  * https://github.com/ILIAS-eLearning
  *
  *********************************************************************/
-
-declare(strict_types=1);
 
 final class ilObjIpAddressDefinitionListGUI extends ilObjectListGUI
 {
@@ -51,7 +51,7 @@ final class ilObjIpAddressDefinitionListGUI extends ilObjectListGUI
     }
 
     public function insertDeleteCommand(): void {
-        $is_referenced = new ilObjIpAddressDefinition($this->ref_id)->isReferenced();
+        $is_referenced = (new ilObjIpAddressDefinition($this->ref_id))->isReferenced();
         if (!$is_referenced) parent::insertDeleteCommand();
     }
 

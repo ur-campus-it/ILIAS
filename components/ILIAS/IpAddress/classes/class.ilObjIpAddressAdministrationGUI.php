@@ -137,11 +137,11 @@ final class ilObjIpAddressAdministrationGUI extends ilContainerGUI
     protected function checkReferences(array | int $ref_id): bool
     {
         if (is_int($ref_id)) {
-            return new ilObjIpAddressDefinition($ref_id)->isReferenced();
+            return (new ilObjIpAddressDefinition($ref_id))->isReferenced();
         }
 
         foreach($ref_id as $id) {
-            if (new ilObjIpAddressDefinition($id)->isReferenced()) return true;
+            if ((new ilObjIpAddressDefinition($id))->isReferenced()) return true;
         }
 
         return false;
@@ -220,7 +220,7 @@ final class ilObjIpAddressAdministrationGUI extends ilContainerGUI
 
     protected function initCreateForm(string $new_type): StandardForm
     {
-        $form = new ilIpAddressDefinitionFormGUI("save")->get($this);
+        $form = (new ilIpAddressDefinitionFormGUI("save"))->get($this);
         return $form;
     }
 

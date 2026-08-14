@@ -78,7 +78,7 @@ class ParticipantTableIpRangeAction implements TableAction
 
         $value = $this->isUniqueClientIp($selected_participants) ? $selected_participants[0]->getClientIpRanges() : null;
 
-        $input = new ilIpAddressInputFieldGUI()->withURLBuilder($url_builder);
+        $input = (new ilIpAddressInputFieldGUI())->withURLBuilder($url_builder);
 
         $trafo = $this->refinery->custom()->transformation(
             static function (?array $vs): array {
