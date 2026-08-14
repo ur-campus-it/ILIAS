@@ -1,0 +1,3 @@
+[submodule "public/Customizing/global/plugins/Modules/Test/Export/TestFlexnowExport"]
+	path = public/Customizing/global/plugins/Modules/Test/Export/TestFlexnowExport
+	url = git@gitlab.uni-regensburg.de:epruefung/ilias-plugin-flexnow.git
