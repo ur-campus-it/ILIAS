@@ -64,6 +64,7 @@ class SettingsFactory
                     : null,
                 (bool) $row['password_enabled'],
                 $row['password'],
+                (bool) $row['ip_ranges_enabled'],
                 $row['ip_ranges'],
                 (bool) $row['fixed_participants'],
             ),
