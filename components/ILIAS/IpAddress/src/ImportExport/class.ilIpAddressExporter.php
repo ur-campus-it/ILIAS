@@ -18,8 +18,6 @@
 
 declare(strict_types=1);
 
-use ilObjectFactory;
-
 class ilIpAddressExporter extends ilXmlExporter
 {
     public function init(): void { }
