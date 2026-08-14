@@ -187,7 +187,6 @@ class ilIpAddressInputFieldGUI {
             function(?array $vs): bool {
                 if ($vs === null) return true;
 
-                
                 if (version_compare(PHP_VERSION, '8.4.0', '>=')) {
                     if (array_any($vs, fn($v) => str_contains($v, '/') && !Subnet::isStringValid($v))) return false;
                 } else {

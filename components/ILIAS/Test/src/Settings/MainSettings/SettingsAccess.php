@@ -41,6 +41,7 @@ class SettingsAccess extends TestSettings implements Exportable
         protected ?\DateTimeImmutable $end_time = null,
         protected bool $password_enabled = false,
         protected ?string $password = null,
+        protected bool $ip_ranges_enabled = false,
         protected ?string $ip_ranges = null,
         protected bool $fixed_participants = false
     ) {
@@ -171,28 +172,33 @@ class SettingsAccess extends TestSettings implements Exportable
         Refinery $refinery
     ): FormInput {
 
-        $input = new ilIpAddressInputFieldGUI();
-
-        if ($this->isIpRangeEnabled()) {
-            $input = $input->get($this->getIpRanges());
-        } else {
-            $input = $input ->get();
-        }
-
         $trafo = $refinery->custom()->transformation(
             static function (?array $vs): array {
-                if ($vs === null) return [ 'ip_ranges' => null ];
-                return [ 'ip_ranges' => implode(',', $vs['ip_ranges'])];
+                if ($vs === null) return [
+                    'ip_ranges_enabled' => false,
+                    'ip_ranges' => null
+                ];
+                return [ 
+                    'ip_ranges_enabled' => true,
+                    'ip_ranges' => implode(',', $vs['ip_ranges'])
+                ];
             }
         );
 
-        return $f->optionalGroup(
+        $input = $f->optionalGroup(
             [
-                'ip_ranges' => $input
+                'ip_ranges' => (new ilIpAddressInputFieldGUI())->get($this->getIpRangesEnabled() ? $this->getIpRanges() : null)
             ],
             $lng->txt('ip_range_label'),
             $lng->txt('ip_range_info')
-        )->withAdditionalTransformation($trafo);
+        )
+        ->withAdditionalTransformation($trafo);
+
+        if (!$this->getIpRangesEnabled()) {
+            return $input->withValue(null);
+        }
+
+        return $input;
     }
 
     private function checkIpSubnetValidity(string $subnet): bool
@@ -220,6 +226,7 @@ class SettingsAccess extends TestSettings implements Exportable
             'ending_time' => ['integer', $this->getEndTime() !== null ? $this->getEndTime()->getTimestamp() : 0],
             'password_enabled' => ['integer', (int) $this->getPasswordEnabled()],
             'password' => ['text', $this->getPassword()],
+            'ip_ranges_enabled' => ['integer', (int) $this->getIpRangesEnabled()],
             'ip_ranges' => ['text', $this->getIpRanges()],
             'fixed_participants' => ['integer', (int) $this->getFixedParticipants()]
         ];
@@ -241,7 +248,7 @@ class SettingsAccess extends TestSettings implements Exportable
             AdditionalInformationGenerator::KEY_TEST_START_TIME => $starting_time,
             AdditionalInformationGenerator::KEY_TEST_END_TIME => $end_time,
             AdditionalInformationGenerator::KEY_TEST_PASSWORD => $this->getPassword() ?? $additional_info->getNoneTag(),
-            AdditionalInformationGenerator::KEY_TEST_IP_RANGES => $this->isIpRangeEnabled()
+            AdditionalInformationGenerator::KEY_TEST_IP_RANGES => $this->getIpRangesEnabled()
                 ? $this->getIpRanges()
                 : $additional_info->getEnabledDisabledTagForBool(false),
             AdditionalInformationGenerator::KEY_TEST_FIXED_PARTICIPANTS => $additional_info
@@ -326,9 +333,16 @@ class SettingsAccess extends TestSettings implements Exportable
         return $clone;
     }
 
-    public function isIpRangeEnabled(): ?bool
+    public function getIpRangesEnabled(): ?bool
     {
-        return $this->ip_ranges !== null;
+        return $this->ip_ranges_enabled;
+    }
+
+    public function withIpRangesEnabled(bool $ip_ranges_enabled): self  
+    {
+        $clone = clone $this;
+        $clone->ip_ranges_enabled = $ip_ranges_enabled;
+        return $clone;
     }
 
     public function getFixedParticipants(): bool
@@ -351,6 +365,7 @@ class SettingsAccess extends TestSettings implements Exportable
             'ending_time' => $this->getEndTime()?->format(\DateTimeInterface::ATOM),
             'password_enabled' => $this->getPasswordEnabled(),
             'password' => $this->getPassword(),
+            'ip_ranges_enabled' => $this->getIpRangesEnabled(),
             'ip_ranges' => $this->getIpRanges(),
             'fixed_participants' => $this->getFixedParticipants()
         ];
@@ -365,6 +380,7 @@ class SettingsAccess extends TestSettings implements Exportable
             $data['ending_time'] !== null ? new \DateTimeImmutable($data['ending_time']) : null,
             (bool) $data['password_enabled'],
             $data['password'],
+            (bool) $data['ip_ranges_enabled'],
             $data['ip_ranges'],
             (bool) $data['fixed_participants'],
         );

@@ -219,7 +219,7 @@ class ilTestAccess
 
 
         if ($allowed_individual === true
-            || !$access_settings->isIpRangeEnabled()) {
+            || !$access_settings->getIpRangesEnabled()) {
             return ParticipantAccess::ALLOWED;
         }
 
@@ -247,7 +247,7 @@ class ilTestAccess
         string $ip,
         SettingsAccess $access_settings
     ): bool {
-        if (!$access_settings->isIpRangeEnabled()) {
+        if (!$access_settings->getIpRangesEnabled()) {
             return true;
         }
 
