@@ -93,6 +93,7 @@ class MainSettingsDatabaseRepository implements MainSettingsRepository
             . 'tst_set.ending_time,' . PHP_EOL
             . 'tst_set.password_enabled,' . PHP_EOL
             . 'tst_set.password,' . PHP_EOL
+            . 'tst_set.ip_ranges_enabled,' . PHP_EOL
             . 'tst_set.ip_ranges,' . PHP_EOL
             . 'tst_set.fixed_participants,' . PHP_EOL
             . 'tst_set.nr_of_tries,' . PHP_EOL

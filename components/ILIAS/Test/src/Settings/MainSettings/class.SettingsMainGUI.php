@@ -515,6 +515,7 @@ class SettingsMainGUI extends TestSettingsGUI
             ->withEndTime($section['access_window']['end_time'])
             ->withPasswordEnabled($section['test_password']['password_enabled'])
             ->withPassword($section['test_password']['password_value'])
+            ->withIpRangesEnabled($section['ip_ranges']['ip_ranges_enabled'])
             ->withIpRanges($section['ip_ranges']['ip_ranges'])
             ->withFixedParticipants($section['fixed_participants_enabled']);
 
