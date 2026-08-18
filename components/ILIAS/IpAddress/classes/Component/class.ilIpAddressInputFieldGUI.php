@@ -214,7 +214,7 @@ class ilIpAddressInputFieldGUI {
                 if (version_compare(PHP_VERSION, '8.4.0', '>=')) {
                     if (array_any($ips, fn ($v) => !IpAddress::isValid($v))) return false;
                 } else {
-                    foreach($vs as $v) {
+                    foreach($ips as $v) {
                         if (!IpAddress::isValid($v)) return false;
                     }
                 }
