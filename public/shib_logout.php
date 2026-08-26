@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * This file is part of ILIAS, a powerful learning management system
+ * published by ILIAS open source e-Learning e.V.
+ *
+ * ILIAS is licensed with the GPL-3.0,
+ * see https://www.gnu.org/licenses/gpl-3.0.en.html
+ * You should have received a copy of said license along with the
+ * source code, too.
+ *
+ * If this is not the case or you just want to try ILIAS, you'll find
+ * us at:
+ * https://www.ilias.de
+ * https://github.com/ILIAS-eLearning
+ *
+ *********************************************************************/
+
+// A real Shib-Logout ("front" or "back" channel was never implemented resp. removed in ILIAS, because the front-channel
+// also had problems concerning the security. If a logout mechanism is desired, please revisit the feature request
+// https://docu.ilias.de/goto_docu_wiki_wpage_4657_1357.html and bring it as a suggestion to the community:
+// https://docu.ilias.de/goto.php?target=wiki_5307&client_id=docu#ilPageTocA129
+/** @noRector */
+require_once("../vendor/composer/vendor/autoload.php");
+ilContext::init(ilContext::CONTEXT_SHIBBOLETH);
+require_once("../artifacts/bootstrap_default.php");
+entry_point("ILIAS Legacy Initialisation Adapter");
+
+global $DIC;
+
+$GLOBALS['DIC']['ilAuthSession']->logout();
+ilUtil::redirect('login.php');

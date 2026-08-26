@@ -1,0 +1,16 @@
+<?php return array (
+  0 => 'ILIAS\\Authentication\\StaticUrlHandler',
+  1 => 'ILIAS\\Badge\\URL\\StaticUrlHandler',
+  2 => 'ILIAS\\Calendar\\URL\\CalendarStaticURLHandler',
+  3 => 'ILIAS\\Certificate\\StaticUrlHandler',
+  4 => 'ILIAS\\Contact\\URL\\StaticUrlHandler',
+  5 => 'ILIAS\\Exercise\\PermanentLink\\StaticURLHandler',
+  6 => 'ILIAS\\Export\\ExportHandler\\PublicAccess\\Link\\Handler',
+  7 => 'ILIAS\\PermanentLink\\StaticURLHandler',
+  8 => 'ILIAS\\StaticURL\\Handler\\LegacyGotoHandler',
+  9 => 'ILIAS\\StaticURL\\Shortlinks\\Handler',
+  10 => 'ILIAS\\Test\\StaticURLHandler',
+  11 => 'ILIAS\\User\\StaticURLHandler',
+  12 => 'ilFileStaticURLHandler',
+  13 => 'ilKSDocumentationGotoLink',
+);

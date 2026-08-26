@@ -34,6 +34,12 @@ RUN echo "max_execution_time = 600" >> $PHP_INI_DIR/conf.d/10-docker-php.ini && 
     echo "allow_url_fopen = 1" >> $PHP_INI_DIR/conf.d/10-docker-php.ini && \
     echo "max_input_vars = 10000" >> $PHP_INI_DIR/conf.d/10-docker-php.ini
 
+RUN echo 'LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %{X-Real-IP}i" combined_with_xff' >> /etc/apache2/sites-enabled/000-default.conf && \
+    echo 'CustomLog ${APACHE_LOG_DIR}/access.log combined_with_xff' >> /etc/apache2/sites-enabled/000-default.conf && \
+    echo "RemoteIPHeader X-Forwarded-For" >> /etc/apache2/sites-enabled/000-default.conf && \
+    echo "RemoteIPTrustedProxy 192.168.0.0/16" >> /etc/apache2/sites-enabled/000-default.conf && \
+    echo "</VirtualHost>" >> /etc/apache2/sites-enabled/000-default.conf
+
 # Apply apache httpd configuration.
 RUN a2enmod remoteip headers ssl
 
