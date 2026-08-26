@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of ILIAS, a powerful learning management system
  * published by ILIAS open source e-Learning e.V.
@@ -18,19 +16,25 @@ declare(strict_types=1);
  *
  *********************************************************************/
 
-use PHPUnit\Framework\TestSuite;
+declare(strict_types=1);
 
-class ilServicesObjectSuite extends TestSuite
+namespace ILIAS\Repository\Permission;
+
+class CmdEntity
 {
-    public static function suite(): self
+    public function __construct(
+        protected string $type,
+        protected string $id
+    ) {
+    }
+
+    public function getType(): string
     {
-        $suite = new ilServicesObjectSuite();
+        return $this->type;
+    }
 
-        include_once("./Services/Object/test/ilObjectTest.php");
-        $suite->addTestSuite("ilObjectTest");
-        include_once("./Services/Object/test/CustomIconTempUploadPathTest.php");
-        $suite->addTestSuite("CustomIconTempUploadPathTest");
-
-        return $suite;
+    public function getId(): string
+    {
+        return $this->id;
     }
 }
