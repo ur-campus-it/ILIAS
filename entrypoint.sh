@@ -50,7 +50,7 @@ install_ilias() {
     /usr/local/bin/php /var/www/html/cli/setup.php install "${CONFIG_LOCATION}" -y
 }
 
-if [[ $ORDINAL != "0" ]] || [ -z $DEVELOPMENT ]; then
+if [ ! $ORDINAL = "0" ] || [ -z $DEVELOPMENT ]; then
   apache2-foreground
   exit
 fi
