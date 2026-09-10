@@ -12,7 +12,7 @@ WORKDIR /app
 
 # Install dependencies
 RUN /tmp/setup_node
-RUN apt update; apt upgrade; apt install -y default-jdk ssmtp ghostscript nano nodejs
+RUN apt update; apt upgrade; apt install -y default-jdk ssmtp ghostscript nano nodejs python3
 RUN php /tmp/setup_composer --install-dir=/usr/local/bin --filename=composer
 
 RUN install-php-extensions gd dom xsl pdo pdo_mysql curl json simplexml libxml xml zip imagick mbstring xmlrpc soap ldap

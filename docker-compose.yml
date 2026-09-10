@@ -3,12 +3,23 @@ services:
   ilias:
     build: .
     environment:
-      DEVELOPMENT: 1
-      CONFIG_FILE: "/config.json"
+      CONFIG_LOCATION: "/tmp/config.json"
+      DATABASE_TYPE: innodb
+      DATABASE_HOST: mariadb
+      DATABASE_PORT: 3306
+      DATABASE_DATABASE: ilias
+      DATABASE_USER: ilias
+      DATABASE_PASSWORD: ilias
+      DATABASE_CREATE_DATABASE: true
+      HTTP_PATH: http://localhost:8080
+      COMMON_CLIENT_ID: ilias-client-id
+      FILESYSTEM_DATA_DIR: /var/www/data
+      SYSTEMFOLDER_CONTACT_FIRSTNAME: Firstname
+      SYSTEMFOLDER_CONTACT_LASTNAME: Lastname
+      SYSTEMFOLDER_CONTACT_EMAIL: email
     volumes:
-      - .:/var/www/html
-      - ilias:/var/www/data
-      - ./config.json:/config.json
+      - ilias-html:/var/www/html
+      - ilias-data:/var/www/data
     ports:
       - 8080:80
     depends_on:
@@ -27,4 +38,5 @@ services:
 
 volumes:
   mariadb:
-  ilias:
+  ilias-html:
+  ilias-data:

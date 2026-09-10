@@ -1,5 +1,7 @@
 #!/bin/sh
 
+ORDINAL="${POD_NAME##*-}"
+
 delete_entrypoint() {
     rm -rf /var/www/html/entrypoint.sh
 }
@@ -37,25 +39,31 @@ upgrade_ilias() {
     #     mv /var/www/html/Customizing/global/plugins/Modules/* /var/www/html/public/Customizing/plugins/
     # fi
 
-    # /usr/local/bin/php /var/www/html/cli/setup.php update -q -y
+    /usr/local/bin/php /var/www/html/cli/setup.php update -q -y
 }
 
 install_ilias() {
     # Copy new ILIAS installation
     cp -r /app/* /var/www/html
     cd /var/www/html
+
     /usr/local/bin/php /var/www/html/cli/setup.php install "${CONFIG_LOCATION}" -y
 }
 
+if [[ $ORDINAL != "0" ]] || [ -z $DEVELOPMENT ]; then
+  apache2-foreground
+  exit
+fi
 
-if [ "$(ls -A /var/www/html)" ] && [ -z "$DEVELOPMENT" ]; then
+if [ -z "$(ls -A /var/www/html)" ]; then
+  install_ilias
+else
+
+  if cmp -s /var/www/html/ilias_version.php /app/ilias_version.php; then
     upgrade_ilias
-    delete_entrypoint
+  fi
 fi
 
-if [ -z "$(ls -A /var/www/html)" ] && [ -z "$DEVELOPMENT" ]; then
-    install_ilias
-    delete_entrypoint
-fi
-
+delete_entrypoint
 apache2-foreground
+
