@@ -5,3 +5,7 @@
 	path = Customizing/global/plugins/Modules/TestQuestionPool/Questions/assPaintQuestion
 	url = https://github.com/kyro46/assPaintQuestion.git
 	branch = ilias_10_dev
+[submodule "Customizing/global/plugins/Services/Repository/RepositoryObject/LongEssayAssessment"]
+	path = Customizing/global/plugins/Services/Repository/RepositoryObject/LongEssayAssessment
+	url = https://github.com/EDUTIEK/LongEssayAssessment
+	branch = release_10
