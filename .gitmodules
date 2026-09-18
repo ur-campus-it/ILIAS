@@ -1,12 +1,12 @@
-[submodule "Customizing/global/plugins/Modules/TestQuestionPool/Questions/assStackQuestion"]
-	path = Customizing/global/plugins/Modules/TestQuestionPool/Questions/assStackQuestion
+[submodule "public/Customizing/global/plugins/Modules/TestQuestionPool/Questions/assStackQuestion"]
+	path = public/Customizing/global/plugins/Modules/TestQuestionPool/Questions/assStackQuestion
 	url = https://github.com/surlabs/STACK.git
 	branch = release_10
-[submodule "Customizing/global/plugins/Modules/TestQuestionPool/Questions/assPaintQuestion"]
-	path = Customizing/global/plugins/Modules/TestQuestionPool/Questions/assPaintQuestion
+[submodule "public/Customizing/global/plugins/Modules/TestQuestionPool/Questions/assPaintQuestion"]
+	path = public/Customizing/global/plugins/Modules/TestQuestionPool/Questions/assPaintQuestion
 	url = https://github.com/kyro46/assPaintQuestion.git
 	branch = ilias_10_dev
-[submodule "Customizing/global/plugins/Services/Repository/RepositoryObject/LongEssayAssessment"]
-	path = Customizing/global/plugins/Services/Repository/RepositoryObject/LongEssayAssessment
+[submodule "public/Customizing/global/plugins/Services/Repository/RepositoryObject/LongEssayAssessment"]
+	path = public/Customizing/global/plugins/Services/Repository/RepositoryObject/LongEssayAssessment
 	url = https://github.com/EDUTIEK/LongEssayAssessment
 	branch = release_10

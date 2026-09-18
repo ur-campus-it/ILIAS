@@ -7,14 +7,16 @@ COPY . /app
 WORKDIR /app
 
 # Install dependencies
-RUN apt update; apt upgrade; apt install -y default-jdk npm ssmtp ghostscript nano
+RUN apt update; apt upgrade; apt install -y default-jdk npm ssmtp ghostscript nano pdftk
 
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN install-php-extensions gd dom xsl pdo pdo_mysql curl json simplexml libxml xml zip imagick mbstring xmlrpc soap ldap
 
+
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN npm clean-install --omit=dev --ignore-scripts
+RUN (cd /app/public/Customizing/global/plugins/Services/Repository/RepositoryObject/LongEssayAssessment && composer install --no-dev)
 RUN composer install --no-dev
 
 # Apply php configuration.
