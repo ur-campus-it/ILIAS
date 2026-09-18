@@ -342,5 +342,34 @@ class ilStyleDBUpdateSteps implements \ilDatabaseUpdateSteps
         }
     }
 
+    public function step_22()
+    {
+        $this->db->update(
+            "style_data",
+            [
+                "uptodate" => ["integer", 0]
+            ],
+            [    // where
+                 "uptodate" => ["integer", 1]
+            ]
+        );
+    }
+
+    /**
+     * Rewrite the cached style.css files, so the div alias for text block
+     * characteristics becomes effective (see CSSBuilder).
+     */
+    public function step_23()
+    {
+        $this->db->update(
+            "style_data",
+            [
+                "uptodate" => ["integer", 0]
+            ],
+            [    // where
+                 "uptodate" => ["integer", 1]
+            ]
+        );
+    }
 
 }

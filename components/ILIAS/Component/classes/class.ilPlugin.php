@@ -114,13 +114,24 @@ abstract class ilPlugin
     }
 
     /**
-     * Only very little classes seem to care about this:
-     *     - Services/COPage/classes/class.ilPCPlugged.php
-     *     - Modules/DataCollection/classes/Fields/class.ilDclFieldFactory.php
+     * @description Return the directory provided by ilPluginInfo, please note that this is a absolute path.
      */
     public function getDirectory(): string
     {
         return $this->getPluginInfo()->getPath();
+    }
+
+    public function getRelativeDirectory(): string
+    {
+        $path = $this->getPluginInfo()->getPath();
+
+        return str_replace(
+            ILIAS_ABSOLUTE_PATH . "/public/",
+            "",
+            // realpath only resolves symlinks here, the path itself is already normalized.
+            // It returns false for a plugin which is not installed, keep the path in that case.
+            realpath($path) ?: $path
+        );
     }
 
     /**

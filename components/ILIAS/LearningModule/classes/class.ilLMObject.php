@@ -275,6 +275,8 @@ class ilLMObject
 
         $ilDB = $DIC->database();
 
+        $a_title = ilStr::substr($a_title, 0, 200);
+
         $query = "UPDATE lm_data SET " .
             " title = " . $ilDB->quote($a_title, "text") .
             " WHERE obj_id = " . $ilDB->quote($a_obj_id, "integer");
@@ -765,6 +767,11 @@ class ilLMObject
         if ($item_lm_id != $a_target_lm->getId() && !$a_as_copy) {
             // @todo: check whether st is NOT in tree
 
+            // update lm object
+            $item->setLMId($a_target_lm->getId());
+            $item->setContentObject($a_target_lm);
+            $item->update();
+
             // "move" metadata to new lm
             $lom_services->derive()
                          ->fromObject($item_lm_id, $item->getId(), $item->getType())
@@ -842,7 +849,7 @@ class ilLMObject
         }
     }
 
-    public static function saveTitle(int $id, string $title, string $lang = "-") : void
+    public static function saveTitle(int $id, string $title, string $lang = "-"): void
     {
         global $DIC;
 
@@ -852,11 +859,14 @@ class ilLMObject
             $lm_id = self::_lookupContObjID($id);
             $type = self::_lookupType($id);
             if ($type !== "" && $lm_id > 0) {
-                $lom_services->manipulate($lm_id, $id, $type)
-                             ->prepareCreateOrUpdate(
-                                 $lom_services->paths()->title(),
-                                 $title
-                             )->execute();
+                try {
+                    $lom_services->manipulate($lm_id, $id, $type)
+                                 ->prepareCreateOrUpdate(
+                                     $lom_services->paths()->title(),
+                                     $title
+                                 )->execute();
+                } catch (Exception $e) {
+                }
                 self::_writeTitle($id, $title);
             }
         } else {

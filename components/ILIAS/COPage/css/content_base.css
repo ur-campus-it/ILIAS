@@ -18,6 +18,11 @@
 	width: auto;
 }
 
+/* #47866 */
+.ilTinyMenuSection > div.dropdown:nth-child(4) > ul.dropdown-menu {
+	right: auto;
+}
+
 /* see #41844 and #46127 */
 #copg-editor-slate-content p, #iltinymenu .il-copg-button-group p {
 	background-color: transparent;
@@ -91,7 +96,9 @@ div.ilc_VerificationPlaceHolder /* no custom image yet */
 }
 
 .copg-iim-area-shape-sel.copg-iim-hl-mode-Edit {
-	stroke: #B54F00;
+	stroke: #FFF;
+	stroke-dasharray: 4 2;
+	filter: drop-shadow(0 0 1px #000) drop-shadow(0 0 1px #000);
 }
 .copg-iim-area-shape-sel.copg-iim-hl-mode-Always,
 .copg-iim-area-shape-sel.copg-iim-hl-mode-Hover:hover {
@@ -113,6 +120,7 @@ div.ilc_VerificationPlaceHolder /* no custom image yet */
 	stroke: #0078D7;
 	fill-opacity: 40%;
 	fill: white;
+	filter: none;
 }
 
 .copg-iim-popup {

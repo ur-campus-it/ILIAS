@@ -58,7 +58,7 @@ class ilDclDetailedViewGUI
             !$this->http->wrapper()->query()->has('table_id') ||
             !$this->http->wrapper()->query()->has('tableview_id')
         ) {
-            $this->main_tpl->setOnScreenMessage($this->main_tpl::MESSAGE_TYPE_FAILURE, 'Table not found', true);
+            $this->main_tpl->setOnScreenMessage($this->main_tpl::MESSAGE_TYPE_FAILURE, $this->lng->txt('table_not_found'), true);
             $this->ctrl->redirectByClass(ilDclRecordListGUI::class, "show");
         }
 
@@ -124,6 +124,7 @@ class ilDclDetailedViewGUI
 
     public function executeCommand(): void
     {
+        $this->ctrl->setParameter($this, 'table_id', $this->table->getId());
         $this->ctrl->setParameter($this, 'tableview_id', $this->tableview_id);
 
         if (!$this->checkAccess()) {

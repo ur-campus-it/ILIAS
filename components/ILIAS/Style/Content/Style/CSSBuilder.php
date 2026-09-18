@@ -32,7 +32,6 @@ class CSSBuilder
     public function getCss(): string
     {
         $style = $this->style->getStyle();
-
         $css = "";
         $page_background = "";
 
@@ -40,7 +39,6 @@ class CSSBuilder
         foreach ($this->style->getMediaQueries() as $mq) {
             $mqs[] = $mq;
         }
-
         // iterate all media queries
         foreach ($mqs as $mq) {
             if ($mq["id"] > 0) {
@@ -74,27 +72,38 @@ class CSSBuilder
                     $css .= ",span.ilc_text_inline_" . $tag[0]["class"] . "\n";
                 }
                 if ($tag[0]["type"] == "text_block") {
+                    // a paragraph containing a list is rendered as div, not p (page.xsl:929-942),
+                    // so the p selector above would not match it. ilc_Paragraph limits this alias
+                    // to the page editor's paragraph container (page.xsl:990).
+                    $css .= ",div.ilc_Paragraph.ilc_text_block_" . $tag[0]["class"] . "\n";
                     $css .= ",html.il-no-tiny-bg body#tinymce.ilc_text_block_" . $tag[0]["class"] . "\n";
                 }
-                if ($tag[0]["class"] == "VAccordCntr") {
+                if ($tag[0]["class"] == "VAccordCntr" &&
+                    $this->style->hasCharacteristic("va_cntr", "VAccordCntr")) {
                     $css .= ",div.ilc_va_cntr_AccordCntr\n";
                 }
-                if ($tag[0]["class"] == "VAccordICntr") {
+                if ($tag[0]["class"] == "VAccordICntr" &&
+                    $this->style->hasCharacteristic("va_icntr", "VAccordICntr")) {
                     $css .= ",div.ilc_va_icntr_AccordICntr\n";
                 }
-                if ($tag[0]["class"] == "VAccordICont") {
+                if ($tag[0]["class"] == "VAccordICont" &&
+                    $this->style->hasCharacteristic("va_icont", "VAccordICont")) {
                     $css .= ",div.ilc_va_icont_AccordICont\n";
                 }
-                if ($tag[0]["class"] == "VAccordIHead") {
+                if ($tag[0]["class"] == "VAccordIHead" &&
+                    $this->style->hasCharacteristic("va_ihead", "VAccordIHead")) {
                     $css .= ",div.ilc_va_ihead_AccordIHead\n";
                 }
-                if ($tag[0]["class"] == "VAccordIHead:hover") {
+                if ($tag[0]["class"] == "VAccordIHead:hover" &&
+                    $this->style->hasCharacteristic("va_ihead", "VAccordIHead")) {
                     $css .= ",div.ilc_va_ihead_AccordIHead:hover\n";
                 }
-                if ($tag[0]["class"] == "VAccordIHeadActive") {
+                if ($tag[0]["class"] == "VAccordIHeadActive" &&
+                    $this->style->hasCharacteristic("va_iheada", "VAccordIHeadActive")) {
                     $css .= ",div.ilc_va_iheada_AccordIHeadActive\n";
                 }
-                if ($tag[0]["class"] == "VAccordIHeadActive:hover") {
+                if ($tag[0]["class"] == "VAccordIHeadActive:hover" &&
+                    $this->style->hasCharacteristic("va_iheada", "VAccordIHeadActive")) {
                     $css .= ",div.ilc_va_iheada_AccordIHeadActive:hover\n";
                 }
                 $css .= "{\n";
@@ -104,7 +113,7 @@ class CSSBuilder
 
                 foreach ($tag as $par) {
                     $cur_par = $par["parameter"];
-                    $cur_val = $par["value"];
+                    $cur_val = (string) $par["value"];
 
                     // replace named colors
                     if (is_int(strpos($cur_par, "color")) && substr(trim($cur_val), 0, 1) == "!") {

@@ -82,13 +82,17 @@ class ilAuthProviderLTI extends \ilAuthProvider implements \ilAuthProviderInterf
     {
         global $ilDB;
 
-        // move to connector
-        $query = 'SELECT consumer_pk from lti2_consumer where enabled = ' . $ilDB->quote(1, 'integer');
+        // Users store the external LTI consumer id in usr_data.auth_mode (lti_<id>).
+        $query = /** @lang text */
+            'SELECT DISTINCT ec.id FROM lti_ext_consumer ec ' .
+            'JOIN lti2_consumer c ON c.ext_consumer_id = ec.id ' .
+            'WHERE ec.active = ' . $ilDB->quote(1, 'integer') . ' ' .
+            'AND c.enabled = ' . $ilDB->quote(1, 'integer');
         $res = $ilDB->query($query);
 
         $sids = array();
         while ($row = $res->fetchRow(ilDBConstants::FETCHMODE_OBJECT)) {
-            $sids[] = $row->consumer_pk;
+            $sids[] = $row->id;
         }
         return $sids;
     }
@@ -100,13 +104,15 @@ class ilAuthProviderLTI extends \ilAuthProvider implements \ilAuthProviderInterf
     {
         global $ilDB;
 
-        // move to connector
-        $query = 'SELECT distinct(consumer_pk) consumer_pk from lti2_consumer';
+        // Users store the external LTI consumer id in usr_data.auth_mode (lti_<id>).
+        $query = /** @lang text */
+            'SELECT DISTINCT ec.id FROM lti_ext_consumer ec ' .
+            'JOIN lti2_consumer c ON c.ext_consumer_id = ec.id';
         $res = $ilDB->query($query);
 
         $sids = array();
         while ($row = $res->fetchRow(ilDBConstants::FETCHMODE_OBJECT)) {
-            $sids[] = $row->consumer_pk;
+            $sids[] = $row->id;
         }
         return $sids;
     }
@@ -119,8 +125,9 @@ class ilAuthProviderLTI extends \ilAuthProvider implements \ilAuthProviderInterf
     public static function lookupConsumer(int $a_sid): string
     {
         $connector = new ilLTIDataConnector();
-        $consumer = ilLTIPlatform::fromRecordId($a_sid, $connector);
-        return $consumer->getTitle();
+        $consumer = ilLTIPlatform::fromExternalConsumerId($a_sid, $connector);
+
+        return $consumer->getTitle() . ' (ID ' . $a_sid . ')';
     }
 
     /**
@@ -161,10 +168,11 @@ class ilAuthProviderLTI extends \ilAuthProvider implements \ilAuthProviderInterf
     {
         global $ilDB;
 
-        $query = 'SELECT consumer_pk from lti2_consumer where consumer_key = ' . $ilDB->quote(
-            $a_oauth_consumer_key,
-            'text'
-        );
+        $query = /** @lang text */
+            'SELECT consumer_pk from lti2_consumer where consumer_key = ' . $ilDB->quote(
+                $a_oauth_consumer_key,
+                'text'
+            );
         // $query = 'SELECT id from lti_ext_consumer where consumer_key = '.$ilDB->quote($a_oauth_consumer_key,'text');
         $this->getLogger()->debug($query);
         $res = $ilDB->query($query);
@@ -187,7 +195,8 @@ class ilAuthProviderLTI extends \ilAuthProvider implements \ilAuthProviderInterf
     {
         global $ilDB;
 
-        $query = 'SELECT prefix from lti_ext_consumer where id = ' . $ilDB->quote($a_lti_id, 'integer');
+        $query = /** @lang text */
+            'SELECT prefix from lti_ext_consumer where id = ' . $ilDB->quote($a_lti_id, 'integer');
         $this->getLogger()->debug($query);
         $res = $ilDB->query($query);
 
@@ -209,7 +218,8 @@ class ilAuthProviderLTI extends \ilAuthProvider implements \ilAuthProviderInterf
     {
         global $ilDB;
 
-        $query = 'SELECT role from lti_ext_consumer where id = ' . $ilDB->quote($a_lti_id, 'integer');
+        $query = /** @lang text */
+            'SELECT role from lti_ext_consumer where id = ' . $ilDB->quote($a_lti_id, 'integer');
         $this->getLogger()->debug($query);
         $res = $ilDB->query($query);
 
@@ -240,9 +250,20 @@ class ilAuthProviderLTI extends \ilAuthProvider implements \ilAuthProviderInterf
             setcookie("launch_presentation_return_url", $this->launchReturnUrl, time() + 86400, "/", "", true, true);
             $this->logger->info("Setting launch_presentation_return_url in cookie storage " . $this->launchReturnUrl);
         }
+
+        $pk = ilObjLTIConsumer::getPrivateKey();
+
+        $lti_provider->rsaKey = $pk['key'];
+        $lti_provider->kid = $pk['kid'];
+        $lti_provider->signatureMethod = 'RS256';
+
         $lti_provider->handleRequest();
         $this->provider = $lti_provider;
         $this->messageParameters = $this->provider->getMessageParameters();
+
+        $message_type = $this->messageParameters['https://purl.imsglobal.org/spec/lti/claim/message_type']
+            ?? $this->messageParameters['lti_message_type']
+            ?? '';
 
         if (!$DIC->http()->wrapper()->post()->has('launch_presentation_return_url')) {
             $this->launchReturnUrl = $_COOKIE['launch_presentation_return_url'] ?? "";
@@ -269,6 +290,9 @@ class ilAuthProviderLTI extends \ilAuthProvider implements \ilAuthProviderInterf
         ilSession::clear("lti_context_ids");
         $this->ref_id = $platform->getRefId();
 
+        if (!empty($this->messageParameters['custom_ilias_ref_id'])) {
+            $this->ref_id = (int) $this->messageParameters['custom_ilias_ref_id'];
+        }
         $lti_context_ids = ilSession::get('lti_context_ids');
 
         if (isset($lti_context_ids) && is_array($lti_context_ids)) {
