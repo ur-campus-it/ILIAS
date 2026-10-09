@@ -585,6 +585,7 @@ assessment#:#concatenation#:#結び付け
 assessment#:#conf_delete_pass#:#パスを本当に削除しますか?
 assessment#:#confirm_log_deletion#:#選択したログエントリを削除してもよろしいですか？削除したエントリは復元できません。
 assessment#:#confirm_sync_questions#:#変更した問題は実際のテストで使用するために作成したコピーです。オリジナルの問題も合わせて変更しますか?
+assessment#:#contained_question_types#:#Contained Question Types###06 10 2026 new variable
 assessment#:#coordinates#:#座標
 assessment#:#copy_and_link_to_questionpool#:#問題集へ追加
 assessment#:#copy_no_questions_selected#:#コピーするには問題のどれかひとつを選択してください。
@@ -2018,7 +2019,7 @@ assessment#:#use_previous_solution_advice#:#表示されている回答は前回
 assessment#:#user_has_finished_a_test#:#受験者はテストを終了しました。
 assessment#:#user_ip_outside_range#:#このIPからテストへのアクセスを許可されていません。
 assessment#:#user_not_invited#:#あなたはこのテストの受験対象者ではありません。
-assessment#:#usr_manscoring_complete#:#採点済'としてマーク
+assessment#:#usr_manscoring_complete#:#記録済'としてマーク
 assessment#:#value_between_x_and_y#:#値は %s と %s の間になります
 assessment#:#values#:#値
 assessment#:#variable#:#変数
@@ -9632,6 +9633,7 @@ exc#:#exc_reminder_submit_setting#:#ユーザへ注意喚起を送信
 exc#:#exc_reminder_submit_subject#:#割当て"%s"は完了していません。
 exc#:#exc_reminders_cron#:#割当ての 注意喚起
 exc#:#exc_reminders_cron_info#:#有効にすると、3個の注意喚起がアクティブになります: 送信するユーザ、評価する指導教員、フィードバックする参加者
+exc#:#exc_reminders_cron_not_active#:#Note: Notifications will not be sent until the 'Reminders for Assignments' cron job is activated. Currently the cron job is deactivated.###06 10 2026 new variable
 exc#:#exc_request_deadline#:#期限を要求
 exc#:#exc_requirement#:#要件
 exc#:#exc_review_anytime#:#いつでもフィードバック
@@ -11265,8 +11267,6 @@ lti#:#activity_id#:#アクティビティID
 lti#:#activity_id_info#:#このアクティビティIDはステートメント識別用にLTIプロバイダが使用します。
 lti#:#auth_lti#:#LTI Auth
 lti#:#conf_privacy_ident#:#ユーザID
-lti#:#conf_privacy_ident_il_uuid_SHA256#:#ハッシュは、Eメールアドレス形式でフォーマットされたユニークなILIASプラットフォームIDと組み合わされます
-lti#:#conf_privacy_ident_il_uuid_SHA256_info#:#これは各呼び出しと同一ですが、ILIASユーザーについての直接的な結論を許しません。
 lti#:#conf_privacy_ident_il_uuid_ext_account#:#Eメールアドレス用にユニークなILIASプラットフォームでフォーマットされて組み合された外部ユーザID
 lti#:#conf_privacy_ident_il_uuid_ext_account_info#:#これはコール毎に同じですが、ユーザに関してはダイレクトに終結する事があります。
 lti#:#conf_privacy_ident_il_uuid_login#:#EメールアドレスでユニークなILIASプラットフォームでフォーマットされて組み合されたILIASログイン
@@ -11385,8 +11385,8 @@ lti#:#lti_at_least_one_prov_has_usages#:# 一つ以上にこのプロバイダ�
 lti#:#lti_auth_failed_invalid_key#:#有効なconsumer keyがないので認証を失敗しました。
 lti#:#lti_con_content_item#:#ディープリンクのサポート
 lti#:#lti_con_content_item_url#:#Content URL
-lti#:#lti_con_grade_synchronization#:#拡張評価サービス
-lti#:#lti_con_grade_synchronization_info#:#LTIツールは'割当と評価サービス'を提示する必要があります。
+lti#:#lti_con_grade_synchronization#:#Assignment and Grade Services
+lti#:#lti_con_grade_synchronization_info#:#LTIツールは'Assignment and Grade Services'を提供する必要があります。
 lti#:#lti_con_initiate_login_url#:#Login URLを起動
 lti#:#lti_con_key_type#:#Public Key Type
 lti#:#lti_con_key_type_jwk#:#URL (Json Web Token)
@@ -11475,6 +11475,7 @@ lti#:#lti_create_lti_user_role#:#LTI ユーザ用の推奨グローバル役割�
 lti#:#lti_cron_title#:#LTI Outcome Service
 lti#:#lti_cron_title_desc#:#結果サービスをサポートしてる場合、LTI consumerでLTIユーザの学習進捗を同期します。このcron jobは学習進捗設定更新の後でステータス更新を送信する事が必須となります。
 lti#:#lti_custom_new#:#自身のプロバイダー設定を作成
+lti#:#lti_deep_linking_not_available_for_admin_objects#:#管理画面で作成されたコンシューマーではコンテンツを選択できません
 lti#:#lti_delete_consume_provider#:#プロバイダーを削除
 lti#:#lti_delete_consume_providers#:#プロバイダーを削除
 lti#:#lti_delete_provider#:#プロバイダーを削除
@@ -11483,6 +11484,7 @@ lti#:#lti_edit_consumer#:#LTI Consumerを編集
 lti#:#lti_exit#:#LTI Sessionをクローズ
 lti#:#lti_exited#:#LTI セッションをクローズしました
 lti#:#lti_exited_info#:#LTIセッションは正しくクローズしました
+lti#:#lti_form_provider_content_selection#:#コンテンツ選択
 lti#:#lti_form_provider_create#:#プロバイダー設定を作成
 lti#:#lti_form_provider_edit#:#プロバイダー設定を編集
 lti#:#lti_form_section_appearance#:#起動のオプション
@@ -11534,6 +11536,7 @@ lti#:#subtab_certificate#:#履修状況
 lti#:#subtab_object_settings#:#オブジェクト設定
 lti#:#subtab_provider_settings#:#LTI Provider設定
 lti#:#tab_content#:#コンテンツ
+lti#:#tab_grade_synchronization#:#Gradebook
 lti#:#tab_info#:#Info
 lti#:#tab_scoring#:#ランキング
 lti#:#tab_settings#:#設定
@@ -11687,6 +11690,7 @@ mail#:#mail_global_reply_to_addr#:#Reply-To
 mail#:#mail_global_reply_to_addr_info#:#希望する'Reply-To'アドレスを入力してください。
 mail#:#mail_grp_roles#:#グループ役割へメールを送信
 mail#:#mail_hint_add_placeholder_x#:#メッセージボディへプレースフォルダ '%s' を追加
+mail#:#mail_inbox_external_delivery_only_info#:#Your account is configured to receive messages at an external email address.<br>You can only see mails in this inbox if your account is configured to (also) receive them locally.###06 10 2026 new variable
 mail#:#mail_incoming#:#受信メール
 mail#:#mail_incoming_both#:#ローカル受信と転送
 mail#:#mail_incoming_local#:#ローカル受信のみ
@@ -13001,7 +13005,6 @@ news#:#news_allow_shorter_periods#:#短めの時間を許可
 news#:#news_allow_shorter_periods_info#:#ユーザはパーソナルデスクトップ上で短めのニュース期間選択が可能です。
 news#:#news_attached_to#:#添付
 news#:#news_block_information#:#<b>ニュース</b>ブロックは、パーソナルデスクトップ上で選択した<b>パーソナルアイテム</b>に関係する全てのニュースをリストします。
-news#:#news_block_news_for_context#:#ニュース
 news#:#news_cache#:#新規キャッシュ(分)
 news#:#news_cache_info#:#ニュースブロックをx分すべてアップデートします。 '0'は毎回を意味します。 値を上げるとパフォーマンスは上がりますが、ニュースが非アクセスアイテムへリンクされる事につながります。
 news#:#news_default_visibility#:#アクセス初期設定
@@ -15745,7 +15748,6 @@ sess#:#sess_registration_notification#:#通知
 sess#:#sess_registration_notification_info#:#新規または退出者に関する通知されるべきユーザを選択するための'参加者'タブ内に列を表示
 sess#:#sess_section_reg#:#登録設定
 sess#:#sess_setting_header_presentation#:#プレゼンテーション
-sess#:#sess_show_members#:#参加者を表示
 sess#:#sess_show_participants_info#:#有効にするとセッション参加者は参加者ギャラリーへアクセスできます。
 sess#:#sess_title#:#セッションのタイトル
 sess#:#sess_users_added#:#セッションの選択したユーザを登録しました。
@@ -17070,6 +17072,7 @@ svy#:#svy_codes#:#アクセスコード
 svy#:#svy_current_page#:#現在のページ
 svy#:#svy_finish_survey#:#サーベイ'%1'を実行
 svy#:#svy_finished_x_appraisees#:#あなたはすでに%s人の評価対象者に対するアンケートを完了しています。
+svy#:#svy_info_participants#:#次のいずれかの検索オプションを使用して、このアンケートにユーザーを参加者として追加します。追加されたユーザーには、このアンケートがダッシュボード上のタスクとして表示されます。
 svy#:#svy_information#:#インフォメーション
 svy#:#svy_invite_participants#:#参加者を招待
 svy#:#svy_link_to_svy#:#サーベイへのリンク

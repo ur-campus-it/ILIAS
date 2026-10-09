@@ -566,7 +566,7 @@ assessment#:#change_adm_categories_not_allowed#:#You do not have any permissions
 assessment#:#checkbox_checked#:#Checked
 assessment#:#checkbox_unchecked#:#Unchecked
 assessment#:#circle#:#Circle
-assessment#:#circle_click_center#:#Please click on center of the desired area.
+assessment#:#circle_click_center#:#Please click on centre of the desired area.
 assessment#:#circle_click_circle#:#Please click on a circle point of the desired area.
 assessment#:#client_ip_range#:#Client IP Range
 assessment#:#clientip#:#Client IP
@@ -585,6 +585,7 @@ assessment#:#concatenation#:#Concatenation
 assessment#:#conf_delete_pass#:#Are you sure you want to delete your existing answers?
 assessment#:#confirm_log_deletion#:#Are you sure, you want to delete the selected log entries? You will not be able to recover the deleted entries.
 assessment#:#confirm_sync_questions#:#The question you changed is a copy which has been created for use with the active test. Do you want to change the original of the question too?
+assessment#:#contained_question_types#:#Contained Question Types
 assessment#:#coordinates#:#Coordinates
 assessment#:#copy_and_link_to_questionpool#:#Add to question pool
 assessment#:#copy_no_questions_selected#:#Please select at least one question to copy.
@@ -805,9 +806,9 @@ assessment#:#lacex_assClozeTest_NumberOfResultExpression_d#:#The fourth answer o
 assessment#:#lacex_assClozeTest_NumberOfResultExpression_e#:#R[4] = +2+
 assessment#:#lacex_assClozeTest_NumericResultExpression_d#:#The second answer option is a numeric gap and was answered with the numeric value 5
 assessment#:#lacex_assClozeTest_NumericResultExpression_e#:#R[2] = #5#
-assessment#:#lacex_assClozeTest_StringResultExpression_1_d#:#The first answer option is a text gap and was answered with „Monday“
+assessment#:#lacex_assClozeTest_StringResultExpression_1_d#:#The first answer option is a text gap and was answered with "Monday"
 assessment#:#lacex_assClozeTest_StringResultExpression_1_e#:#R[1] = ~Monday~
-assessment#:#lacex_assClozeTest_StringResultExpression_2_d#:#The fourth answer option is a select gap and the option labeled as „Green“ was selected
+assessment#:#lacex_assClozeTest_StringResultExpression_2_d#:#The fourth answer option is a select gap and the option labelled as "Green" was selected
 assessment#:#lacex_assClozeTest_StringResultExpression_2_e#:#R[4] = ~Green~
 assessment#:#lacex_assErrorText_ExclusiveResultExpression_d#:#Exactly the answer options 1, 3 and 4 were chosen while answering the question
 assessment#:#lacex_assErrorText_ExclusiveResultExpression_e#:#R = *1,3,4*
@@ -889,7 +890,7 @@ assessment#:#logs_test_run_finished#:#Test Run Finished
 assessment#:#logs_test_run_of_participant_closed#:#Run of Participant Closed
 assessment#:#logs_test_run_started#:#Test Run Started
 assessment#:#logs_wrong_test_password_provided#:#Participant entered wrong test password.
-assessment#:#longmenu#:#Longmenu
+assessment#:#longmenu#:#Long Menu
 assessment#:#longmenu_answeroptions_differ#:#This question does not work correctly, as there are not the same amount of gaps in the text as in the correction options.
 assessment#:#longmenu_text#:#Long Menu Text
 assessment#:#mainbar_button_label_questionlist#:#Question List
@@ -1100,8 +1101,8 @@ assessment#:#qpl_qst_inp_matching_mode_all_on_all#:#One or More Terms match One 
 assessment#:#qpl_qst_inp_matching_mode_one_on_one#:#One Term Matches One Definition (1:1)
 assessment#:#qpl_qst_skl_assign_properties_modified#:#The assignment's properties has been modified.
 assessment#:#qpl_qst_skl_assign_synced_to_orig#:#The competence assignments has been synchronised to the questions original.
-assessment#:#qpl_qst_skl_assigns_updated#:#The competence assignments has been updated.
-assessment#:#qpl_qst_skl_selection_for_question_header#:#Compence Assignments for Question: %s
+assessment#:#qpl_qst_skl_assigns_updated#:#Competence assignments updated.
+assessment#:#qpl_qst_skl_selection_for_question_header#:#Competence Assignments for Question: %s
 assessment#:#qpl_qst_skl_usg_numq_col#:#Number of Questions in Pool adressing this competence
 assessment#:#qpl_qst_skl_usg_skill_col#:#Competence
 assessment#:#qpl_qst_skl_usg_sklpnt_col#:#Total Sum of Competence-Points per Competence
@@ -1146,7 +1147,7 @@ assessment#:#qst_lifecycle_rejected#:#Rejected
 assessment#:#qst_lifecycle_review#:#To be Reviewed
 assessment#:#qst_lifecycle_sharable#:#Shareable
 assessment#:#qst_nested_nested_answers_off#:#No indents, just order
-assessment#:#qst_nested_nested_answers_on#:#Use indents in anwers
+assessment#:#qst_nested_nested_answers_on#:#Use indents in answers
 assessment#:#qst_nr_of_tries#:#Number of Tries
 assessment#:#qst_preview_reset_msg#:#The preview has been reset.
 assessment#:#qst_use_nested_answers#:#Nested answers
@@ -1166,7 +1167,7 @@ assessment#:#question_summary#:#Test Attempt Overview
 assessment#:#question_summary_btn#:#Test Attempt Overview
 assessment#:#question_title#:#Question Title
 assessment#:#question_type#:#Question Type
-assessment#:#questionlist_cannot_be_altered#:#The questionlist cannot be altered as the test already contains participant data sets.
+assessment#:#questionlist_cannot_be_altered#:#The question list cannot be altered as the test already contains participant data sets.
 assessment#:#questionpool_not_entered#:#Please enter a name for a question pool!
 assessment#:#questionpool_not_selected#:#Please select a question pool!
 assessment#:#questions#:#Questions
@@ -1367,10 +1368,10 @@ assessment#:#tst_activate_skill_service_desc#:#Allow questions to be assigned to
 assessment#:#tst_activation_limited_visibility_info#:#Before and after the period during which the test is available,  the test's title will be displayed, but participants won’t be able to take the test. Access, including to tests already in progress, will be prevented once the period of availability has ended.
 assessment#:#tst_activation_online_info#:#Participants can take the test if it is ‘Online’.
 assessment#:#tst_add_quest_cont_edit_mode#:#Editor
-assessment#:#tst_add_quest_cont_edit_mode_IPE#:#Use plain text for questions and answers and ILIAS page editor for feedback
-assessment#:#tst_add_quest_cont_edit_mode_IPE_info#:#No formatting of text in question and answers. No use of LaTex either. But feedback can be reused when question is embedded in ILIAS learning module.
-assessment#:#tst_add_quest_cont_edit_mode_RTE#:#Use Rich-Text-Editor (TinyMCE) for editing questions and answers and feedbacks
-assessment#:#tst_add_quest_cont_edit_mode_RTE_info#:#Allows text formatting of questions, answers and feedbacks. But feedback cannot be reused when question is embedded in ILIAS learning module.
+assessment#:#tst_add_quest_cont_edit_mode_IPE#:#Use plain text when creating questions and answer options
+assessment#:#tst_add_quest_cont_edit_mode_IPE_info#:#When creating or editing questions and answer options, the text cannot be formatted. Feedback however, can be formatted using the ILIAS page editor and also reused if the question is embedded in an ILIAS learning module.
+assessment#:#tst_add_quest_cont_edit_mode_RTE#:#Use Rich-Text-Editor (TinyMCE) for editing questions, answers options and feedback
+assessment#:#tst_add_quest_cont_edit_mode_RTE_info#:#When creating or editing questions, answer options, and feedback, the text can be formatted. However, feedback will not be carried across if the question is embedded in an ILIAS learning module.
 assessment#:#tst_add_quest_cont_edit_mode_plain#:#Use plain text
 assessment#:#tst_add_quest_cont_edit_mode_plain_info#:#No formatting of text in question, answers and feedback.
 assessment#:#tst_addit_passes_blocked_after_passed_msg#:#You have passed the test. The test cannot be started again.
@@ -1583,9 +1584,9 @@ assessment#:#tst_instant_feedback_solution#:#Best Possible Answer
 assessment#:#tst_instant_feedback_solution_desc#:#Participants will be shown the best possible answer to the question. Please select below how the feedback should be triggered.
 assessment#:#tst_instant_feedback_trigger#:#Feedback Trigger
 assessment#:#tst_instant_feedback_trigger_forced#:#Answering a question
-assessment#:#tst_instant_feedback_trigger_forced_desc#:#Feedback is available, but is only displayed when a participant triggers it manually.
-assessment#:#tst_instant_feedback_trigger_manual#:#Participants can Trigger the Feedback Manually
-assessment#:#tst_instant_feedback_trigger_manual_desc#:#The feedback is availble but will only be shown when a participant triggers the presentation manually.
+assessment#:#tst_instant_feedback_trigger_forced_desc#:#Feedback is shown automatically when a question is answered.
+assessment#:#tst_instant_feedback_trigger_manual#:#Manual trigger
+assessment#:#tst_instant_feedback_trigger_manual_desc#:#Feedback is available, but is only displayed when a participant triggers it manually.
 assessment#:#tst_introduction#:#Introductory Message
 assessment#:#tst_introduction_desc#:#Display an introductory message in the ‘Test’ tab. This message can be edited in the 'Edit Introduction' sub tab of these settings and is already accessible to users before starting the test.
 assessment#:#tst_introduction_text#:#Introductory Message
@@ -2017,7 +2018,7 @@ assessment#:#use_previous_solution_advice#:#The solution shown is your solution 
 assessment#:#user_has_finished_a_test#:#A participant has finished a test.
 assessment#:#user_ip_outside_range#:#You are not allowed to start the test from this IP address.
 assessment#:#user_not_invited#:#You are not supposed to take this test.
-assessment#:#usr_manscoring_complete#:#Marke as 'scored'
+assessment#:#usr_manscoring_complete#:#Marked as 'scored'
 assessment#:#value_between_x_and_y#:#The value should be between %s and %s
 assessment#:#values#:#Values
 assessment#:#variable#:#Variable
@@ -7167,7 +7168,7 @@ content#:#cont_standard#:#Standard
 content#:#cont_start#:#Start
 content#:#cont_start_file_set_to#:#%s has been set as start file.
 content#:#cont_start_value#:#Start Value
-content#:#cont_start_value_info#:#Enter start value as decimal number. Default is 1.
+content#:#cont_start_value_info#:#Enter start value as decimal number. Default is 1. If you use an own counter via ::before, the start value will only be used, if you use the internal 'list-item' counter.
 content#:#cont_startfile#:#Start File
 content#:#cont_status#:#Status
 content#:#cont_std_is_in_dir#:#Deletion not possible. Standard view file is in directory.
@@ -9458,7 +9459,7 @@ exc#:#exc_mandatory_info#:#Mandatory assignments must be passed to pass the whol
 exc#:#exc_mandatory_rand_determined#:#Randomly determined
 exc#:#exc_max_char_limit#:#Maximum number of characters
 exc#:#exc_max_file#:#Max Number of Files
-exc#:#exc_max_file_info#:#Participants will not be able to upload more files once the limit is reached. In team assignments the limit is also enforced per participant not team-wide.
+exc#:#exc_max_file_info#:#Participants will not be able to upload more files once the limit is reached.
 exc#:#exc_max_file_reached#:#You cannot upload more than %s files.
 exc#:#exc_max_file_tgl#:#Limit Uploads
 exc#:#exc_max_team_participants#:#Maximal Number
@@ -9633,6 +9634,7 @@ exc#:#exc_reminder_submit_setting#:#Remind Users to Submit
 exc#:#exc_reminder_submit_subject#:#Assignment "%s" was not finished
 exc#:#exc_reminders_cron#:#Reminders for Assignments
 exc#:#exc_reminders_cron_info#:#If enabled, 3 reminders will be active: Users to Submit, Tutors to Grade and Participants to Feedback.
+exc#:#exc_reminders_cron_not_active#:#Note: Notifications will not be sent until the 'Reminders for Assignments' cron job is activated. Currently the cron job is deactivated.
 exc#:#exc_request_deadline#:#Request Deadline
 exc#:#exc_requirement#:#Requirement
 exc#:#exc_review_anytime#:#Give Feedback Anytime
@@ -10573,7 +10575,7 @@ help#:#gdtr_deleted_step#:#Step has been deleted.
 help#:#gdtr_deleted_tour#:#Tour has been deleted.
 help#:#gdtr_edit_content#:#Edit Content
 help#:#gdtr_edit_page_info#:#Edit the content that should be presented to explain the selected UI element.
-help#:#gdtr_edit_properties#:#Edit Properties
+help#:#gdtr_edit_properties#:#Edit UI Elements
 help#:#gdtr_edit_step_info#:#On this screen you define, which element on the screen should be explained in this step of the tour. A popover with the explanation text you define will be presented pointing to this element.
 help#:#gdtr_edit_steps#:#Edit Steps
 help#:#gdtr_element_id#:#Element ID
@@ -10616,7 +10618,7 @@ help#:#gdtr_tour_has_been_reset#:#Tour has been reset.
 help#:#gdtr_tour_settings#:#Edit Settings
 help#:#gdtr_tour_steps#:#Tour Steps
 help#:#gdtr_tours#:#Tours
-help#:#gdtr_type#:#Type
+help#:#gdtr_type#:#UI Elements
 help#:#guided_tour#:#Guided Tour
 help#:#help_all#:#All
 help#:#help_component#:#Component
@@ -11266,8 +11268,6 @@ lti#:#activity_id#:#Activity ID
 lti#:#activity_id_info#:#This Activity ID is used by the LTI Provider to identify Statements.
 lti#:#auth_lti#:#LTI Auth
 lti#:#conf_privacy_ident#:#User identification
-lti#:#conf_privacy_ident_il_uuid_SHA256#:#Hash combined with a unique ILIAS platform id formatted as an E-Mail address
-lti#:#conf_privacy_ident_il_uuid_SHA256_info#:#This is identical to each call, but does not permit any direct conclusions about the ILIAS user.
 lti#:#conf_privacy_ident_il_uuid_ext_account#:#External User ID combined with a unique ILIAS platform id formatted as an E-Mail address
 lti#:#conf_privacy_ident_il_uuid_ext_account_info#:#This is identical to each call, but may allow a direct conclusion about the user.
 lti#:#conf_privacy_ident_il_uuid_login#:#ILIAS Login combined with a unique ILIAS platform id formatted as an E-Mail address
@@ -11386,7 +11386,7 @@ lti#:#lti_at_least_one_prov_has_usages#:#At least one provider could not be dele
 lti#:#lti_auth_failed_invalid_key#:#Authentication failed, no valid consumer key given.
 lti#:#lti_con_content_item#:#Support for Deep Linking
 lti#:#lti_con_content_item_url#:#Content URL
-lti#:#lti_con_grade_synchronization#:#Advanced Grading Services###04 12 2025 new variable
+lti#:#lti_con_grade_synchronization#:#Assignment and Grade Services###04 12 2025 new variable
 lti#:#lti_con_grade_synchronization_info#:#The LTI tool must offer 'Assignment and Grade Services'.###04 12 2025 new variable
 lti#:#lti_con_initiate_login_url#:#Initiate Login URL
 lti#:#lti_con_key_type#:#Public Key Type
@@ -11476,6 +11476,7 @@ lti#:#lti_create_lti_user_role#:#Create recommended global role for LTI users
 lti#:#lti_cron_title#:#LTI Outcome Service
 lti#:#lti_cron_title_desc#:#Synchronizes the learning progress of LTI users with the LTI consumer, if it supports the outcome service. This cron job is only required to transfer status updates after Learning progress settings updates.
 lti#:#lti_custom_new#:#Create Own Provider Settings
+lti#:#lti_deep_linking_not_available_for_admin_objects#:#Consumers created in Administration do not allow content selection
 lti#:#lti_delete_consume_provider#:#Delete Provider
 lti#:#lti_delete_consume_providers#:#Delete Providers
 lti#:#lti_delete_provider#:#Delete Provider
@@ -11484,6 +11485,7 @@ lti#:#lti_edit_consumer#:#Edit LTI Consumer
 lti#:#lti_exit#:#Close LTI Session
 lti#:#lti_exited#:#LTI Session closed
 lti#:#lti_exited_info#:#LTI Session successfully closed
+lti#:#lti_form_provider_content_selection#:#Content Selection
 lti#:#lti_form_provider_create#:#Create Provider Settings
 lti#:#lti_form_provider_edit#:#Edit Provider Settings
 lti#:#lti_form_section_appearance#:#Options for launch
@@ -11535,6 +11537,7 @@ lti#:#subtab_certificate#:#Certificate
 lti#:#subtab_object_settings#:#Object Settings
 lti#:#subtab_provider_settings#:#LTI Provider Settings
 lti#:#tab_content#:#Content
+lti#:#tab_grade_synchronization#:#Gradebook
 lti#:#tab_info#:#Info
 lti#:#tab_scoring#:#Ranking
 lti#:#tab_settings#:#Settings
@@ -11688,6 +11691,7 @@ mail#:#mail_global_reply_to_addr#:#Reply-To
 mail#:#mail_global_reply_to_addr_info#:#Please enter the desired 'Reply-To' address.
 mail#:#mail_grp_roles#:#Send Mail to Group Roles
 mail#:#mail_hint_add_placeholder_x#:#Add the placeholder '%s' to the message body.
+mail#:#mail_inbox_external_delivery_only_info#:#Your account is configured to receive messages at an external email address.<br>You can only see mails in this inbox if your account is configured to (also) receive them locally.
 mail#:#mail_incoming#:#Incoming Mail
 mail#:#mail_incoming_both#:#Receive Mail Locally and Forward to:
 mail#:#mail_incoming_local#:#Receive Mail Locally Only
@@ -13002,7 +13006,6 @@ news#:#news_allow_shorter_periods#:#Allow Shorter Periods
 news#:#news_allow_shorter_periods_info#:#Users may select shorter news periods on the dashboard.
 news#:#news_attached_to#:#Attached to
 news#:#news_block_information#:#The <b>News</b> block lists all news that are related to your <b>Favourites</b>.
-news#:#news_block_news_for_context#:#News
 news#:#news_cache#:#News Cache (Minutes)
 news#:#news_cache_info#:#Update news blocks all x minutes. ‘0’ means every time. Higher values improve performance, but news may link to non-accessible items.
 news#:#news_default_visibility#:#Default Access
@@ -15184,7 +15187,7 @@ rep#:#rep_fav_intro1#:#You have not yet selected any favourites. To do so, there
 rep#:#rep_fav_intro2#:#Click on '%s' and select a learning object from those available, for example a learning module or a forum.
 rep#:#rep_fav_intro3#:#When you have found something that interests you, you can easily add it to your favourites. Select the desired item in the <i>Actions</i> menu and select "<i>Add to favourites</i>".
 rep#:#rep_favourites#:#Favourites
-rep#:#rep_favourites_info#:#Users can mark individual repository items as favourites. A 'Favourites' list can be activated for the dashboard and the main menu. 
+rep#:#rep_favourites_info#:#Users can mark individual repository items as favourites. A 'Favourites' list can be activated for the dashboard and the main menu.
 rep#:#rep_input_not_empty#:#This field must not be empty, please provide a value.
 rep#:#rep_intro#:#Welcome to the Repository!
 rep#:#rep_intro1#:#In this area you can create learning and working resources for all users. All resources are organised in categories. Categories can reflect the structure of your organisation (e.g. departments), a hierarchy of disciplines, or classes of a school.
@@ -15746,7 +15749,6 @@ sess#:#sess_registration_notification#:#Notification
 sess#:#sess_registration_notification_info#:#Shows column in tab 'Participants' to select users being notified about new or leaving participants
 sess#:#sess_section_reg#:#Registration Settings
 sess#:#sess_setting_header_presentation#:#Presentation
-sess#:#sess_show_members#:#Show Participants
 sess#:#sess_show_participants_info#:#If activated, session participants can access the participant gallery
 sess#:#sess_title#:#Title of Session
 sess#:#sess_users_added#:#Registered selected users for the session.
@@ -17070,6 +17072,7 @@ svy#:#svy_codes#:#Access Codes
 svy#:#svy_current_page#:#Current Page
 svy#:#svy_finish_survey#:#Take part in survey ‘%1’
 svy#:#svy_finished_x_appraisees#:#You have already left feedback for %s appraisee(s).
+svy#:#svy_info_participants#:#Add users to this survey as participants, using one of the following search options. These users will have the survey added as a task on their dashboard.
 svy#:#svy_information#:#Information
 svy#:#svy_invite_participants#:#Add to Tasks of Users
 svy#:#svy_link_to_svy#:#Link to Survey
@@ -17368,7 +17371,7 @@ trac#:#trac_mode_lti_outcome_info#:#The Learning Progress will be evaluated from
 trac#:#trac_mode_manual#:#Users Monitor and Set Status Themselves (Complete Module)
 trac#:#trac_mode_manual_by_tutor#:#Tutors Monitor and Set Status
 trac#:#trac_mode_manual_by_tutor_info#:#Tutors decide if users have accomplished the object. Tutors manually set the overall status i.e. ‘Completed’ or ‘Failed’.
-trac#:#trac_mode_manual_info#:#Users decide themselves if they have accomplished the object. Once they are done, they have to set their status to ‘Completed’ on the 'Info'-tab.
+trac#:#trac_mode_manual_info#:#Users decide themselves if they have accomplished the object. Once they are done, they have to set their status to ‘Completed’ on the ‘Learning Progress’ tab.
 trac#:#trac_mode_objectives#:#Status is Determined by Learning Objectives
 trac#:#trac_mode_objectives_info#:#The learning progress will be automatically determined according to the number of passed learning objectives.
 trac#:#trac_mode_plugin#:#Plugin

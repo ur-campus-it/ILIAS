@@ -585,6 +585,7 @@ assessment#:#concatenation#:#Verknüpfung
 assessment#:#conf_delete_pass#:#Durchgang wirklich löschen?
 assessment#:#confirm_log_deletion#:#Sind Sie sicher, dass Sie die ausgewählten Protokolleinträge löschen möchten? Die gelöschten Einträge werden unwiderruflich gelöscht.
 assessment#:#confirm_sync_questions#:#Die Frage, die Sie geändert haben, wurde mit dem Einfügen in den Test als Kopie eines Originals angelegt. Wollen Sie Ihre Änderungen jetzt auch auf die Originalfrage anwenden?
+assessment#:#contained_question_types#:#Enthaltene Fragentypen
 assessment#:#coordinates#:#Koordinaten
 assessment#:#copy_and_link_to_questionpool#:#Zu Fragenpool hinzufügen
 assessment#:#copy_no_questions_selected#:#Bitte wählen Sie mindestens eine Frage zum Kopieren aus.
@@ -1367,10 +1368,10 @@ assessment#:#tst_activate_skill_service_desc#:#Erlaubt die Zuordnung von Fragen 
 assessment#:#tst_activation_limited_visibility_info#:#Außerhalb des angegebenen Zeitraums wird der Testtitel angezeigt. Der Test kann aber nicht gestartet werden. Der weitere Zugriff, auch auf bereits laufende Tests, wird zum Ende des Zeitraums unterbunden.
 assessment#:#tst_activation_online_info#:#Nur wenn der Test online geschaltet ist, können Benutzer am Test teilnehmen.
 assessment#:#tst_add_quest_cont_edit_mode#:#Editor
-assessment#:#tst_add_quest_cont_edit_mode_IPE#:#Unformatierter Text für Fragen und Antworten und ILIAS-Seiteneditor für Rückmeldungen
-assessment#:#tst_add_quest_cont_edit_mode_IPE_info#:#Bietet keine Formatierung von Text in Fragen und Antworten, erlaubt aber Gestaltung der Rückmeldungen mit ILIAS-Seiteneditor und Wiederverwendung bei Fragen in ILIAS-Lernmodulen.
-assessment#:#tst_add_quest_cont_edit_mode_RTE#:#Rich-Text-Editor (TinyMCE) für das Editieren der Fragen, Antworten und Rückmeldungen
-assessment#:#tst_add_quest_cont_edit_mode_RTE_info#:#Erlaubt formatierten Text für Fragen, Antworten und Rückmeldungen. Rückmeldungen werden aber beim Einbinden von Fragen in ILIAS-Lernmodule nicht übernommen.
+assessment#:#tst_add_quest_cont_edit_mode_IPE#:#Unformatierter Text für Fragen und Antwortoptionen
+assessment#:#tst_add_quest_cont_edit_mode_IPE_info#:#Beim Erstellen oder Bearbeiten von Fragen und Antwortmöglichkeiten kann der Text nicht formatiert werden. Rückmeldungen können jedoch mit dem ILIAS-Seiteneditor formatiert und auch wiederverwendet werden, wenn die Frage in ein ILIAS-Lernmodul eingebettet ist.
+assessment#:#tst_add_quest_cont_edit_mode_RTE#:#Rich-Text-Editor (TinyMCE) für das Editieren der Fragen, Antwortoptionen und Rückmeldungen
+assessment#:#tst_add_quest_cont_edit_mode_RTE_info#:#Beim Erstellen oder Bearbeiten von Fragen, Antwortoptionen und Rückmeldungen kann der Text formatiert werden. Rückmeldungen werden jedoch nicht übernommen, wenn die Frage in ein ILIAS-Lernmodul eingebettet wird.
 assessment#:#tst_add_quest_cont_edit_mode_plain#:#Unformatierter Text
 assessment#:#tst_add_quest_cont_edit_mode_plain_info#:#Bietet keine Formatierung von Text in Fragen, Antworten und Rückmeldungen.
 assessment#:#tst_addit_passes_blocked_after_passed_msg#:#Sie haben den Test bestanden. Der Test kann nicht noch einmal gestartet werden.
@@ -7166,7 +7167,7 @@ content#:#cont_standard#:#Standard
 content#:#cont_start#:#Start
 content#:#cont_start_file_set_to#:#%s wurde als Startdatei festgelegt.
 content#:#cont_start_value#:#Startwert
-content#:#cont_start_value_info#:#Geben Sie eine Startwert als Dezimalzahl ein. Standardwert ist 1.
+content#:#cont_start_value_info#:#Geben Sie eine Startwert als Dezimalzahl ein. Standardwert ist 1. Falls Sie einen eigenen counter() über ::before nutzen, wirkt sich der Startwert nur aus, wenn Sie denn internen 'list-item' counter verwenden.
 content#:#cont_startfile#:#Startdatei
 content#:#cont_status#:#Status
 content#:#cont_std_is_in_dir#:#Löschen nicht möglich. Datei für Standardansicht liegt im Verzeichnis.
@@ -9457,7 +9458,7 @@ exc#:#exc_mandatory_info#:#Verpflichtende Übungseinheiten müssen bestanden wer
 exc#:#exc_mandatory_rand_determined#:#Zufällige Auswahl
 exc#:#exc_max_char_limit#:#Höchstanzahl Zeichen
 exc#:#exc_max_file#:#Maximale Dateianzahl
-exc#:#exc_max_file_info#:#Es kann höchstens die angegebene Anzahl von Dateien hochgeladen werden. Für Übungseinheiten, die als Team bearbeitet werden, gilt diese Obergrenze pro Person und nicht für das gesamte Team.
+exc#:#exc_max_file_info#:#Nach Erreichen des Limits können Teilnehmer keine weiteren Dateien hochladen.
 exc#:#exc_max_file_reached#:#Sie können maximal %s Dateien hochladen.
 exc#:#exc_max_file_tgl#:#Uploads begrenzen
 exc#:#exc_max_team_participants#:#Maximale Anzahl
@@ -9632,6 +9633,7 @@ exc#:#exc_reminder_submit_setting#:#An Abgabe erinnern
 exc#:#exc_reminder_submit_subject#:#Übungseinheit „%s“ wurde noch nicht abgegeben
 exc#:#exc_reminders_cron#:#Erinnerungen für Übungseinheiten
 exc#:#exc_reminders_cron_info#:#Bei Aktivierung werden drei Erinnerungen versendet: Ausstehende Abgaben, ausstehende Bewertungen und ausstehende Peer-Feedbacks
+exc#:#exc_reminders_cron_not_active#:#Hinweis: Benachrichtigungen werden erst versendet, wenn der Cron-Job „Erinnerungen für Übungseinheiten“ aktiviert ist. Aktuell ist der Cron-Job deaktiviert.
 exc#:#exc_request_deadline#:#Abgabefrist anfragen
 exc#:#exc_requirement#:#Anforderung
 exc#:#exc_review_anytime#:#Jederzeit Feedback geben
@@ -10572,7 +10574,7 @@ help#:#gdtr_deleted_step#:#Der Schritt wurde gelöscht.
 help#:#gdtr_deleted_tour#:#Die Tour wurde gelöscht.
 help#:#gdtr_edit_content#:#Inhalt bearbeiten
 help#:#gdtr_edit_page_info#:#Bearbeiten Sie den Inhalt, der erscheinen soll um das ausgewählte Bedienelement zu beschreiben.
-help#:#gdtr_edit_properties#:#Eigenschaften bearbeiten
+help#:#gdtr_edit_properties#:#Bedienelemente bearbeiten
 help#:#gdtr_edit_step_info#:#Wählen Sie das Bedienelement aus, das mit einem Erklärungstext versehen werden soll.
 help#:#gdtr_edit_steps#:#Schritte bearbeiten
 help#:#gdtr_element_id#:#Element-ID
@@ -10615,7 +10617,7 @@ help#:#gdtr_tour_has_been_reset#:#Die Tour wurde zurückgesetzt.
 help#:#gdtr_tour_settings#:#Einstellungen bearbeiten
 help#:#gdtr_tour_steps#:#Schritte
 help#:#gdtr_tours#:#Touren
-help#:#gdtr_type#:#Typ
+help#:#gdtr_type#:#Bedienelemente
 help#:#guided_tour#:#Interaktive Touren
 help#:#help_all#:#Alle
 help#:#help_component#:#Komponente
@@ -11265,8 +11267,6 @@ lti#:#activity_id#:#Activity-ID
 lti#:#activity_id_info#:#Diese Activity-ID wird vom LTI-Provider verwendet, um Statements zu identifizieren.
 lti#:#auth_lti#:#LTI Auth
 lti#:#conf_privacy_ident#:#Identifikation der Person
-lti#:#conf_privacy_ident_il_uuid_SHA256#:#Hash kombiniert mit einer eindeutigen ILIAS-Plattform-ID, die als E-Mail-Adresse formatiert ist
-lti#:#conf_privacy_ident_il_uuid_SHA256_info#:#Die Identifikation ist identisch bei jedem Aufruf, aber lässt keine direkten Rückschlüsse auf das ILIAS-Konto und die zugehörige Person zu.
 lti#:#conf_privacy_ident_il_uuid_ext_account#:#Die externe Konten-ID wird kombiniert mit einer eindeutigen ID der ILIAS-Plattform und als E-Mail-Adresse formatiert.
 lti#:#conf_privacy_ident_il_uuid_ext_account_info#:#Die Identifikation ist identisch bei jedem Aufruf und lässt direkte Rückschlüsse auf das ILIAS-Konto und die zugehörige Person zu.
 lti#:#conf_privacy_ident_il_uuid_login#:#ILIAS-Anmeldename kombiniert mit einer eindeutigen ILIAS-Plattform-ID, die als E-Mail-Adresse formatiert ist.
@@ -11385,7 +11385,7 @@ lti#:#lti_at_least_one_prov_has_usages#:#Mindestens ein Provider konnte nicht ge
 lti#:#lti_auth_failed_invalid_key#:#Authentifizierung nicht möglich. Es wurde kein gültiger Consumer-Key übermittelt.
 lti#:#lti_con_content_item#:#Unterstützung für Deep Linking
 lti#:#lti_con_content_item_url#:#Inhalts-URL
-lti#:#lti_con_grade_synchronization#:#Erweiterte Benotungsdienste###04 12 2025 new variable
+lti#:#lti_con_grade_synchronization#:#Assignment and Grade Services###04 12 2025 new variable
 lti#:#lti_con_grade_synchronization_info#:#Das LTI-Tool muss 'Assignment and Grade Services' anbieten.###04 12 2025 new variable
 lti#:#lti_con_initiate_login_url#:#Initiate Login URL
 lti#:#lti_con_key_type#:#Typ des öffentlichen Schlüssels
@@ -11475,6 +11475,7 @@ lti#:#lti_create_lti_user_role#:#Empfohlene globale Rolle für LTI-User anlegen
 lti#:#lti_cron_title#:#LTI Outcome Service
 lti#:#lti_cron_title_desc#:#Überträgt den Lernfortschritt von LTI-Benutzern an die aufrufende Plattform. Dieser Cron-Job wird nur in den Fällen benötigt, wenn der Lernfortschritt aufgrund von Einstellungsänderungen neu berechnet werden muss.
 lti#:#lti_custom_new#:#Eigene Provider-Einstellungen anlegen
+lti#:#lti_deep_linking_not_available_for_admin_objects#:#In der Administration angelegte Konsumenten erlauben keine Inhaltsauswahl
 lti#:#lti_delete_consume_provider#:#Provider löschen
 lti#:#lti_delete_consume_providers#:#Provider löschen
 lti#:#lti_delete_provider#:#Provider löschen
@@ -11483,6 +11484,7 @@ lti#:#lti_edit_consumer#:#LTI-Konsument bearbeiten
 lti#:#lti_exit#:#LTI-Sitzung beenden
 lti#:#lti_exited#:#LTI-Sitzung beendet
 lti#:#lti_exited_info#:#Die LTI-Sitzung wurde erfolgreich beendet.
+lti#:#lti_form_provider_content_selection#:#Inhaltsauswahl
 lti#:#lti_form_provider_create#:#Provider-Einstellungen anlegen
 lti#:#lti_form_provider_edit#:#Provider-Einstellungen bearbeiten
 lti#:#lti_form_section_appearance#:#Optionen für den Start
@@ -11534,6 +11536,7 @@ lti#:#subtab_certificate#:#Zertifikat
 lti#:#subtab_object_settings#:#Objekteinstellungen
 lti#:#subtab_provider_settings#:#LTI-Provider-Einstellungen
 lti#:#tab_content#:#Inhalt
+lti#:#tab_grade_synchronization#:#Gradebook
 lti#:#tab_info#:#Info
 lti#:#tab_scoring#:#Platzierungen
 lti#:#tab_settings#:#Einstellungen
@@ -11687,6 +11690,7 @@ mail#:#mail_global_reply_to_addr#:#Reply-To
 mail#:#mail_global_reply_to_addr_info#:#Bitte tragen Sie hier die gewünschte 'Reply-To'-E-Mail-Adresse ein.
 mail#:#mail_grp_roles#:#alle Personen mit folgenden lokalen Rollen. Label is now generalised for all components that support ‘mail to members‘
 mail#:#mail_hint_add_placeholder_x#:#Füge Platzhalter „%s“ in den Textkörper der Nachricht ein.
+mail#:#mail_inbox_external_delivery_only_info#:#Ihr Konto ist so konfiguriert, dass E-Mails an Ihre E-Mail-Adresse gesendet werden. <br>Sie können E-Mails in diesem Posteingang nur sehen, wenn Ihr Konto so konfiguriert ist, dass diese (auch) lokal empfangen werden.
 mail#:#mail_incoming#:#Maileingang
 mail#:#mail_incoming_both#:#Lokal und Weiterleitung an E-Mail
 mail#:#mail_incoming_local#:#Nur lokal empfangen
@@ -13001,7 +13005,6 @@ news#:#news_allow_shorter_periods#:#Kürzere Zeiträume zulassen
 news#:#news_allow_shorter_periods_info#:#Benutzer können kürzere Zeiträume für Neuigkeiten ihrer Favoriten auswählen.
 news#:#news_attached_to#:#Zugeordnet zu
 news#:#news_block_information#:#Der Block "Neuigkeiten" zeigt chronologisch alle <b>Neuigkeiten</b> zu Ihren Favoriten an.
-news#:#news_block_news_for_context#:#Neuigkeiten
 news#:#news_cache#:#Neuigkeiten-Cache (Minuten)
 news#:#news_cache_info#:#Aktualisierung des Blocks "Neuigkeiten" alle x-Minuten. '0' bedeutet jederzeit. Werte größer Null erhöhen die Performanz entsprechend. Allerdings können Links in Einzelfällen auf nicht mehr zugängliche Objekte verweisen.
 news#:#news_default_visibility#:#Voreinstellung Zugriff
@@ -15745,7 +15748,6 @@ sess#:#sess_registration_notification#:#Benachrichtigung
 sess#:#sess_registration_notification_info#:#Im Unterreiter „Verwalten“ können Anmeldekonten ausgewählt werden, die über An- oder Abmeldungen benachrichtigt werden.
 sess#:#sess_section_reg#:#Anmeldung durch Benutzer
 sess#:#sess_setting_header_presentation#:#Darstellung
-sess#:#sess_show_members#:#Teilnehmergalerie
 sess#:#sess_show_participants_info#:#Personen, die sich angemeldet oder an der Sitzung teilgenommen haben, sehen einander in der Galerie im Reiter „Teilnahmen“.
 sess#:#sess_title#:#Titel der Sitzung
 sess#:#sess_users_added#:#Die Benutzer wurden für die Sitzung angemeldet.
@@ -17068,7 +17070,8 @@ svy#:#svy_code#:#Zugangscode
 svy#:#svy_codes#:#Zugangscodes
 svy#:#svy_current_page#:#Aktuelle Seite
 svy#:#svy_finish_survey#:#An Umfrage "%1" teilnehmen
-svy#:#svy_finished_x_appraisees#:#Sie haben Bewertungen bereits für %s Feedback-Nehmer abgegeben.
+svy#:#svy_finished_x_appraisees#:#Sie haben Bewertungen bereits für %s Feedback-Nehmer abgegeben. 
+svy#:#svy_info_participants#:#Fügen Sie Personen über eine der folgenden Suchoptionen zu dieser Umfrage hinzu. Die Umfrage wird diesen Personen als Aufgabe auf ihrem Dashboard angezeigt.
 svy#:#svy_information#:#Information
 svy#:#svy_invite_participants#:#Personen hinzufügen
 svy#:#svy_link_to_svy#:#Link zur Umfrage
@@ -17367,7 +17370,7 @@ trac#:#trac_mode_lti_outcome_info#:#Der Lernfortschritt gilt als abgeschlossen, 
 trac#:#trac_mode_manual#:#Selbsteinschätzung für gesamtes Objekt
 trac#:#trac_mode_manual_by_tutor#:#Manuelle Bewertung
 trac#:#trac_mode_manual_by_tutor_info#:#Ob eine Person das Objekt erfolgreich bearbeitet hat, entscheiden Personen mit dem Recht „Mitglieder verwalten“ (zum Beispiel die Kurs- oder Gruppenadministration). Dazu muss der Status händisch auf „Bearbeitet“ gesetzt werden.
-trac#:#trac_mode_manual_info#:#Eine Person entscheidet selbst, ob sie das Objekt erfolgreich durchgearbeitet hat. Dazu setzt sie im Reiter „Info“ den Status auf „Bearbeitet“.
+trac#:#trac_mode_manual_info#:#Eine Person entscheidet selbst, ob sie das Objekt erfolgreich durchgearbeitet hat. Dazu setzt sie im Reiter „Lernfortschritt“ den Status auf „Bearbeitet“.
 trac#:#trac_mode_objectives#:#Lernziele
 trac#:#trac_mode_objectives_info#:#Der Lernfortschritt wird automatisch aus der Anzahl der erfüllten Lernziele ermittelt.
 trac#:#trac_mode_plugin#:#Plugin

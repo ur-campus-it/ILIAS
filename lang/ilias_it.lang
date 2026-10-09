@@ -584,6 +584,7 @@ assessment#:#concatenation#:#Concatenazione
 assessment#:#conf_delete_pass#:#Vuoi davvero cancellare il passaggio?
 assessment#:#confirm_log_deletion#:#Are you sure, you want to delete the selected log entries? You will not be able to recover the deleted entries.###28 11 2025 new variable
 assessment#:#confirm_sync_questions#:#La domanda che hai modificato è una copia che è stata creata per l'uso con il test attivo. Vuoi cambiare anche l'originale della domanda?
+assessment#:#contained_question_types#:#Contained Question Types###06 10 2026 new variable
 assessment#:#coordinates#:#Coordinate
 assessment#:#copy_and_link_to_questionpool#:#Copiare e collegare alla libreria di domande
 assessment#:#copy_no_questions_selected#:#Per favore selezionare almeno una domanda da copiare.
@@ -9629,6 +9630,7 @@ exc#:#exc_reminder_submit_setting#:#Ricorda agli utenti di inviare
 exc#:#exc_reminder_submit_subject#:#L'assegnazione "%s" non è stata completata
 exc#:#exc_reminders_cron#:#Promemoria per le assegnazioni
 exc#:#exc_reminders_cron_info#:#Se abilitato, saranno attivi 3 promemoria: Utenti da inviare, Tutor da classificare e Partecipanti a Feedback.
+exc#:#exc_reminders_cron_not_active#:#Note: Notifications will not be sent until the 'Reminders for Assignments' cron job is activated. Currently the cron job is deactivated.###06 10 2026 new variable
 exc#:#exc_request_deadline#:#Request Deadline###30 04 2024 new variable
 exc#:#exc_requirement#:#Requirement###30 04 2024 new variable
 exc#:#exc_review_anytime#:#Give Feedback Anytime###30 04 2024 new variable
@@ -11262,8 +11264,6 @@ lti#:#activity_id#:#ID attività
 lti#:#activity_id_info#:#Questo ID attività viene utilizzato dal provider LTI per identificare gli statements.
 lti#:#auth_lti#:#Auth LTI
 lti#:#conf_privacy_ident#:#User identification###28 11 2025 new variable
-lti#:#conf_privacy_ident_il_uuid_SHA256#:#Hash combined with a unique ILIAS platform id formatted as an E-Mail address###28 11 2025 new variable
-lti#:#conf_privacy_ident_il_uuid_SHA256_info#:#This is identical to each call, but does not permit any direct conclusions about the ILIAS user.###28 11 2025 new variable
 lti#:#conf_privacy_ident_il_uuid_ext_account#:#External User ID combined with a unique ILIAS platform id formatted as an E-Mail address###28 11 2025 new variable
 lti#:#conf_privacy_ident_il_uuid_ext_account_info#:#This is identical to each call, but may allow a direct conclusion about the user.###28 11 2025 new variable
 lti#:#conf_privacy_ident_il_uuid_login#:#ILIAS Login combined with a unique ILIAS platform id formatted as an E-Mail address###28 11 2025 new variable
@@ -11382,8 +11382,8 @@ lti#:#lti_at_least_one_prov_has_usages#:#Almeno uno dei provider non può essere
 lti#:#lti_auth_failed_invalid_key#:#Autenticazione fallita, nessuna chiave del consumatore valida fornita.
 lti#:#lti_con_content_item#:#Support for Deep Linking###31 03 2023 new variable
 lti#:#lti_con_content_item_url#:#Content URL###31 03 2023 new variable
-lti#:#lti_con_grade_synchronization#:#Advanced Grading Services###04 12 2025 new variable
-lti#:#lti_con_grade_synchronization_info#:#The LTI tool must offer 'Assignment and Grade Services'.###04 12 2025 new variable
+lti#:#lti_con_grade_synchronization#:#Assignment and Grade Services###04 12 2025 new variable
+lti#:#lti_con_grade_synchronization_info#:#Lo strumento LTI deve offrire 'Assignment and Grade Services'.###04 12 2025 new variable
 lti#:#lti_con_initiate_login_url#:#Initiate Login URL###31 03 2023 new variable
 lti#:#lti_con_key_type#:#Public Key Type###31 03 2023 new variable
 lti#:#lti_con_key_type_jwk#:#URL (Json Web Token)###31 03 2023 new variable
@@ -11472,6 +11472,7 @@ lti#:#lti_create_lti_user_role#:#Crea un ruolo globale raccomandato per gli uten
 lti#:#lti_cron_title#:#Servizio esiti LTI
 lti#:#lti_cron_title_desc#:#Sincronizza i progressi didattici degli utenti LTI con i consumatori LTI, se supporta il servizio degli esiti. Questo cron job è richiesto solo per trasferire aggiornamenti di stato dopo l'aggiornamento dei settaggi dei progressi didattici.
 lti#:#lti_custom_new#:#Impostazioni di creazione fornitore personale
+lti#:#lti_deep_linking_not_available_for_admin_objects#:#I consumer creati in Amministrazione non consentono la selezione del contenuto
 lti#:#lti_delete_consume_provider#:#Elimina fornitore
 lti#:#lti_delete_consume_providers#:#Elimina fornitori
 lti#:#lti_delete_provider#:#Elimina fornitore
@@ -11480,6 +11481,7 @@ lti#:#lti_edit_consumer#:#Modifica consumatore LTI
 lti#:#lti_exit#:#Chiudi sessione LTI
 lti#:#lti_exited#:#Sessione LTI chiusa
 lti#:#lti_exited_info#:#Sessione LTI chiusa con successo
+lti#:#lti_form_provider_content_selection#:#Selezione contenuto
 lti#:#lti_form_provider_create#:#Impostazioni di creazione fornitore
 lti#:#lti_form_provider_edit#:#Modifica impostazioni del fornitore
 lti#:#lti_form_section_appearance#:#Opzioni di avvio
@@ -11531,6 +11533,7 @@ lti#:#subtab_certificate#:#Certificato
 lti#:#subtab_object_settings#:#Impostazioni oggetto
 lti#:#subtab_provider_settings#:#Impostazioni fornitore LTI
 lti#:#tab_content#:#Contenuto
+lti#:#tab_grade_synchronization#:#Gradebook
 lti#:#tab_info#:#Info
 lti#:#tab_scoring#:#Classifica
 lti#:#tab_settings#:#Impostazioni
@@ -11684,6 +11687,7 @@ mail#:#mail_global_reply_to_addr#:#Rispondi a
 mail#:#mail_global_reply_to_addr_info#:#Inserisci l'indirizzo a cui desideri ricevere la risposta
 mail#:#mail_grp_roles#:#Invia mail ai ruoli del gruppo
 mail#:#mail_hint_add_placeholder_x#:#Add the placeholder '%s' to the message body.###31 03 2023 new variable
+mail#:#mail_inbox_external_delivery_only_info#:#Your account is configured to receive messages at an external email address.<br>You can only see mails in this inbox if your account is configured to (also) receive them locally.###06 10 2026 new variable
 mail#:#mail_incoming#:#E-Mail in arrivo
 mail#:#mail_incoming_both#:#Interna a ILIAS ed inoltro alle mail principali
 mail#:#mail_incoming_local#:#Solamente interna a ILIAS
@@ -12998,7 +13002,6 @@ news#:#news_allow_shorter_periods#:#Permetti periodi più corti
 news#:#news_allow_shorter_periods_info#:#Gli utenti posso scegliere periodi di News, sul proprio Desktop Personale, più corti.
 news#:#news_attached_to#:#Assegnato a
 news#:#news_block_information#:#Il blocco delle <b>News</b> mostra cronologicamente l'elenco di tutte le news che sono relazionate ai <b>Contenuti personali</b> che hai selezionato nel Desktop Personale.
-news#:#news_block_news_for_context#:#Notizie
 news#:#news_cache#:#Cache delle notizie (Minuti)
 news#:#news_cache_info#:#Aggiorna notizie blocca tutti i x minuti. '0' significa ogni volta. Valori più alti migliorano le prestazioni, ma le notizie potrebbero essere collegate ad elementi non accessibili.
 news#:#news_default_visibility#:#Accesso predefinito
@@ -15742,7 +15745,6 @@ sess#:#sess_registration_notification#:#Notifica
 sess#:#sess_registration_notification_info#:#Mostra la colonna nella scheda "Partecipanti" per selezionare gli utenti a cui vengono notificati i partecipanti nuovi o in uscita
 sess#:#sess_section_reg#:#Impostazioni di registrazione
 sess#:#sess_setting_header_presentation#:#Presentation
-sess#:#sess_show_members#:#Mostra partecipanti
 sess#:#sess_show_participants_info#:#Se attivato, i partecipanti alla sessione possono accedere alla galleria dei partecipanti
 sess#:#sess_title#:#Titolo della sessione
 sess#:#sess_users_added#:#Utenti selezionati registrati per la sessione.
@@ -17066,6 +17068,7 @@ svy#:#svy_codes#:#Codici di accesso
 svy#:#svy_current_page#:#Current Page###31 03 2023 new variable
 svy#:#svy_finish_survey#:#Finish survey '%1'
 svy#:#svy_finished_x_appraisees#:#You have already completed the survey for %s appraisee(s).###28 11 2025 new variable
+svy#:#svy_info_participants#:#Aggiungi utenti come partecipanti a questo sondaggio utilizzando una delle seguenti opzioni di ricerca. Il sondaggio verrà aggiunto come attività nella dashboard di questi utenti.
 svy#:#svy_information#:#Information###28 11 2025 new variable
 svy#:#svy_invite_participants#:#Invita partecipanti
 svy#:#svy_link_to_svy#:#Link to Survey###31 03 2023 new variable
