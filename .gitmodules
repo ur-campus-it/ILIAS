@@ -1,3 +1,7 @@
 [submodule "public/Customizing/global/plugins/Modules/Test/Export/TestFlexnowExport"]
 	path = public/Customizing/global/plugins/Modules/Test/Export/TestFlexnowExport
 	url = git@gitlab.uni-regensburg.de:epruefung/ilias-plugin-flexnow.git
+[submodule "public/Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/TestArchiveCreator"]
+	path = public/Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/TestArchiveCreator
+	url = https://github.com/DatabayAG/TestArchiveCreator
+	branch = main-ilias11
