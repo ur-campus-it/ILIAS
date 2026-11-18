@@ -251,6 +251,7 @@ administration#:#language_settings#:#言語設定
 administration#:#language_statistics#:#統計
 administration#:#language_translation#:#ページ翻訳
 administration#:#language_translation_enabled#:#ページ翻訳をする
+administration#:#language_unsupported_characters#:#Nothing was saved. The following entries contain invalid or unsupported characters (e.g. emojis): %s###17 11 2026 new variable
 administration#:#language_variables_saved#:#変更の言語は正しく保存されました。
 administration#:#log_scan#:#Logスキャン結果
 administration#:#log_scan_desc#:#スキャン結果を'scanlog.log'としてクライアントデータディレクトリへ書込む。
@@ -2205,6 +2206,8 @@ awrn#:#user_awrn_default#:#Default
 awrn#:#user_awrn_hide#:#ステータスを表示しない
 awrn#:#user_awrn_show#:#ステータスを表示する
 background_tasks#:#abort#:#強制終了
+background_tasks#:#background_task_garbage_collection#:#Background Tasks GC###17 11 2026 new variable
+background_tasks#:#background_task_garbage_collection_info#:#This job cleans up stale tasks and related database tables.###17 11 2026 new variable
 background_tasks#:#background_tasks#:#バックグラウンドタスク
 background_tasks#:#background_tasks_running#:#バックグラウンドタスク
 background_tasks#:#completed#:#完了しました
@@ -7302,6 +7305,8 @@ content#:#cont_versions#:#バージョン
 content#:#cont_whole_glossary#:#用語集全体
 content#:#cont_width#:#幅
 content#:#cont_width_height_info#:#表示サイズは固定サイズに設定できます。幅950 pixels高さ650 pixelはサイズ設定用の検証値です。入力値がない場合はブラウザが表示サイズを決定します。
+content#:#cont_width_px_perc#:#Width###17 11 2026 new variable
+content#:#cont_width_px_perc_info#:#(e.g. px or % value)###17 11 2026 new variable
 content#:#cont_wiki_link_dialog#:#Wiki Page (Dialog)へリンク
 content#:#cont_wiki_page#:#Wikiページ
 content#:#cont_wiki_page_link#:#Wikiページリンク
@@ -12991,8 +12996,6 @@ mst#:#mst_profile_fulfilled#:#未確認
 mst#:#mst_profile_not_fulfilled#:#履行
 mst#:#mst_select_course#:#コースを選択
 mst#:#mst_show_courses#:#登録
-news#:#lso_news_online_title#:#新しい学習シーケンスオブジェクトはオンラインです!
-news#:#lso_news_online_txt#:#学習シーケンス用の新しいオブジェクトは公開されたばかりです。
 news#:#new_test_online#:#オンラインに設定されました。
 news#:#news_1_file_created#:#ファイルが1個追加されました。
 news#:#news_1_file_updated#:#ファイルが1個更新されました。
@@ -15591,7 +15594,7 @@ search#:#search_created_after#:#後に作成されたオブジェクト
 search#:#search_created_before#:#. . .以前に作成されたオブジェクト
 search#:#search_created_on#:#. . .に作成されたオブジェクト. . .
 search#:#search_crs_title#:#コース名
-search#:#search_detailed_results_title#:#「%s」の詳細な結果 
+search#:#search_detailed_results_title#:#「%s」の詳細な結果
 search#:#search_details_info#:#詳細検索。1つまたは複数のリソースの種類を選択してください。
 search#:#search_direct#:#ダイレクト検索
 search#:#search_err_user_not_exist#:#そのログイン名のユーザは存在しません。

@@ -251,6 +251,7 @@ administration#:#language_settings#:#Spracheinstellungen
 administration#:#language_statistics#:#Statistik
 administration#:#language_translation#:#Seitenübersetzung
 administration#:#language_translation_enabled#:#Seitenübersetzung aktiviert
+administration#:#language_unsupported_characters#:#Nichts wurde gespeichert. Folgende Einträge enthalten ungültige oder nicht unterstützte Zeichen (z. B. Emojis): %s
 administration#:#language_variables_saved#:#Die Änderungen an den Sprachvariablen wurden erfolgreich gespeichert.
 administration#:#log_scan#:#Untersuchungsergebnisse festhalten
 administration#:#log_scan_desc#:#Untersuchungsergebnisse in Datei 'scanlog.log' im Datenverzeichnis des Mandanten speichern
@@ -2204,6 +2205,8 @@ awrn#:#user_awrn_default#:#Standard
 awrn#:#user_awrn_hide#:#Nicht anzeigen
 awrn#:#user_awrn_show#:#Anzeigen
 background_tasks#:#abort#:#Abbrechen
+background_tasks#:#background_task_garbage_collection#:#Background Tasks GC
+background_tasks#:#background_task_garbage_collection_info#:#Dieser Job bereinigt veraltete Background Tasks und zugehörige Datenbanktabellen.
 background_tasks#:#background_tasks#:#Background Tasks
 background_tasks#:#background_tasks_running#:#Background Tasks
 background_tasks#:#completed#:#Abgeschlossen
@@ -7302,6 +7305,8 @@ content#:#cont_versions#:#Versionen
 content#:#cont_whole_glossary#:#Gesamtes Glossar
 content#:#cont_width#:#Breite in Pixel
 content#:#cont_width_height_info#:#Die Größe der Darstellung kann festgelegt werden. In der Praxis hat sich eine Breite von 950 Pixeln und eine Höhe von 650 Pixeln bewährt. Wenn keine Angabe gemacht wird, bestimmt der Browser die Fenstergröße.
+content#:#cont_width_px_perc#:#Breite
+content#:#cont_width_px_perc_info#:#(z.B. px oder %)
 content#:#cont_wiki_link_dialog#:#Wikiseite (Dialog)
 content#:#cont_wiki_page#:#Wiki-Seite
 content#:#cont_wiki_page_link#:#Wiki-Seiten-Link
@@ -9867,7 +9872,7 @@ file#:#copyright_custom#:#Benutzerdefiniert
 file#:#copyright_custom_info#:#Lizenz auswählen, welche auf alle entpackten Dateien dieses Archivs angewandt wird.
 file#:#copyright_inherited#:#Vererbt
 file#:#copyright_inherited_info#:#Lizenz des Zip-Archivs auf seine entpackten Dateien anwenden. <br \>Lizenz des Zip-Archivs: %s.
-file#:#could_not_create_file_objs#:#Beim Erstellen der Dateiobjekte ist ein Fehler aufgetreten. Bitte wenden Sie sich an die technische Betreuung dieser Installation. 
+file#:#could_not_create_file_objs#:#Beim Erstellen der Dateiobjekte ist ein Fehler aufgetreten. Bitte wenden Sie sich an die technische Betreuung dieser Installation.
 file#:#de_activate_icon#:#(De-)Aktivieren
 file#:#download_ascii_filename#:#Nur ASCII-Zeichen im Download
 file#:#download_ascii_filename_info#:#Die Namen heruntergeladener Dateien enthalten nur ASCII-Zeichen und können so auf allen Systemen problemlos genutzt werden. Andere Zeichen werden durch Unterstriche ersetzt. Auf Installationen, die Dateinamen mit nicht-lateinischen Schriftzeichen nutzen, muss diese Option deaktiviert werden.
@@ -12991,8 +12996,6 @@ mst#:#mst_profile_fulfilled#:#Erreicht
 mst#:#mst_profile_not_fulfilled#:#Noch nicht erreicht
 mst#:#mst_select_course#:#Kurs auswählen
 mst#:#mst_show_courses#:#Einschreibungen
-news#:#lso_news_online_title#:#Neues Lernsequenz-Objekt ist online!
-news#:#lso_news_online_txt#:#Soeben wurde ein neues Objekt für Ihre Lernsequenz online gestellt.
 news#:#new_test_online#:#Der Test wurde online geschaltet.
 news#:#news_1_file_created#:#Es wurde eine Datei hinzugefügt.
 news#:#news_1_file_updated#:#Es wurde eine Datei aktualisiert.
@@ -16498,7 +16501,7 @@ survey#:#arithmetic_mean#:#Arithmetisches Mittel
 survey#:#browse_for_questions#:#Aus Pool hinzufügen
 survey#:#cancel_survey#:#Umfrage unterbrechen
 survey#:#cannot_read_survey#:#Sie haben keine ausreichende Berechtigung, um auf die Umfragedaten zugreifen zu können.
-survey#:#cannot_switch_to_online_no_questions#:#DDer Status kann nicht auf „online (aktiviert)“ geändert werden, da der Umfrage noch keine Fragen hinzugefügt wurden!
+survey#:#cannot_switch_to_online_no_questions#:#Der Status kann nicht auf „online (aktiviert)“ geändert werden, da der Umfrage noch keine Fragen hinzugefügt wurden!
 survey#:#cant_send_email_smtp_disabled#:#Das Versenden von externen E-Mails ist zurzeit global deaktiviert.
 survey#:#category#:#Antwort
 survey#:#category_nr_selected#:#Absolute Häufigkeit
@@ -17070,7 +17073,7 @@ svy#:#svy_code#:#Zugangscode
 svy#:#svy_codes#:#Zugangscodes
 svy#:#svy_current_page#:#Aktuelle Seite
 svy#:#svy_finish_survey#:#An Umfrage "%1" teilnehmen
-svy#:#svy_finished_x_appraisees#:#Sie haben Bewertungen bereits für %s Feedback-Nehmer abgegeben. 
+svy#:#svy_finished_x_appraisees#:#Sie haben Bewertungen bereits für %s Feedback-Nehmer abgegeben.
 svy#:#svy_info_participants#:#Fügen Sie Personen über eine der folgenden Suchoptionen zu dieser Umfrage hinzu. Die Umfrage wird diesen Personen als Aufgabe auf ihrem Dashboard angezeigt.
 svy#:#svy_information#:#Information
 svy#:#svy_invite_participants#:#Personen hinzufügen
@@ -17259,7 +17262,7 @@ trac#:#trac_assigned#:#Ausgewählt
 trac#:#trac_average#:#Durchschnitt
 trac#:#trac_begin_at#:#Startdatum
 trac#:#trac_closed_expire#:#Timeout
-trac#:#trac_closed_login#:#Statusänderung - Anonym zu angemeldet 
+trac#:#trac_closed_login#:#Statusänderung - Anonym zu angemeldet
 trac#:#trac_closed_manual#:#Logout
 trac#:#trac_closed_misc#:#Sonstige
 trac#:#trac_collection_assign#:#Für Lernfortschritts-Bestimmung auswählen

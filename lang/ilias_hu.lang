@@ -251,6 +251,7 @@ administration#:#language_settings#:#Nyelvi beállítások
 administration#:#language_statistics#:#Statisztika
 administration#:#language_translation#:#Oldalfordító
 administration#:#language_translation_enabled#:#Oldalfordító
+administration#:#language_unsupported_characters#:#Nothing was saved. The following entries contain invalid or unsupported characters (e.g. emojis): %s###17 11 2026 new variable
 administration#:#language_variables_saved#:#A nyelvi változók módosítását sikeresen mentette.
 administration#:#log_scan#:#Vizsgálati eredmények naplózása
 administration#:#log_scan_desc#:#Vizsgálati eredmények mentése a kliens adatmappa ‘scanlog.log’ fájljába.
@@ -2206,6 +2207,8 @@ awrn#:#user_awrn_default#:#Alapértelmezett
 awrn#:#user_awrn_hide#:#Állapotom elrejtése
 awrn#:#user_awrn_show#:#Állapotom megjelenítése
 background_tasks#:#abort#:#Megállított
+background_tasks#:#background_task_garbage_collection#:#Background Tasks GC###17 11 2026 new variable
+background_tasks#:#background_task_garbage_collection_info#:#This job cleans up stale tasks and related database tables.###17 11 2026 new variable
 background_tasks#:#background_tasks#:#Háttérfolyamatok
 background_tasks#:#background_tasks_running#:#Háttérfolyamatok
 background_tasks#:#completed#:#Befejeződött
@@ -4825,7 +4828,7 @@ common#:#msg_no_perm_paste#:#Nincs jogosultsága beilleszteni az alábbi objektu
 common#:#msg_no_perm_paste_object_in_folder#:#Nincs jogosultsága a(z) %s objektumot beilleszteni a(z) %s mappába.
 common#:#msg_no_perm_perm#:#Nincs jogosultsága módosítani a jogosultsági beállításokat.
 common#:#msg_no_perm_read#:#Nincs jogosultsága ezekhez az elemekhez.
-common#:#msg_no_perm_read_item#:#Nincs jogosultsága elérni: ‘%s’.
+common#:#msg_no_perm_read_item#:#Nincs jogosultsága elérni.
 common#:#msg_no_perm_read_lm#:#Nincs olvasási jogosultsága ehhez a tananyaghoz.
 common#:#msg_no_perm_view_roles_of_user#:#Nincs jogosultsága megtekinteni a felhasználó szerepköreit
 common#:#msg_no_perm_write#:#Nincs jogosultsága módosítani a beállításokat.
@@ -7304,6 +7307,8 @@ content#:#cont_versions#:#Verziók
 content#:#cont_whole_glossary#:#Teljes fogalomtár
 content#:#cont_width#:#Szélesség (pixel)
 content#:#cont_width_height_info#:#A megjelenítés fix méretűre állítható. Bevált érték a 950 pixel szélesség és a 650 pixel magasság. Amennyiben nem ad meg értéket, a böngésző megpróbálja meghatározni a megjelenítés méretét.
+content#:#cont_width_px_perc#:#Width###17 11 2026 new variable
+content#:#cont_width_px_perc_info#:#(e.g. px or % value)###17 11 2026 new variable
 content#:#cont_wiki_link_dialog#:#Wikilap (párbeszédablakos)
 content#:#cont_wiki_page#:#Wiki oldal
 content#:#cont_wiki_page_link#:#Wikilap link
@@ -12993,8 +12998,6 @@ mst#:#mst_profile_fulfilled#:#Teljesített
 mst#:#mst_profile_not_fulfilled#:#Még nem teljesített
 mst#:#mst_select_course#:#Válasszon kurzust
 mst#:#mst_show_courses#:##Kurzustagságok
-news#:#lso_news_online_title#:#A tanulási sorban egy új online objektum!
-news#:#lso_news_online_txt#:#A tanulási sorban egy új objektumot tettek elérhetővé.
 news#:#new_test_online#:#A teszt online lett.
 news#:#news_1_file_created#:#Egy fájlt sikeresen létrehozott.
 news#:#news_1_file_updated#:#Egy fájlt sikeresen frissített.

@@ -371,6 +371,12 @@ class ilObjTestGUI extends ilObjectGUI implements ilCtrlBaseClassInterface, ilDe
                     $selected_files = [$selected_files];
                 }
 
+
+                $this->tpl->setOnScreenMessage(
+                    'info',
+                    $this->lng->txt('no_manual_feedback_export_info')
+                );
+
                 $export_gui = new ilTestExportGUI(
                     $this,
                     $this->db,
@@ -905,7 +911,7 @@ class ilObjTestGUI extends ilObjectGUI implements ilCtrlBaseClassInterface, ilDe
                 $question_gui->setQuestionTabs();
                 $question_gui->setContextAllowsSyncToPool(true);
 
-                $this->addQuestionTitleToObjectTitle($question->getTitleForHTMLOutput());
+                $this->addQuestionTitleToObjectTitle($question->getTitle());
 
                 if ($this->getTestObject()->evalTotalPersons() !== 0) {
                     $this->tpl->setOnScreenMessage('failure', $this->lng->txt('question_is_part_of_running_test'), true);
@@ -1049,8 +1055,7 @@ class ilObjTestGUI extends ilObjectGUI implements ilCtrlBaseClassInterface, ilDe
             $this->db,
             $this->refinery->random(),
             $this->global_screen,
-            $this->http,
-            $this->refinery,
+            $this->content_style,
             $this->ref_id
         );
 
@@ -1064,7 +1069,7 @@ class ilObjTestGUI extends ilObjectGUI implements ilCtrlBaseClassInterface, ilDe
 
         $question_gui ??= assQuestion::instantiateQuestionGUI($this->fetchAuthoringQuestionIdParameter());
 
-        $this->addQuestionTitleToObjectTitle($question_gui->getObject()->getTitleForHTMLOutput());
+        $this->addQuestionTitleToObjectTitle($question_gui->getObject()->getTitle());
 
         if (!$this->getTestObject()->isRandomTest() && $nr_of_participants_with_results === 0) {
             $gui->setPrimaryCmd(
@@ -1128,7 +1133,7 @@ class ilObjTestGUI extends ilObjectGUI implements ilCtrlBaseClassInterface, ilDe
             $question_gui->setContextAllowsSyncToPool(true);
             $question_gui->setQuestionTabs();
 
-            $this->addQuestionTitleToObjectTitle($question->getTitleForHTMLOutput());
+            $this->addQuestionTitleToObjectTitle($question->getTitle());
 
             $target = strpos($cmd, 'Return') === false ? 'stay' : 'return';
 

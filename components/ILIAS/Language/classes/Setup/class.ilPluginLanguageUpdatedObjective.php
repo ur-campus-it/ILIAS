@@ -83,6 +83,13 @@ class ilPluginLanguageUpdatedObjective implements Setup\Objective
         $GLOBALS["DIC"] = $ORIG_DIC;
         $GLOBALS["ilDB"] = $ORIG_ilDB;
 
+        $io = $environment->getResource(Setup\Environment::RESOURCE_ADMIN_INTERACTION);
+        if ($io instanceof Setup\AdminInteraction) {
+            foreach ($language_handler->getUnstorableEntriesMessages() as $message) {
+                $io->inform($message);
+            }
+        }
+
         return $environment;
     }
 
@@ -103,6 +110,27 @@ class ilPluginLanguageUpdatedObjective implements Setup\Objective
         $client_ini = $environment->getResource(Setup\Environment::RESOURCE_CLIENT_INI);
         $component_factory = $environment->getResource(Setup\Environment::RESOURCE_COMPONENT_FACTORY);
 
+        // The constants must be defined before any object below is created: e.g. ilObjectDefinition
+        // instantiates all active repository object plugins, which may depend on them.
+        if (!defined('DEBUG')) {
+            define('DEBUG', false);
+        }
+
+        if (!defined("ILIAS_ABSOLUTE_PATH")) {
+            define("ILIAS_ABSOLUTE_PATH", dirname(__FILE__, 6));
+        }
+
+        if (!defined('SYSTEM_ROLE_ID')) {
+            define('SYSTEM_ROLE_ID', '2');
+        }
+
+        if (!defined("CLIENT_ID")) {
+            define('CLIENT_ID', $client_ini->readVariable('client', 'name'));
+        }
+
+        if (!defined("ILIAS_WEB_DIR")) {
+            define('ILIAS_WEB_DIR', $ini->readVariable('clients', 'path'));
+        }
 
         // ATTENTION: This is a total abomination. It only exists to allow various
         // sub components of the various readers to run. This is a memento to the
@@ -170,26 +198,6 @@ class ilPluginLanguageUpdatedObjective implements Setup\Objective
                 $this->prefs["language"] = "en";
             }
         };
-
-        if (!defined('DEBUG')) {
-            define('DEBUG', false);
-        }
-
-        if (!defined("ILIAS_ABSOLUTE_PATH")) {
-            define("ILIAS_ABSOLUTE_PATH", dirname(__FILE__, 6));
-        }
-
-        if (!defined('SYSTEM_ROLE_ID')) {
-            define('SYSTEM_ROLE_ID', '2');
-        }
-
-        if (!defined("CLIENT_ID")) {
-            define('CLIENT_ID', $client_ini->readVariable('client', 'name'));
-        }
-
-        if (!defined("ILIAS_WEB_DIR")) {
-            define('ILIAS_WEB_DIR', $ini->readVariable('clients', 'path'));
-        }
 
         return [$ORIG_DIC, $ORIG_ilDB];
     }
