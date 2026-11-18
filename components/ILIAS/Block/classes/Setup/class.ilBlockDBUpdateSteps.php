@@ -16,10 +16,9 @@
  *
  *********************************************************************/
 
-use ILIAS\Setup;
-use ILIAS\Data\Password;
+declare(strict_types=1);
 
-class ilBackgroundTasksDB80 implements ilDatabaseUpdateSteps
+class ilBlockDBUpdateSteps implements ilDatabaseUpdateSteps
 {
     protected ilDBInterface $db;
 
@@ -30,8 +29,8 @@ class ilBackgroundTasksDB80 implements ilDatabaseUpdateSteps
 
     public function step_1(): void
     {
-        if (!$this->db->indexExistsByFields('il_bt_bucket', ['user_id'])) {
-            $this->db->addIndex('il_bt_bucket', ['user_id'], 'i1');
+        if (!$this->db->indexExistsByFields('il_block_setting', ['user_id'])) {
+            $this->db->addIndex('il_block_setting', ['user_id'], 'i1');
         }
     }
 }

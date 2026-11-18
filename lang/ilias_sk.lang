@@ -591,6 +591,7 @@ assessment#:#concatenation#:#Sřetězení
 assessment#:#conf_delete_pass#:#Really delete pass?###28 08 2012 new variable
 assessment#:#confirm_log_deletion#:#Are you sure, you want to delete the selected log entries? You will not be able to recover the deleted entries.###26 08 2024 new variable
 assessment#:#confirm_sync_questions#:#Vámi změněné otázky jsou kopií vytvořenou pro použití v aktivním testu. Chcete změnit také původní otázky?
+assessment#:#contained_question_types#:#Contained Question Types###06 10 2026 new variable
 assessment#:#coordinates#:#Souřadnice
 assessment#:#copy_and_link_to_questionpool#:#Copy to question pool and link###12 06 2011 new variable
 assessment#:#copy_no_questions_selected#:#Please select at least one question to copy.###12 06 2011 new variable
@@ -2255,6 +2256,8 @@ awrn#:#user_awrn_default#:#Default###29 07 2022 new variable
 awrn#:#user_awrn_hide#:#Hide my status###29 07 2022 new variable
 awrn#:#user_awrn_show#:#Show my status###29 07 2022 new variable
 background_tasks#:#abort#:#Abort###23 10 2017 new variable
+background_tasks#:#background_task_garbage_collection#:#Background Tasks GC###17 11 2026 new variable
+background_tasks#:#background_task_garbage_collection_info#:#This job cleans up stale tasks and related database tables.###17 11 2026 new variable
 background_tasks#:#background_tasks#:#Background Tasks###31 08 2017 new variable
 background_tasks#:#background_tasks_running#:#Running Tasks###31 08 2017 new variable
 background_tasks#:#completed#:#Completed###31 08 2017 new variable
@@ -7295,6 +7298,8 @@ content#:#cont_versions#:#Verze
 content#:#cont_whole_glossary#:#Celý glosář
 content#:#cont_width#:#Šířka
 content#:#cont_width_height_info#:#The size of the display can be set at a fixed size. 950 pixels for Width and 650 pixels for Height are proven values for setting the size. If no entry is made the browser will determine the size of the display.###25 10 2015 new variable
+content#:#cont_width_px_perc#:#Width###17 11 2026 new variable
+content#:#cont_width_px_perc_info#:#(e.g. px or % value)###17 11 2026 new variable
 content#:#cont_wiki_link_dialog#:#Link to Wiki Page (Dialog)###30 08 2015 new variable
 content#:#cont_wiki_page#:#Wiki Page###30 12 2013 new variable
 content#:#cont_wiki_page_link#:#Odkaz na stránku Wiki
@@ -9615,6 +9620,7 @@ exc#:#exc_reminder_submit_setting#:#Remind Users to Submit###10 11 2018 new vari
 exc#:#exc_reminder_submit_subject#:#Assignment "%s" was not finished###10 11 2018 new variable
 exc#:#exc_reminders_cron#:#Reminders for Assignments###10 11 2018 new variable
 exc#:#exc_reminders_cron_info#:#If enabled, 3 reminders will be active: Users to Submit, Tutors to Grade and Participants to Feedback.###10 11 2018 new variable
+exc#:#exc_reminders_cron_not_active#:#Note: Notifications will not be sent until the 'Reminders for Assignments' cron job is activated. Currently the cron job is deactivated.###06 10 2026 new variable
 exc#:#exc_request_deadline#:#Request Deadline###26 08 2024 new variable
 exc#:#exc_requirement#:#Requirement###26 08 2024 new variable
 exc#:#exc_review_anytime#:#Give Feedback Anytime###26 08 2024 new variable
@@ -11602,6 +11608,7 @@ mail#:#mail_global_reply_to_addr#:#Reply-To###29 07 2022 new variable
 mail#:#mail_global_reply_to_addr_info#:#Please enter the desired 'Reply-To' address.###29 07 2022 new variable
 mail#:#mail_grp_roles#:#Send Mail to Group Roles###08 10 2015 new variable
 mail#:#mail_hint_add_placeholder_x#:#Add the placeholder '%s' to the message body.###26 08 2024 new variable
+mail#:#mail_inbox_external_delivery_only_info#:#Your account is configured to receive messages at an external email address.<br>You can only see mails in this inbox if your account is configured to (also) receive them locally.###06 10 2026 new variable
 mail#:#mail_incoming#:#Příchozí pošta
 mail#:#mail_incoming_both#:#lokální a přeposílaná
 mail#:#mail_incoming_local#:#pouze lokální
@@ -12917,8 +12924,6 @@ mst#:#mst_profile_fulfilled#:#Not met, yet###07 02 2020 new variable
 mst#:#mst_profile_not_fulfilled#:#Fulfilled###07 02 2020 new variable
 mst#:#mst_select_course#:#Select Course###31 08 2017 new variable
 mst#:#mst_show_courses#:#Enrolments###31 08 2017 new variable
-news#:#lso_news_online_title#:#A new learning sequence object is online!###07 02 2020 new variable
-news#:#lso_news_online_txt#:#A new object for your learning sequence was just published.###07 02 2020 new variable
 news#:#new_test_online#:#The Test was set online.###31 08 2017 new variable
 news#:#news_1_file_created#:#1 soubor byl přídán.
 news#:#news_1_file_updated#:#1 soubor byl aktualizován.
@@ -12931,7 +12936,6 @@ news#:#news_allow_shorter_periods#:#Umožnit kratší periody
 news#:#news_allow_shorter_periods_info#:#Uživatelé mohou vybrat kratší periody zpráv na osobní pracovní ploše.
 news#:#news_attached_to#:#Připojený k
 news#:#news_block_information#:#Blok zpráv zobrazuje všechny <b>Zprávy</b> v chronologickém pořadí, které jsou vztaženy k Vámi <b>vybraným položkám</b> na Osobní pracovní ploše.
-news#:#news_block_news_for_context#:#Zprávy
 news#:#news_cache#:#Vyrovnávací paměť zpráv (Minutes)
 news#:#news_cache_info#:#Aktualizovat bloky zpráv každé x minuty. '0' znamená vždy. Vyšší hodnoty vylepšují výkon, ale zprávy mohou odkazovat na nedostupné položky.
 news#:#news_default_visibility#:#Výchozí přístup
@@ -15660,7 +15664,6 @@ sess#:#sess_registration_notification#:#Notification###07 02 2020 new variable
 sess#:#sess_registration_notification_info#:#Shows column in tab 'Participants' to select users being notified about new or leaving participants###07 02 2020 new variable
 sess#:#sess_section_reg#:#Registration Settings###26 09 2014 new variable
 sess#:#sess_setting_header_presentation#:#Presentation###29 07 2022 new variable
-sess#:#sess_show_members#:#Show Participants###10 11 2018 new variable
 sess#:#sess_show_participants_info#:#If activated, session participants can access the participant gallery###10 11 2018 new variable
 sess#:#sess_title#:#Title of Session###29 07 2022 new variable
 sess#:#sess_users_added#:#Registered selected users for the session.###26 09 2014 new variable

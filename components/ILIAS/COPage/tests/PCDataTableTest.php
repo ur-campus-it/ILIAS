@@ -33,6 +33,18 @@ class PCDataTableTest extends COPageTestBase
         );
     }
 
+    public function testCharacteristicPreviewWithoutStyle(): void
+    {
+        $gui = (new ReflectionClass(ilPCDataTableGUI::class))->newInstanceWithoutConstructor();
+        $method = new ReflectionMethod(ilPCDataTableGUI::class, 'getCharacteristicPreview');
+        $method->setAccessible(true);
+
+        $this->assertSame(
+            '<table class="ilc_table_StandardTable"><tr><td>&nbsp;</td></tr></table><div>StandardTable</div>',
+            $method->invoke($gui, 'StandardTable', 'StandardTable')
+        );
+    }
+
     public function testCreate(): void
     {
         $page = $this->getEmptyPageWithDom();
@@ -238,10 +250,10 @@ EOT;
         $pc->setLanguage("en");
         $pc->addRows(1, 1);
         $page->addHierIDs();
-        $pc->setTDWidth("1_1_1", "33");
+        $pc->setTDWidth("1_1_1", "33%");
         $this->assertEquals(
             [
-                "1_1_1:" => "33"
+                "1_1_1:" => "33%"
             ],
             $pc->getAllCellWidths()
         );

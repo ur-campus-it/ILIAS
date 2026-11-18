@@ -591,6 +591,7 @@ assessment#:#concatenation#:#Povezivanje
 assessment#:#conf_delete_pass#:#Jeste li sigurni da želite izbrisati svoje postojeće odgovore?
 assessment#:#confirm_log_deletion#:#Are you sure, you want to delete the selected log entries? You will not be able to recover the deleted entries.###26 08 2024 new variable
 assessment#:#confirm_sync_questions#:#Pitanje, koje ste promijenili, je kopija koja je izrađena za uporabu s aktivnim testom. Želite li promijeniti i izvorno pitanje?
+assessment#:#contained_question_types#:#Contained Question Types###06 10 2026 new variable
 assessment#:#coordinates#:#Koordinate
 assessment#:#copy_and_link_to_questionpool#:#Dodaj u bazen pitanja
 assessment#:#copy_no_questions_selected#:#Molimo odaberite najmanje jedno pitanje za kopiranje.
@@ -2255,6 +2256,8 @@ awrn#:#user_awrn_default#:#Default###04 06 2021 new variable
 awrn#:#user_awrn_hide#:#Hide my status###04 06 2021 new variable
 awrn#:#user_awrn_show#:#Show my status###04 06 2021 new variable
 background_tasks#:#abort#:#Abort
+background_tasks#:#background_task_garbage_collection#:#Background Tasks GC###17 11 2026 new variable
+background_tasks#:#background_task_garbage_collection_info#:#This job cleans up stale tasks and related database tables.###17 11 2026 new variable
 background_tasks#:#background_tasks#:#Background Tasks
 background_tasks#:#background_tasks_running#:#Background Tasks
 background_tasks#:#completed#:#Completed
@@ -7295,6 +7298,8 @@ content#:#cont_versions#:#Verzije
 content#:#cont_whole_glossary#:#Cijeli pojmovnik
 content#:#cont_width#:#Širina
 content#:#cont_width_height_info#:#Prezentacija se može postaviti na fiksnu veličinu. Dokazane vrijednosti za podešavanje veličine su 950 piksela za širinu i 650 piksela za visinu. Ako se ne unese vrijednost, preglednik će odrediti veličinu prezentacije.
+content#:#cont_width_px_perc#:#Width###17 11 2026 new variable
+content#:#cont_width_px_perc_info#:#(e.g. px or % value)###17 11 2026 new variable
 content#:#cont_wiki_link_dialog#:#Veza do stranice Wiki (dijaloški okvir)
 content#:#cont_wiki_page#:#Stranica Wiki
 content#:#cont_wiki_page_link#:#Poveznica na stranicu Wiki
@@ -9615,6 +9620,7 @@ exc#:#exc_reminder_submit_setting#:#Podsjeti korisnike na predaju
 exc#:#exc_reminder_submit_subject#:#Zadatak "%s" nije završen
 exc#:#exc_reminders_cron#:#Podsjetnici za zadatke
 exc#:#exc_reminders_cron_info#:#Ako je omogućeno, bit će aktivna 3 podsjetnika: korisnici za predavju, mentori za ocjenjivanje i sudionici za povratne informacije.
+exc#:#exc_reminders_cron_not_active#:#Note: Notifications will not be sent until the 'Reminders for Assignments' cron job is activated. Currently the cron job is deactivated.###06 10 2026 new variable
 exc#:#exc_request_deadline#:#Request Deadline###26 08 2024 new variable
 exc#:#exc_requirement#:#Requirement###26 08 2024 new variable
 exc#:#exc_review_anytime#:#Give Feedback Anytime###26 08 2024 new variable
@@ -11602,6 +11608,7 @@ mail#:#mail_global_reply_to_addr#:#Reply-To###04 06 2021 new variable
 mail#:#mail_global_reply_to_addr_info#:#Please enter the desired 'Reply-To' address.###04 06 2021 new variable
 mail#:#mail_grp_roles#:#Pošaljite poštu ulogama grupe
 mail#:#mail_hint_add_placeholder_x#:#Add the placeholder '%s' to the message body.###26 08 2024 new variable
+mail#:#mail_inbox_external_delivery_only_info#:#Your account is configured to receive messages at an external email address.<br>You can only see mails in this inbox if your account is configured to (also) receive them locally.###06 10 2026 new variable
 mail#:#mail_incoming#:#Dolazna pošta
 mail#:#mail_incoming_both#:#lokalno i prosljeđivanje
 mail#:#mail_incoming_local#:#samo lokalni
@@ -12917,8 +12924,6 @@ mst#:#mst_profile_fulfilled#:#Not met, yet###04 06 2021 new variable
 mst#:#mst_profile_not_fulfilled#:#Fulfilled###04 06 2021 new variable
 mst#:#mst_select_course#:#Odaberi tečaj
 mst#:#mst_show_courses#:#Upisi
-news#:#lso_news_online_title#:#A new learning sequence object is online!
-news#:#lso_news_online_txt#:#A new object for your learning sequence was just published.
 news#:#new_test_online#:#The Test was set online.
 news#:#news_1_file_created#:#One file has been added.
 news#:#news_1_file_updated#:#One file has been updated.
@@ -12931,7 +12936,6 @@ news#:#news_allow_shorter_periods#:#Allow Shorter Periods
 news#:#news_allow_shorter_periods_info#:#Users may select shorter news periods on personal desktop.
 news#:#news_attached_to#:#Attached to
 news#:#news_block_information#:#The <b>News</b> block lists all news that are related to the <b>Personal Items</b> you have selected on the personal desktop.
-news#:#news_block_news_for_context#:#News
 news#:#news_cache#:#News Cache (Minutes)
 news#:#news_cache_info#:#Update news blocks all x minutes. ‘0’ means every time. Higher values improve performance, but news may link to non-accessible items.
 news#:#news_default_visibility#:#Default Access
@@ -15660,7 +15664,6 @@ sess#:#sess_registration_notification#:#Notification###04 06 2021 new variable
 sess#:#sess_registration_notification_info#:#Shows column in tab 'Participants' to select users being notified about new or leaving participants###04 06 2021 new variable
 sess#:#sess_section_reg#:#Postavke registracije
 sess#:#sess_setting_header_presentation#:#Presentation###04 06 2021 new variable
-sess#:#sess_show_members#:#Prikaži sudionike
 sess#:#sess_show_participants_info#:#Ako je aktivirano, sudionici sesije mogu pristupiti galeriji sudionika
 sess#:#sess_title#:#Title of Session###04 06 2021 new variable
 sess#:#sess_users_added#:#Registrirani odabrani korisnici za sesiju.

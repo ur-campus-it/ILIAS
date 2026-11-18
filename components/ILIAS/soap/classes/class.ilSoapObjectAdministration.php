@@ -162,6 +162,10 @@ class ilSoapObjectAdministration extends ilSoapAdministration
             return $this->raiseError($this->getMessage(), $this->getMessageCode());
         }
 
+        if (!$this->authorizeUserLookup($user_id, $a_ref_id)) {
+            return $this->raiseError('Check access failed.', 'Server');
+        }
+
         if (!$tmp_obj = ilObjectFactory::getInstanceByRefId($a_ref_id, false)) {
             return $this->raiseError('Cannot create object instance!', 'Server');
         }
@@ -197,6 +201,11 @@ class ilSoapObjectAdministration extends ilSoapAdministration
         if (!$this->checkSession($sid)) {
             return $this->raiseError($this->getMessage(), $this->getMessageCode());
         }
+
+        if (!$this->authorizeUserLookup($user_id, ROOT_FOLDER_ID)) {
+            return $this->raiseError('Check access failed.', 'Server');
+        }
+
         if ($a_title === '') {
             return $this->raiseError(
                 'No valid query string given.',
@@ -231,13 +240,15 @@ class ilSoapObjectAdministration extends ilSoapAdministration
         $objs = array();
         foreach ($res->getUniqueResults() as $entry) {
             if ($entry['type'] === 'role' || $entry['type'] === 'rolt') {
-                if ($tmp = ilObjectFactory::getInstanceByObjId($entry['obj_id'], false)) {
+                if ($this->canInspectRole($user_id, (int) $entry['obj_id']) &&
+                    ($tmp = ilObjectFactory::getInstanceByObjId($entry['obj_id'], false))) {
                     $objs[] = $tmp;
                 }
                 continue;
             }
             if (($tmp = ilObjectFactory::getInstanceByRefId($entry['ref_id'], false)) &&
-                $access->checkAccess("read", "", (int) $entry['ref_id'])) {
+                $access->checkAccess("read", "", (int) $entry['ref_id']) &&
+                $this->canInspectUser($user_id, (int) $entry['ref_id'])) {
                 $objs[] = $tmp;
             }
         }
@@ -268,6 +279,10 @@ class ilSoapObjectAdministration extends ilSoapAdministration
 
         if (!$this->checkSession($sid)) {
             return $this->raiseError($this->getMessage(), $this->getMessageCode());
+        }
+
+        if (!$this->authorizeUserLookup($user_id, ROOT_FOLDER_ID)) {
+            return $this->raiseError('Check access failed.', 'Server');
         }
 
         if ($combination !== 'and' && $combination !== 'or') {
@@ -312,7 +327,11 @@ class ilSoapObjectAdministration extends ilSoapAdministration
             $objs[ROOT_FOLDER_ID] = ilObjectFactory::getInstanceByRefId(ROOT_FOLDER_ID, false);
             foreach ($result_ids as $ref_id => $obj_id) {
                 $obj = ilObjectFactory::getInstanceByRefId($ref_id, false);
-                if ($obj instanceof ilObject && $access->checkAccess("read", "", (int) $ref_id)) {
+                if (
+                    $obj instanceof ilObject &&
+                    $access->checkAccess("read", "", (int) $ref_id) &&
+                    $this->canInspectUser($user_id, (int) $ref_id)
+                ) {
                     $objs[] = $obj;
                 }
             }
@@ -344,7 +363,11 @@ class ilSoapObjectAdministration extends ilSoapAdministration
             $objs = array();
             foreach ($res->getUniqueResults() as $entry) {
                 $obj = ilObjectFactory::getInstanceByRefId($entry['ref_id'], false);
-                if ($obj instanceof ilObject && $access->checkAccess("read", "", (int) $entry['ref_id'])) {
+                if (
+                    $obj instanceof ilObject &&
+                    $access->checkAccess("read", "", (int) $entry['ref_id']) &&
+                    $this->canInspectUser($user_id, (int) $entry['ref_id'])
+                ) {
                     $objs[] = $obj;
                 }
             }
@@ -388,6 +411,10 @@ class ilSoapObjectAdministration extends ilSoapAdministration
             return $this->raiseError($this->getMessage(), $this->getMessageCode());
         }
 
+        if (!$this->authorizeUserLookup($user_id, $ref_id)) {
+            return $this->raiseError('Check access failed.', 'Server');
+        }
+
         $all = false;
 
         global $DIC;
@@ -417,7 +444,8 @@ class ilSoapObjectAdministration extends ilSoapAdministration
         foreach ($tree->getChilds($ref_id, 'title') as $child) {
             if ($all || in_array($child['type'], $types, true)) {
                 if (($tmp = ilObjectFactory::getInstanceByRefId($child['ref_id'], false)) &&
-                    $access->checkAccess("read", "", (int) $child['ref_id'])) {
+                    $access->checkAccess("read", "", (int) $child['ref_id']) &&
+                    $this->canInspectUser($user_id, (int) $child['ref_id'])) {
                     $objs[] = $tmp;
                 }
             }
@@ -449,6 +477,10 @@ class ilSoapObjectAdministration extends ilSoapAdministration
             return $this->raiseError($this->getMessage(), $this->getMessageCode());
         }
 
+        if (!$this->authorizeUserLookup($user_id, $ref_id)) {
+            return $this->raiseError('Check access failed.', 'Server');
+        }
+
         global $DIC;
 
         $tree = $DIC['tree'];
@@ -474,6 +506,7 @@ class ilSoapObjectAdministration extends ilSoapAdministration
                 !$objDefinition->isSystemObject($node['type']) &&
                 ($all || !in_array($node['type'], $filter, true)) &&
                 $access->checkAccess("read", "", (int) $node['ref_id']) &&
+                $this->canInspectUser($user_id, (int) $node['ref_id']) &&
                 ($tmp = ilObjectFactory::getInstanceByRefId($node['ref_id'], false))) {
                 $nodes[] = $tmp;
             }
@@ -573,7 +606,8 @@ class ilSoapObjectAdministration extends ilSoapAdministration
                     'Client'
                 );
             }
-            if (!$rbacsystem->checkAccess('create', $a_target_id, $object_data['type'])) {
+            // use explicit user as the rbacsystem singleton may hold a stale user
+            if (!$rbacsystem->checkAccessOfUser($DIC->user()->getId(), 'create', $a_target_id, $object_data['type'])) {
                 return $this->raiseError(
                     'No permission to create objects of type ' . $object_data['type'] . '!',
                     'Client'
@@ -716,13 +750,14 @@ class ilSoapObjectAdministration extends ilSoapAdministration
         }
 
         // Permission checks
-        if (!$rbacsystem->checkAccess('create', $target_obj->getRefId(), $source_obj->getType())) {
+        // use explicit user as the rbacsystem singleton may hold a stale user
+        if (!$rbacsystem->checkAccessOfUser($DIC->user()->getId(), 'create', $target_obj->getRefId(), $source_obj->getType())) {
             return $this->raiseError(
                 'No permission to create objects of type ' . $source_obj->getType() . '!',
                 'Client'
             );
         }
-        if (!$rbacsystem->checkAccess('delete', $source_obj->getRefId())) {
+        if (!$rbacsystem->checkAccessOfUser($DIC->user()->getId(), 'delete', $source_obj->getRefId())) {
             return $this->raiseError(
                 'No permission to link object with id: ' . $source_obj->getRefId() . '!',
                 'Client'
@@ -801,7 +836,8 @@ class ilSoapObjectAdministration extends ilSoapAdministration
                 'Client'
             );
         }
-        if (!$rbacsystem->checkAccess('delete', $del_obj->getRefId())) {
+        // use explicit user as the rbacsystem singleton may hold a stale user
+        if (!$rbacsystem->checkAccessOfUser($DIC->user()->getId(), 'delete', $del_obj->getRefId())) {
             return $this->raiseError(
                 'No permission to delete object with id: ' . $del_obj->getRefId() . '!',
                 'Client'
@@ -860,7 +896,8 @@ class ilSoapObjectAdministration extends ilSoapAdministration
         // Check access
         $permission_ok = false;
         foreach ($ref_ids = ilObject::_getAllReferences($obj_id) as $ref_id) {
-            if ($rbacsystem->checkAccess('delete', $ref_id)) {
+            // use explicit user as the rbacsystem singleton may hold a stale user
+            if ($rbacsystem->checkAccessOfUser($DIC->user()->getId(), 'delete', $ref_id)) {
                 $permission_ok = true;
                 break;
             }
@@ -976,7 +1013,8 @@ class ilSoapObjectAdministration extends ilSoapAdministration
                 $rolf_ids = $rbacreview->getFoldersAssignedToRole($object_data['obj_id'], true);
                 $rolf_id = $rolf_ids[0];
 
-                if (!$rbacsystem->checkAccess('write', $rolf_id)) {
+                // use explicit user as the rbacsystem singleton may hold a stale user
+                if (!$rbacsystem->checkAccessOfUser($DIC->user()->getId(), 'write', $rolf_id)) {
                     return $this->raiseError(
                         'No write permission for object with id ' . $object_data['obj_id'] . '!',
                         'Client'
@@ -1058,7 +1096,8 @@ class ilSoapObjectAdministration extends ilSoapAdministration
             return $this->raiseError('No valid target given.', 'Client');
         }
 
-        if (!$rbacsystem->checkAccess('move', $ref_id)) {
+        // use explicit user as the rbacsystem singleton may hold a stale user
+        if (!$rbacsystem->checkAccessOfUser($DIC->user()->getId(), 'move', $ref_id)) {
             return $this->raiseError("No permission to move object with id: $ref_id", 'Client');
         }
 
@@ -1125,7 +1164,8 @@ class ilSoapObjectAdministration extends ilSoapAdministration
         }
 
         // checking copy permissions, objects and create permissions
-        if (!$rbacsystem->checkAccess('copy', $xml_parser->getSourceId())) {
+        // use explicit user as the rbacsystem singleton may hold a stale user
+        if (!$rbacsystem->checkAccessOfUser($DIC->user()->getId(), 'copy', $xml_parser->getSourceId())) {
             return $this->raiseError(
                 "Missing copy permissions for object with reference id " . $xml_parser->getSourceId(),
                 'Client'
@@ -1209,7 +1249,8 @@ class ilSoapObjectAdministration extends ilSoapAdministration
         $lng = $DIC['lng'];
         $ilUser = $DIC['ilUser'];
 
-        if (!$rbacsystem->checkAccess('read', $ref_id)) {
+        // use explicit user as the rbacsystem singleton may hold a stale user
+        if (!$rbacsystem->checkAccessOfUser($DIC->user()->getId(), 'read', $ref_id)) {
             return $this->raiseError("Missing read permissions for object with reference id " . $ref_id, 'Client');
         }
 
@@ -1277,7 +1318,8 @@ class ilSoapObjectAdministration extends ilSoapAdministration
                 'Client'
             );
         }
-        if (!$rbacsystem->checkAccess('create', $target_id, $type)) {
+        // use explicit user as the rbacsystem singleton may hold a stale user
+        if (!$rbacsystem->checkAccessOfUser($DIC->user()->getId(), 'create', $target_id, $type)) {
             return $this->raiseError('No permission to create objects of type ' . $type . '!', 'Client');
         }
 
@@ -1444,5 +1486,16 @@ class ilSoapObjectAdministration extends ilSoapAdministration
                 $items->update($new_ref_id);
             }
         }
+    }
+
+    protected function canInspectRole(?int $user_id, int $role_id): bool
+    {
+        global $DIC;
+
+        if (!$this->isForeignUser($user_id)) {
+            return true;
+        }
+        $role_folder_ref_id = $DIC['rbacreview']->getObjectReferenceOfRole($role_id);
+        return $role_folder_ref_id > 0 && $this->canInspectUser($user_id, $role_folder_ref_id);
     }
 }

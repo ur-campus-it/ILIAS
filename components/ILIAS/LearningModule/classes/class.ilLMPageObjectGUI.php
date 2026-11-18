@@ -109,7 +109,7 @@ class ilLMPageObjectGUI extends ilLMObjectGUI
                 $link_xml = $this->getLinkXML($int_links);
                 $page_gui->setLinkXml($link_xml);
 
-                $page_gui->setFileDownloadLink("ilias.php?cmd=downloadFile&ref_id=" . $this->requested_ref_id . "&baseClass=ilLMPresentationGUI");
+                //$page_gui->setFileDownloadLink("ilias.php?cmd=downloadFile&ref_id=" . $this->requested_ref_id . "&baseClass=ilLMPresentationGUI");
                 $page_gui->setFullscreenLink("ilias.php?cmd=fullscreen&ref_id=" . $this->requested_ref_id . "&baseClass=ilLMPresentationGUI");
                 $page_gui->setLinkParams("ref_id=" . $this->content_object->getRefId());
                 $page_gui->setSourcecodeDownloadScript("ilias.php?ref_id=" . $this->requested_ref_id . "&baseClass=ilLMPresentationGUI");
@@ -196,7 +196,7 @@ class ilLMPageObjectGUI extends ilLMObjectGUI
             $lcontent = "";
             if (substr($target, 0, 4) == "il__") {
                 $target_arr = explode("_", $target);
-                $target_id = $target_arr[count($target_arr) - 1];
+                $target_id = (int) $target_arr[count($target_arr) - 1];
                 $type = $int_link["Type"];
                 $targetframe = ($int_link["TargetFrame"] != "")
                     ? $int_link["TargetFrame"]
@@ -245,7 +245,7 @@ class ilLMPageObjectGUI extends ilLMObjectGUI
                             }
                             $ltarget = "ilContObj" . $lm_id;
                         }
-                        if ($lm_id == "") {
+                        if ($lm_id === 0) {
                             $href = "";
                         }
                         break;

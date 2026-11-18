@@ -1,4 +1,5 @@
 <?php
+
 /*
  +-----------------------------------------------------------------------------+
  | ILIAS open source                                                           |
@@ -49,7 +50,8 @@ class ilSoapGroupAdministration extends ilSoapAdministration
 
         $rbacsystem = $DIC['rbacsystem'];
 
-        if (!$rbacsystem->checkAccess('create', $target_id, 'grp')) {
+        // use explicit user as the rbacsystem singleton may hold a stale user
+        if (!$rbacsystem->checkAccessOfUser($DIC->user()->getId(), 'create', $target_id, 'grp')) {
             return $this->raiseError('Check access failed. No permission to create groups', 'Server');
         }
 
@@ -85,7 +87,8 @@ class ilSoapGroupAdministration extends ilSoapAdministration
 
         $rbacsystem = $DIC['rbacsystem'];
 
-        if (!$rbacsystem->checkAccess('write', $ref_id, 'grp')) {
+        // use explicit user as the rbacsystem singleton may hold a stale user
+        if (!$rbacsystem->checkAccessOfUser($DIC->user()->getId(), 'write', $ref_id, 'grp')) {
             return $this->raiseError('Check access failed. No permission to edit groups', 'Server');
         }
 
@@ -144,19 +147,17 @@ class ilSoapGroupAdministration extends ilSoapAdministration
             return $this->raiseError($this->getMessage(), $this->getMessageCode());
         }
 
-        if (ilObject::_isInTrash($ref_id)) {
-            return $this->raiseError("Parent with ID $ref_id has been deleted.", 'CLIENT_OBJECT_DELETED');
-        }
+        global $DIC;
 
-        /** @var ilObjGroup $grp_obj */
-        if (!$grp_obj = ilObjectFactory::getInstanceByRefId($ref_id, false)) {
-            return $this->raiseError(
-                'No valid reference id given.',
-                'Client'
-            );
+        $grp_obj = $this->checkObjectAccess($ref_id, ['grp'], 'read', true);
+        if (!$grp_obj instanceof ilObjGroup) {
+            return $grp_obj;
         }
 
         $xml_writer = new ilGroupXMLWriter($grp_obj);
+        $xml_writer->setIncludeRegistrationSecrets(
+            $DIC->rbac()->system()->checkAccess('write', $ref_id, 'grp')
+        );
         $xml_writer->start();
 
         return $xml_writer->getXML();
@@ -189,7 +190,8 @@ class ilSoapGroupAdministration extends ilSoapAdministration
             }
         }
 
-        if (!$rbacsystem->checkAccess('manage_members', $group_id)) {
+        // use explicit user as the rbacsystem singleton may hold a stale user
+        if (!$rbacsystem->checkAccessOfUser($DIC->user()->getId(), 'manage_members', $group_id)) {
             return $this->raiseError('Check access failed. No permission to write to group', 'Server');
         }
 
@@ -264,7 +266,8 @@ class ilSoapGroupAdministration extends ilSoapAdministration
             return $this->raiseError('Cannot create group instance!', 'Server');
         }
 
-        if (!$rbacsystem->checkAccess('manage_members', $group_id)) {
+        // use explicit user as the rbacsystem singleton may hold a stale user
+        if (!$rbacsystem->checkAccessOfUser($DIC->user()->getId(), 'manage_members', $group_id)) {
             return $this->raiseError('Check access failed. No permission to write to group', 'Server');
         }
 
@@ -308,7 +311,8 @@ class ilSoapGroupAdministration extends ilSoapAdministration
             return $this->raiseError('Cannot create group instance!', 'Server');
         }
 
-        if (!$rbacsystem->checkAccess('read', $group_id)) {
+        // use explicit user as the rbacsystem singleton may hold a stale user
+        if (!$rbacsystem->checkAccessOfUser($DIC->user()->getId(), 'read', $group_id)) {
             return $this->raiseError('Check access failed. No permission to read group data', 'Server');
         }
 
@@ -429,6 +433,7 @@ class ilSoapGroupAdministration extends ilSoapAdministration
                 $row->setValue("ref_id", $group_id);
                 $xmlWriter = new ilGroupXMLWriter($group_obj);
                 $xmlWriter->setAttachUsers(false);
+                $xmlWriter->setIncludeRegistrationSecrets(true);
                 $xmlWriter->start();
                 $row->setValue("xml", $xmlWriter->getXML());
                 $row->setValue("parent_ref_id", $tree->getParentId($group_id));

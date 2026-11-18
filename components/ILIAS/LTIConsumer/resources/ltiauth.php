@@ -68,7 +68,7 @@ if (empty($ltiMessageHint)) {
     }
 }
 
-$parts = explode(":", $ltiMessageHint);
+$parts = explode(":", ilLTIConsumerContentGUI::getUnsignedLTI13MessageHint($ltiMessageHint));
 $isContentSelection = false;
 $ref_id = '';
 $il_client_id = '';
@@ -84,17 +84,61 @@ if (count($parts) === 2) {
     [$ref_id, $il_client_id, $redirect_uri] = $parts;
 }
 
-ilSession::set('lti13_login_data', $data);
-
-if ($isContentSelection) {
-    $url = "../../../" . base64_decode($redirect_uri);
+if (count($parts) === 2) {
+    // the launch of an object gets the authentication request with the link, not in the session: a parallel
+    // request of the same session would remove it again when it writes the session back
+    $data['client_id'] = $clientId;
+    $url = ilObjLTIConsumer::getIliasHttpPath() . '/'
+        . ilLTIConsumerContentGUI::getLTI13LaunchLink((int) $ref_id, $il_client_id, $data);
 } else {
-    $url = "../../../goto.php?target=lti_" . $ref_id . "&client_id=" . $il_client_id;
+    ilSession::set('lti13_login_data', $data);
+    if ($isContentSelection) {
+        $url = "../../../" . base64_decode($redirect_uri);
+    } else {
+        $url = "../../../goto.php?target=lti_" . $ref_id . "&client_id=" . $il_client_id;
+    }
 }
+
+function buildSameSiteNoneSessionCookieHeader(): ?string
+{
+    if (session_status() !== PHP_SESSION_ACTIVE || session_id() === '') {
+        return null;
+    }
+
+    $cookie_params = session_get_cookie_params();
+    if (!(bool) ($cookie_params['secure'] ?? false)) {
+        return null;
+    }
+
+    $cookie_parts = [
+        rawurlencode(session_name()) . '=' . rawurlencode(session_id()),
+        'Path=' . (string) ($cookie_params['path'] ?? '/'),
+        'Secure',
+        'SameSite=None'
+    ];
+
+    $domain = (string) ($cookie_params['domain'] ?? '');
+    if ($domain !== '') {
+        $cookie_parts[] = 'Domain=' . $domain;
+    }
+    if ((bool) ($cookie_params['httponly'] ?? true)) {
+        $cookie_parts[] = 'HttpOnly';
+    }
+
+    return implode('; ', $cookie_parts);
+}
+
+$response = $DIC->http()->response()
+    ->withStatus(302)
+    ->withAddedHeader('Location', $url);
+
+$session_cookie_header = buildSameSiteNoneSessionCookieHeader();
+if ($session_cookie_header !== null) {
+    $response = $response->withAddedHeader('Set-Cookie', $session_cookie_header);
+}
+
 $DIC->http()->saveResponse(
-    $DIC->http()->response()
-        ->withStatus(302)
-        ->withAddedHeader('Location', $url)
+    $response
 );
 try {
     $DIC->http()->sendResponse();

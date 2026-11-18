@@ -25,6 +25,13 @@ class ilXlsFoParserTest extends ilCertificateBaseTestCase
      */
     private function verifyFoGeneratedFromXhtml(array $form_data, string $fo): void
     {
+        $output = $this->createXlsFoParser()->parse($form_data);
+
+        $this->assertSame($this->normalizeXml($fo), $this->normalizeXml($output));
+    }
+
+    private function createXlsFoParser(): ilXlsFoParser
+    {
         $settings = $this->getMockBuilder(ilSetting::class)
                          ->disableOriginalConstructor()
                          ->getMock();
@@ -53,7 +60,7 @@ class ilXlsFoParserTest extends ilCertificateBaseTestCase
 
         $xsl_loader = new ilCertificateXlsFileLoader();
 
-        $xlsFoParser = new ilXlsFoParser(
+        return new ilXlsFoParser(
             $settings,
             $page_formats,
             $xmlChecker,
@@ -62,10 +69,37 @@ class ilXlsFoParserTest extends ilCertificateBaseTestCase
             $language,
             $xsl_loader
         );
+    }
 
-        $output = $xlsFoParser->parse($form_data);
+    /**
+     * @return list<string>
+     */
+    private function paragraphAlignments(string $certificate_text): array
+    {
+        $output = $this->createXlsFoParser()->parse([
+            'certificate_text' => $certificate_text,
+            'margin_body' => [
+                'top' => '0cm',
+                'right' => '2cm',
+                'bottom' => '0cm',
+                'left' => '2cm'
+            ],
+            'pageformat' => 'custom',
+            'pagewidth' => '297mm',
+            'pageheight' => '210mm'
+        ]);
 
-        $this->assertSame($this->normalizeXml($fo), $this->normalizeXml($output));
+        $document = new DOMDocument();
+        $document->loadXML($output);
+        $xpath = new DOMXPath($document);
+        $xpath->registerNamespace('fo', 'http://www.w3.org/1999/XSL/Format');
+
+        $alignments = [];
+        foreach ($xpath->query('//fo:flow/fo:block/fo:block') as $block) {
+            $alignments[] = $block->getAttribute('text-align');
+        }
+
+        return $alignments;
     }
 
     private function normalizeXml(string $xml): string
@@ -503,6 +537,22 @@ EOT;
 </fo:root>
 EOT;
 
+        yield 'Empty paragraph marked as emptyrow' => [
+            [
+                'certificate_text' => '<p class="emptyrow"></p>',
+                'margin_body' => [
+                    'top' => '1cm',
+                    'right' => '2cm',
+                    'bottom' => '3cm',
+                    'left' => '4cm'
+                ],
+                'pageformat' => 'custom',
+                'pagewidth' => '210mm',
+                'pageheight' => '297mm'
+            ],
+            $expected_fo_with_centered_block
+        ];
+
         yield 'Empty paragraph' => [
             [
                 'certificate_text' => '<p></p>',
@@ -627,5 +677,90 @@ EOT;
         string $fo
     ): void {
         $this->verifyFoGeneratedFromXhtml($form_data, $fo);
+    }
+
+    public function testCssTextAlignOverridesStaleAlignAttribute(): void
+    {
+        $this->assertSame(
+            ['center', 'center', 'left', 'right', 'justify', 'center'],
+            $this->paragraphAlignments(
+                '<p align="left" style="text-align: center;">Confirmation</p>'
+                . '<p align="left" style="padding-left: 10px; text-align: center;">Line</p>'
+                . '<p align="center" style="text-align: left;">Left again</p>'
+                . '<p align="left" style="text-align: right;">Right</p>'
+                . '<p align="left" style="text-align: justify;">Justified</p>'
+                . '<p align="center">Legacy center</p>'
+            )
+        );
+    }
+
+    public function testStoredCertificateReloadsAlignmentAsCss(): void
+    {
+        $fo = $this->createXlsFoParser()->parse([
+            'certificate_text' => '<p style="text-align: center;">Confirmation</p><p style="text-align: left;">Line</p>',
+            'margin_body' => [
+                'top' => '0cm',
+                'right' => '2cm',
+                'bottom' => '0cm',
+                'left' => '2cm'
+            ],
+            'pageformat' => 'custom',
+            'pagewidth' => '297mm',
+            'pageheight' => '210mm'
+        ]);
+
+        $reloaded = (new ilFormFieldParser(new ilCertificateXlstProcess()))->fetchDefaultFormFields($fo);
+
+        $this->assertStringNotContainsString('align=', $reloaded['certificate_text']);
+        $this->assertStringContainsString('text-align: center', $reloaded['certificate_text']);
+        $this->assertStringContainsString('text-align: left', $reloaded['certificate_text']);
+        $this->assertSame(
+            ['center', 'left'],
+            $this->paragraphAlignments($reloaded['certificate_text'])
+        );
+    }
+
+    public function testParagraphsWithoutDescendantTextKeepANonBreakingSpace(): void
+    {
+        $output = $this->createXlsFoParser()->parse([
+            'certificate_text' =>
+                '<p style="text-align: center;"><span style="font-size: 36pt;">Bestätigung</span></p>'
+                . '<p style="text-align: center;"><span style="font-size: 36pt;"></span></p>'
+                . '<p style="text-align: center;"><span style="font-size: 36pt;"></span></p>'
+                . '<p style="text-align: center;"><strong><span style="font-size: 12pt;">Durch dieses Zertifikat wird bestätigt, dass</span></strong></p>'
+                . '<p style="text-align: center;"><span style="font-size: 12pt;"><strong></strong></span></p>'
+                . '<p style="text-align: center;"><span style="font-size: 12pt;"><strong>Zertifikats-ID: [CERTIFICATE_ID]</strong></span></p>',
+            'margin_body' => [
+                'top' => '0cm',
+                'right' => '2cm',
+                'bottom' => '0cm',
+                'left' => '2cm'
+            ],
+            'pageformat' => 'custom',
+            'pagewidth' => '297mm',
+            'pageheight' => '210mm'
+        ]);
+
+        $document = new DOMDocument();
+        $document->loadXML($output);
+        $xpath = new DOMXPath($document);
+        $xpath->registerNamespace('fo', 'http://www.w3.org/1999/XSL/Format');
+
+        $blocks = [];
+        foreach ($xpath->query('//fo:flow/fo:block/fo:block') as $block) {
+            $blocks[] = $block;
+        }
+
+        $this->assertCount(6, $blocks);
+        foreach ($blocks as $block) {
+            $this->assertNotSame('', $block->textContent, $document->saveXML($block));
+        }
+
+        $this->assertSame('Bestätigung', $blocks[0]->textContent);
+        $this->assertSame("\u{00A0}", $blocks[1]->textContent);
+        $this->assertSame("\u{00A0}", $blocks[2]->textContent);
+        $this->assertSame('Durch dieses Zertifikat wird bestätigt, dass', $blocks[3]->textContent);
+        $this->assertSame("\u{00A0}", $blocks[4]->textContent);
+        $this->assertSame('Zertifikats-ID: [CERTIFICATE_ID]', $blocks[5]->textContent);
     }
 }

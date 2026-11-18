@@ -591,6 +591,7 @@ assessment#:#concatenation#:#Szavak összekapcsolása
 assessment#:#conf_delete_pass#:#Biztos, hogy törli a már létező válaszát?
 assessment#:#confirm_log_deletion#:#Biztos, hogy véglegesen törli a kiválasztott naplóbejegyzéseket?
 assessment#:#confirm_sync_questions#:#A módosított kérdés egy aktív teszt kérdésének másolata. Módosítja az eredeti kérdést is?
+assessment#:#contained_question_types#:#Contained Question Types###06 10 2026 new variable
 assessment#:#coordinates#:#Koordináták
 assessment#:#copy_and_link_to_questionpool#:#Hozzáadás kérdésgyűjteményhez
 assessment#:#copy_no_questions_selected#:#Válasszon ki legalább egy kérdést a másoláshoz!
@@ -2255,6 +2256,8 @@ awrn#:#user_awrn_default#:#Alapértelmezett
 awrn#:#user_awrn_hide#:#Állapotom elrejtése
 awrn#:#user_awrn_show#:#Állapotom megjelenítése
 background_tasks#:#abort#:#Megállított
+background_tasks#:#background_task_garbage_collection#:#Background Tasks GC###17 11 2026 new variable
+background_tasks#:#background_task_garbage_collection_info#:#This job cleans up stale tasks and related database tables.###17 11 2026 new variable
 background_tasks#:#background_tasks#:#Háttérfolyamatok
 background_tasks#:#background_tasks_running#:#Háttérfolyamatok
 background_tasks#:#completed#:#Befejeződött
@@ -7295,6 +7298,8 @@ content#:#cont_versions#:#Verziók
 content#:#cont_whole_glossary#:#Teljes fogalomtár
 content#:#cont_width#:#Szélesség (pixel)
 content#:#cont_width_height_info#:#A megjelenítés fix méretűre állítható. Bevált érték a 950 pixel szélesség és a 650 pixel magasság. Amennyiben nem ad meg értéket, a böngésző megpróbálja meghatározni a megjelenítés méretét.
+content#:#cont_width_px_perc#:#Width###17 11 2026 new variable
+content#:#cont_width_px_perc_info#:#(e.g. px or % value)###17 11 2026 new variable
 content#:#cont_wiki_link_dialog#:#Wikilap (párbeszédablakos)
 content#:#cont_wiki_page#:#Wiki oldal
 content#:#cont_wiki_page_link#:#Wikilap link
@@ -9615,6 +9620,7 @@ exc#:#exc_reminder_submit_setting#:#Felhasználók emlékeztetése a beküldésr
 exc#:#exc_reminder_submit_subject#:#'%s' feladatot még nem fejezte be
 exc#:#exc_reminders_cron#:#Emlékeztetés a feladatokra
 exc#:#exc_reminders_cron_info#:#3 emlékeztető lesz aktív: felhasználókat a beadásra, tutorokat az értékelésére és résztvevőket a visszajelzésre.
+exc#:#exc_reminders_cron_not_active#:#Note: Notifications will not be sent until the 'Reminders for Assignments' cron job is activated. Currently the cron job is deactivated.###06 10 2026 new variable
 exc#:#exc_request_deadline#:#Határidő kérése
 exc#:#exc_requirement#:#Követelmény
 exc#:#exc_review_anytime#:#Visszajelzés küldése tetszőleges időpontban
@@ -11602,6 +11608,7 @@ mail#:#mail_global_reply_to_addr#:#Válaszcím
 mail#:#mail_global_reply_to_addr_info#:#Adja meg a kívánt válaszcímet ('Reply-To') címet.
 mail#:#mail_grp_roles#:#Csoportszerepköröknek levélküldés
 mail#:#mail_hint_add_placeholder_x#:#Adja a(z) '%s' helyőrzőt a levél szövegéhez.
+mail#:#mail_inbox_external_delivery_only_info#:#Your account is configured to receive messages at an external email address.<br>You can only see mails in this inbox if your account is configured to (also) receive them locally.###06 10 2026 new variable
 mail#:#mail_incoming#:#Beérkező levél
 mail#:#mail_incoming_both#:#Levelek helyi fogadása és továbbküldése
 mail#:#mail_incoming_local#:#Levelek csak helyi fogadása
@@ -12917,8 +12924,6 @@ mst#:#mst_profile_fulfilled#:#Teljesített
 mst#:#mst_profile_not_fulfilled#:#Még nem teljesített
 mst#:#mst_select_course#:#Válasszon kurzust
 mst#:#mst_show_courses#:##Kurzustagságok
-news#:#lso_news_online_title#:#A tanulási sorban egy új online objektum!
-news#:#lso_news_online_txt#:#A tanulási sorban egy új objektumot tettek elérhetővé.
 news#:#new_test_online#:#A teszt online lett.
 news#:#news_1_file_created#:#Egy fájlt sikeresen létrehozott.
 news#:#news_1_file_updated#:#Egy fájlt sikeresen frissített.
@@ -12931,7 +12936,6 @@ news#:#news_allow_shorter_periods#:#Rövidebb időszak engedélyezése
 news#:#news_allow_shorter_periods_info#:#A felhasználók választhatnak rövidebb időszakot a műszerfalon.
 news#:#news_attached_to#:#Ehhez kapcsolva:
 news#:#news_block_information#:#A <b>Hírek</b> blokk megjelenít minden olyan hírt, amely a <b>Kedvencek</b> elemeihez kapcsolódik.
-news#:#news_block_news_for_context#:#Hírek
 news#:#news_cache#:#Hírek gyorsítótárazása (perc)
 news#:#news_cache_info#:#Hírblokk frissítése x percenként. A '0' azt jelenti, mindig. Magasabb érték növeli a teljesítményt, de lehet, hogy a hírek nem elérhető helyre linkelnek.
 news#:#news_default_visibility#:#Alapértelmezett elérés
@@ -15660,7 +15664,6 @@ sess#:#sess_registration_notification#:#Értesítés
 sess#:#sess_registration_notification_info#:#Egy oszlop megjelenítése a 'Résztvevők' lap alatt, ahol az új vagy távozó résztvevőkről értesítendő személyeket ki lehet választani
 sess#:#sess_section_reg#:#Regisztrációs beállítások
 sess#:#sess_setting_header_presentation#:#Megjelenítés
-sess#:#sess_show_members#:#Résztvevők megjelenítése
 sess#:#sess_show_participants_info#:#Az esemény résztvevői megtekinthetik a résztvevők képgalériáját
 sess#:#sess_title#:#Esemény címe
 sess#:#sess_users_added#:#Az eseményre a kiválasztott felhasználót regisztrálta.

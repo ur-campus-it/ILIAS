@@ -590,6 +590,7 @@ assessment#:#concatenation#:#Concatenazione
 assessment#:#conf_delete_pass#:#Vuoi davvero cancellare il passaggio?
 assessment#:#confirm_log_deletion#:#Are you sure, you want to delete the selected log entries? You will not be able to recover the deleted entries.###28 11 2025 new variable
 assessment#:#confirm_sync_questions#:#La domanda che hai modificato è una copia che è stata creata per l'uso con il test attivo. Vuoi cambiare anche l'originale della domanda?
+assessment#:#contained_question_types#:#Contained Question Types###06 10 2026 new variable
 assessment#:#coordinates#:#Coordinate
 assessment#:#copy_and_link_to_questionpool#:#Copiare e collegare alla libreria di domande
 assessment#:#copy_no_questions_selected#:#Per favore selezionare almeno una domanda da copiare.
@@ -2254,6 +2255,8 @@ awrn#:#user_awrn_default#:#Predefinito
 awrn#:#user_awrn_hide#:#Nascondi
 awrn#:#user_awrn_show#:#Mostra
 background_tasks#:#abort#:#Interrompi
+background_tasks#:#background_task_garbage_collection#:#Background Tasks GC###17 11 2026 new variable
+background_tasks#:#background_task_garbage_collection_info#:#This job cleans up stale tasks and related database tables.###17 11 2026 new variable
 background_tasks#:#background_tasks#:#Attività in background
 background_tasks#:#background_tasks_running#:#Attività in background
 background_tasks#:#completed#:#Completato
@@ -7294,6 +7297,8 @@ content#:#cont_versions#:#Versioni
 content#:#cont_whole_glossary#:#Glossario completo
 content#:#cont_width#:#Larghezza
 content#:#cont_width_height_info#:#La dimensione del display può essere impostata su una dimensione fissa. 950 pixel per Larghezza e 650 pixel per Altezza sono valori comprovati per l'impostazione delle dimensioni. Se non viene effettuata alcuna immissione, il browser determinerà le dimensioni del display.
+content#:#cont_width_px_perc#:#Width###17 11 2026 new variable
+content#:#cont_width_px_perc_info#:#(e.g. px or % value)###17 11 2026 new variable
 content#:#cont_wiki_link_dialog#:#Link alla pagina Wiki (Dialogo)
 content#:#cont_wiki_page#:#Pagina Wiki
 content#:#cont_wiki_page_link#:#Link pagina Wiki
@@ -9614,6 +9619,7 @@ exc#:#exc_reminder_submit_setting#:#Ricorda agli utenti di inviare
 exc#:#exc_reminder_submit_subject#:#L'assegnazione "%s" non è stata completata
 exc#:#exc_reminders_cron#:#Promemoria per le assegnazioni
 exc#:#exc_reminders_cron_info#:#Se abilitato, saranno attivi 3 promemoria: Utenti da inviare, Tutor da classificare e Partecipanti a Feedback.
+exc#:#exc_reminders_cron_not_active#:#Note: Notifications will not be sent until the 'Reminders for Assignments' cron job is activated. Currently the cron job is deactivated.###06 10 2026 new variable
 exc#:#exc_request_deadline#:#Request Deadline###30 04 2024 new variable
 exc#:#exc_requirement#:#Requirement###30 04 2024 new variable
 exc#:#exc_review_anytime#:#Give Feedback Anytime###30 04 2024 new variable
@@ -11601,6 +11607,7 @@ mail#:#mail_global_reply_to_addr#:#Rispondi a
 mail#:#mail_global_reply_to_addr_info#:#Inserisci l'indirizzo a cui desideri ricevere la risposta
 mail#:#mail_grp_roles#:#Invia mail ai ruoli del gruppo
 mail#:#mail_hint_add_placeholder_x#:#Add the placeholder '%s' to the message body.###31 03 2023 new variable
+mail#:#mail_inbox_external_delivery_only_info#:#Your account is configured to receive messages at an external email address.<br>You can only see mails in this inbox if your account is configured to (also) receive them locally.###06 10 2026 new variable
 mail#:#mail_incoming#:#E-Mail in arrivo
 mail#:#mail_incoming_both#:#Interna a ILIAS ed inoltro alle mail principali
 mail#:#mail_incoming_local#:#Solamente interna a ILIAS
@@ -12916,8 +12923,6 @@ mst#:#mst_profile_fulfilled#:#Profilo non ancora completo
 mst#:#mst_profile_not_fulfilled#:#Realizzato
 mst#:#mst_select_course#:#Seleziona corso
 mst#:#mst_show_courses#:#Iscrizioni
-news#:#lso_news_online_title#:#Un nuovo oggetto sequenza di apprendimento è online!
-news#:#lso_news_online_txt#:#È stato appena pubblicato un nuovo oggetto per la sequenza di apprendimento.
 news#:#new_test_online#:#Il test è ora online.
 news#:#news_1_file_created#:#Un file è stato aggiunto.
 news#:#news_1_file_updated#:#Un file è stato aggiornato.
@@ -12930,7 +12935,6 @@ news#:#news_allow_shorter_periods#:#Permetti periodi più corti
 news#:#news_allow_shorter_periods_info#:#Gli utenti posso scegliere periodi di News, sul proprio Desktop Personale, più corti.
 news#:#news_attached_to#:#Assegnato a
 news#:#news_block_information#:#Il blocco delle <b>News</b> mostra cronologicamente l'elenco di tutte le news che sono relazionate ai <b>Contenuti personali</b> che hai selezionato nel Desktop Personale.
-news#:#news_block_news_for_context#:#Notizie
 news#:#news_cache#:#Cache delle notizie (Minuti)
 news#:#news_cache_info#:#Aggiorna notizie blocca tutti i x minuti. '0' significa ogni volta. Valori più alti migliorano le prestazioni, ma le notizie potrebbero essere collegate ad elementi non accessibili.
 news#:#news_default_visibility#:#Accesso predefinito
@@ -15659,7 +15663,6 @@ sess#:#sess_registration_notification#:#Notifica
 sess#:#sess_registration_notification_info#:#Mostra la colonna nella scheda "Partecipanti" per selezionare gli utenti a cui vengono notificati i partecipanti nuovi o in uscita
 sess#:#sess_section_reg#:#Impostazioni di registrazione
 sess#:#sess_setting_header_presentation#:#Presentation
-sess#:#sess_show_members#:#Mostra partecipanti
 sess#:#sess_show_participants_info#:#Se attivato, i partecipanti alla sessione possono accedere alla galleria dei partecipanti
 sess#:#sess_title#:#Titolo della sessione
 sess#:#sess_users_added#:#Utenti selezionati registrati per la sessione.

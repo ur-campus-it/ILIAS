@@ -75,6 +75,15 @@ class ilSoapAdministration
             return false;
         }
 
+        if (!ilSession::_exists($sid)) {
+            if (session_status() === PHP_SESSION_ACTIVE) {
+                session_abort();
+            }
+            $this->setMessage('Session invalid');
+            $this->setMessageCode('Client');
+            return false;
+        }
+
         if (!$GLOBALS['DIC']['ilAuthSession']->isAuthenticated()) {
             $this->setMessage('Session invalid');
             $this->setMessageCode('Client');
@@ -162,7 +171,7 @@ class ilSoapAdministration
             }
         }
     }
-    
+
     public function reInitUser(): void
     {
         if (ilContext::getType() === ilContext::CONTEXT_SOAP) {
@@ -207,6 +216,38 @@ class ilSoapAdministration
         return true;
     }
 
+    protected function isForeignUser(?int $user_id): bool
+    {
+        global $DIC;
+
+        return $user_id !== null && $user_id !== $DIC->user()->getId();
+    }
+
+    protected function canInspectUser(?int $user_id, int $ref_id): bool
+    {
+        global $DIC;
+
+        if (!$this->isForeignUser($user_id)) {
+            return true;
+        }
+        return $DIC->access()->checkAccess('edit_permission', '', $ref_id);
+    }
+
+    protected function authorizeUserLookup(?int $user_id, int $ref_id): bool
+    {
+        global $DIC;
+
+        if (!$this->isForeignUser($user_id)) {
+            return true;
+        }
+        if ($this->canInspectUser($user_id, $ref_id)) {
+            $DIC->logger()->wsrv()->debug('Foreign user lookup permitted: session user ' . $DIC->user()->getId() . ', requested user_id ' . $user_id . ', ref_id ' . $ref_id);
+            return true;
+        }
+        $DIC->logger()->wsrv()->notice('Foreign user lookup denied: session user ' . $DIC->user()->getId() . ', requested user_id ' . $user_id . ', ref_id ' . $ref_id);
+        return false;
+    }
+
     /**
      * check access for ref id: expected type, permission, return object instance if returnobject is true
      */
@@ -241,7 +282,8 @@ class ilSoapAdministration
                 'CLIENT_OBJECT_WRONG_TYPE'
             );
         }
-        if (!$rbacsystem->checkAccess($permission, $ref_id, $type)) {
+        // use explicit user as the rbacsystem singleton may hold a stale user
+        if (!$rbacsystem->checkAccessOfUser($DIC->user()->getId(), $permission, $ref_id, $type)) {
             return $this->raiseError(
                 'Missing permission $permission for type $type.',
                 'CLIENT_OBJECT_WRONG_PERMISSION'

@@ -541,6 +541,7 @@ class ilObjSurveyGUI extends ilObjectGUI implements ilCtrlBaseClassInterface
 
     public function savePropertiesObject(): void
     {
+        $this->checkPermission("write");
         $settings_ui = $this->survey_service->gui()->surveySettings($this->survey);
 
         $form = $settings_ui->form("ilObjSurveyGUI");
@@ -615,12 +616,19 @@ class ilObjSurveyGUI extends ilObjectGUI implements ilCtrlBaseClassInterface
 
     public function doAutoCompleteObject(): void
     {
+        if ($this->survey === null) {
+            throw new ilObjectException($this->lng->txt("permission_denied"));
+        }
+        $this->checkPermission("write");
+
         $fields = array('login','firstname','lastname','email');
 
         $auto = new ilUserAutoComplete();
+        $auto->setUser($this->user);
         $auto->setSearchFields($fields);
         $auto->setResultField('login');
         $auto->enableFieldSearchableCheck(true);
+        $auto->setPrivacyMode(ilUserAutoComplete::PRIVACY_MODE_RESPECT_USER_SETTING);
         $auto->setMoreLinkAvailable(true);
 
         if ($this->edit_request->getFetchAll()) {

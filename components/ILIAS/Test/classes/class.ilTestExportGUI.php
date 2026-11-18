@@ -153,7 +153,7 @@ class ilTestExportGUI extends ilExportGUI
                 $test_ref
             );
 
-            $scoring = new TestScoring($this->obj, $this->user, $this->db, $this->lng);
+            $scoring = new TestScoring($this->obj, $this->user, $this->db);
             $best_solution = $scoring->calculateBestSolutionForTest();
 
             $tmpFileName = ilFileUtils::ilTempnam();
@@ -163,7 +163,9 @@ class ilTestExportGUI extends ilExportGUI
 
             $archive_exp->handInTestBestSolution($best_solution);
 
-            $archive_exp->updateTestArchive();
+            $archive_exp->updateTestArchive(
+                $this->access->checkAccess('tst_history_read', '', $this->obj->getRefId())
+            );
             $archive_exp->compressTestArchive();
         } else {
             $this->tpl->setOnScreenMessage('info', 'cannot_export_archive', true);

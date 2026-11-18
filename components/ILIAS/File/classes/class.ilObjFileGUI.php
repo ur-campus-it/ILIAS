@@ -583,6 +583,10 @@ class ilObjFileGUI extends ilObject2GUI
      */
     public function update(): void
     {
+        if (!$this->capabilities->get(Capabilities::EDIT_SETTINGS)->isUnlocked()) {
+            $this->error->raiseError($this->lng->txt("msg_no_perm_write"), $this->error->WARNING);
+        }
+
         $data = [];
         $form = $this->initPropertiesForm();
         $form = $form->withRequest($this->request);
@@ -639,11 +643,8 @@ class ilObjFileGUI extends ilObject2GUI
 
     public function edit(): void
     {
-        global $DIC;
-        $ilErr = $DIC['ilErr'];
-
         if (!$this->capabilities->get(Capabilities::EDIT_SETTINGS)->isUnlocked()) {
-            $ilErr->raiseError($this->lng->txt("msg_no_perm_write"));
+            $this->error->raiseError($this->lng->txt("msg_no_perm_write"), $this->error->WARNING);
         }
 
         $this->initSettingsTab();
@@ -755,10 +756,6 @@ class ilObjFileGUI extends ilObject2GUI
             ? $this->http->query()->retrieve('hist_id', $this->refinery->kindlyTo()->int())
             : null;
         try {
-            if (ANONYMOUS_USER_ID === $this->user->getId() && $this->http->query()->has('transaction')) {
-                $this->object->sendFile($hist_entry_id);
-            }
-
             if ($this->capabilities->get(Capabilities::DOWNLOAD)->isUnlocked()) {
                 // Record read event and catchup with write events
                 ilChangeEvent::_recordReadEvent(
