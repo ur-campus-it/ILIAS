@@ -7,7 +7,7 @@ COPY . /app
 WORKDIR /app
 
 # Install dependencies
-RUN apt update; apt upgrade; apt install -y default-jdk npm ssmtp ghostscript nano pdftk
+RUN apt update; apt upgrade; apt install -y default-jdk npm ssmtp ghostscript nano pdftk wget
 
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN install-php-extensions gd dom xsl pdo pdo_mysql curl json simplexml libxml xml zip imagick mbstring xmlrpc soap ldap
